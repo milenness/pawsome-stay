@@ -1,6 +1,6 @@
 # 🐾 Pawsome Stay
 
-## 🔗 [Live Demo](https://milena-karpenko.github.io/hatynka-lapok/)
+## 🔗 [Live Demo](https://milenness.github.io/pawsome-stay/)
 
 **Pawsome Stay** is a professional web application designed for an animal shelter service. It simplifies the process of connecting pets with potential owners through a clean, minimalist interface and efficient data management.
 
