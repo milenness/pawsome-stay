@@ -63,13 +63,6 @@
     align-items: center;
     gap: 32px;
   }
-
-  .menu-button {
-  display: flex;
-  margin-left: auto;
-}
-}
-
 .menu-link {
   position: relative;
   font-size: 16px;
@@ -104,9 +97,16 @@
   width: 100%;
   left: 0;
 }
+}
 
-.menu-button {
+  .menu-button {
+  display: none;
+}
+
+@media screen and (min-width: 1440px) {
+  .menu-button {
   display: inline-block;
+  margin-left: auto;
   padding: 8px 20px;
   color: var(--color-white);
  background-color: var(--color-mariner-dark);
@@ -130,4 +130,5 @@
   color: var(--color-neutral-darkest);
   border-color: var(--color-neutral-darkest);
   box-shadow: 0 0 0 4px rgba(46, 47, 66, 0.1);
+}
 }
