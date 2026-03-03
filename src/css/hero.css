@@ -1,34 +1,46 @@
 .hero-section {
-  background-image: url(/img/hero/hero.jpg);
+  background-image: url(/img/hero/hero-tel.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-background-position: 88% center;
   padding-top: 64px;
   padding-bottom: 115px;
 }
 
 @media (min-resolution: 192dpi) {
   .hero-section {
-    background-image: url(/img/hero/hero@2x.jpg);
+    background-image: url(/img/hero/hero-tel@2x.png);
   }
 }
 
 @media screen and (min-width: 768px) {
   .hero-section {
+     background-image: url(/img/hero/hero-tabl.png);
     padding-bottom: 235px;
+  }
+
+  @media (min-resolution: 192dpi) {
+    .hero-section {
+      background-image: url(/img/hero/hero-tabl@2x.png);
+    }
   }
 }
 
 @media screen and (min-width: 1440px) {
   .hero-section {
+     background-image: url(../img/hero/hero-desk.png);
     padding-top: 128px;
     padding-bottom: 413px;
+  }
+
+   @media (min-resolution: 192dpi) {
+    .hero-section {
+      background-image: url(../img/hero/hero-desk@2x.png);
+    }
   }
 }
 
 .title-hero {
-  font-family: var(--second-family);
   font-weight: 700;
   font-size: 40px;
   line-height: 1.2;
