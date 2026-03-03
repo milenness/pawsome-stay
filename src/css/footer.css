@@ -27,7 +27,6 @@
 }
 
 .footer__menu {
-  list-style: none;
   padding: 0;
   margin: 0 0 32px;
   display: flex;
@@ -85,7 +84,6 @@
 }
 
 .footer__social {
-  list-style: none;
   padding: 0;
   margin: 0 0 80px;
   display: flex;
