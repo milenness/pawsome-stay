@@ -1,0 +1,132 @@
+.footer {
+  background: var(--color-scheme-2-background);
+  color: var(--color-scheme-1-text);
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.footer__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.footer__logo-icon {
+  display: block;
+  width: 302px;
+  max-width: 100%;
+  height: auto;
+}
+
+.footer__menu {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.footer__menu-link {
+  position: relative;
+  display: inline-block;
+  padding: 8px 0;
+
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.5;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer__menu-link:hover,
+.footer__menu-link:focus {
+  color: #9a8a78;
+}
+
+.footer__menu-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  width: 0;
+  height: 2px;
+  background-color: #9a8a78;
+  border-radius: 2px;
+
+  transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer__menu-link:hover::after,
+.footer__menu-link:focus::after {
+  width: 100%;
+  left: auto;
+}
+
+.footer__social {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 80px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer__social-icon {
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+  display: block;
+}
+
+.footer__social-link:hover,
+.footer__social-link:focus {
+  transform: scale(1.2);
+}
+
+.footer__divider {
+  width: 100%;
+  height: 1px;
+  background: var(--color-scheme-1-border);
+  margin-bottom: 32px;
+}
+
+.footer__copyright {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) {
+  .footer__menu {
+    flex-direction: row;
+  }
+}
+
+/* Desktop */
+@media only screen and (min-width: 1440px) {
+  .footer {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+}
