@@ -1,33 +1,29 @@
-a {
-  cursor: pointer;
-}
-
 .hero-section {
-  background-image: url('../img/hero3.jpg');
+  background-image: url(/img/hero/hero.jpg);
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+background-position: 88% center;
   padding-top: 64px;
   padding-bottom: 115px;
 }
 
+@media (min-resolution: 192dpi) {
+  .hero-section {
+    background-image: url(/img/hero/hero@2x.jpg);
+  }
+}
+
 @media screen and (min-width: 768px) {
   .hero-section {
-    background-image: url('../img/hero2.jpg');
-    padding-top: 64px;
     padding-bottom: 235px;
-    padding-right: 82px;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .hero-section {
-    background-image: url('../img/hero.jpg');
     padding-top: 128px;
     padding-bottom: 413px;
-    padding-right: 690px;
-    display: flex;
-    align-items: center;
-    padding-left: 50px;
   }
 }
 
@@ -35,16 +31,17 @@ a {
   font-family: var(--second-family);
   font-weight: 700;
   font-size: 40px;
-  line-height: 120%;
+  line-height: 1.2;
   letter-spacing: -0.01em;
   color: var(--color-white);
 
   margin-bottom: 24px;
+  max-width: 100%;
 }
 
 @media screen and (min-width: 768px) {
   .title-hero {
-    font-size: 40px;
+   max-width: 622px;
   }
 }
 
@@ -55,17 +52,14 @@ a {
 }
 
 .text-hero {
-  font-family: var(--font-family);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
   color: var(--color-white);
-
   margin-bottom: 32px;
+  max-width: 100%;
 }
 
 @media screen and (min-width: 768px) {
   .text-hero {
+   max-width: 512px;
   }
 }
 
@@ -76,17 +70,13 @@ a {
 }
 
 .btn-hero {
-  font-family: var(--font-family);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
   color: var(--color-white);
 
   border: 1px solid var(--color-mariner-dark);
   border-radius: 8px;
   padding: 12px 24px;
 
-  background: var(--color-mariner-dark);
+  background-color: var(--color-mariner-dark);
 }
 
 .btn-hero:hover {
