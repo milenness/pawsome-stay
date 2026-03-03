@@ -74,6 +74,16 @@
   left: auto;
 }
 
+.footer__menu-link:active {
+  color: #9a8a78;
+}
+
+.footer__menu-link--disabled {
+  color: #bdbdbd;
+  pointer-events: none;
+  text-decoration: none;
+}
+
 .footer__social {
   list-style: none;
   padding: 0;
@@ -101,6 +111,12 @@
 .footer__social-link:hover,
 .footer__social-link:focus {
   transform: scale(1.2);
+}
+
+.footer__menu-link,
+.footer__social-link,
+.footer__logo {
+  cursor: pointer;
 }
 
 .footer__divider {
