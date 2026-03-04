@@ -131,7 +131,7 @@
 .pet-more-info:hover,
 .pet-more-info:focus,
 .pet-more-info:active {
-  background-color: var(--color-mariner-light);
+  background-color: var(--color-mariner-dark);
   color: var(--color-white);
 }
 .pet-more-info:active {
