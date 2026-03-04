@@ -21,5 +21,5 @@ export async function getAnimalsByCategory(categoryId, page = 1, limit = 9) {
     params.categoryId = categoryId;
   }
   const response = await axios.get(`${GET_ANIMALS}`, { params });
-  return response.data.animals;
+  return response.data;
 }

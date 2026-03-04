@@ -3,7 +3,7 @@ import { getAnimalsByCategory } from '../api/api';
 export const petList = document.querySelector('.pet-list');
 
 getAnimalsByCategory()
-  .then(animals => {
+  .then(({ animals }) => {
     // refs.loader.style.display = 'block';
     petList.innerHTML = createPetListMarkup(animals);
     // if (animals.length === 0) {
