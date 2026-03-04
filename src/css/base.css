@@ -77,7 +77,7 @@ button {
   border: none;
 }
 
-body:has(.modal-backdrop.subscription-open) {
+body:has(.order-overlay.is-open) {
   overflow: hidden;
 }
 
