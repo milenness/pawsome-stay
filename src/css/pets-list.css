@@ -178,6 +178,12 @@
   }
   .pet-list-item {
     width: calc((100% - 32px) / 2);
+  }  
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1439px) {
+  .pet-list-item:last-child {
+    display: none;
   }
 }
 
