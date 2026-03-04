@@ -50,7 +50,7 @@ function onLoadCategory(evt) {
   const categoryId = evt.target.dataset.categoryId;
 
   getAnimalsByCategory(categoryId)
-    .then(animals => {
+    .then(({ animals }) => {
       // refs.loader.style.display = 'block';
       petList.innerHTML = createPetListMarkup(animals);
       // if (animals.length === 0) {
