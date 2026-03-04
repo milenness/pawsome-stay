@@ -164,9 +164,9 @@
 }
 .load-more-pets-btn:focus {
   outline: none;
-  background-color: var(--color-mariner-lighter);
-  color: var(--color-scheme-1-text);
-  border-color: var(--color-mariner-dark);
+  background-color: var(--color-mariner-light);
+  color: var(--color-neutral-darkest);
+  border-color: var(--color-neutral-darkest);
   box-shadow: 0 0 0 4px rgba(46, 47, 66, 0.1);
 }
 
