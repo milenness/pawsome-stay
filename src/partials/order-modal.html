@@ -7,48 +7,48 @@
             </button>
             <p class="modal-title">Залишіть заявку на знайомство
             </p>
-            <form class="order-form">
+       <form class="order-form">
     <div class="input-wrapper">
-    <label class="modal-label" for="username">Ім’я*</label>
-    <input 
-        type="text" 
-        class="modal-input" 
-        name="username" 
-        id="username" 
-        required
-        pattern="^\s*[A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+\s*$" 
-        title="Будь ласка, введіть коректне ім'я (одне слово)" 
-        placeholder="Андрій"
-    >
-    <span class="error-text">Введіть коректне ім'я (одне слово)</span>
-</div>
+        <label class="modal-label" for="username">Ім’я*</label>
+        <input 
+            type="text" 
+            class="modal-input" 
+            name="name" 
+            id="username" 
+            required
+            maxlength="32"
+            pattern="^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+(?:\s[A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+)*$" 
+            title="Введіть ім'я (можна декілька слів, макс. 32 симв.)" 
+            placeholder="Андрій"
+        >
+        <span class="error-text">Введіть коректне ім'я (макс. 32 симв.)</span>
+    </div>
 
     <div class="input-wrapper">
         <label class="modal-label" for="tel">Телефон*</label>
         <input 
             type="tel" 
             class="modal-input" 
-            name="tel" 
+            name="phone" 
             id="tel" 
             required
-            pattern="^\s*(?:\+380|380|0)\d{9}\s*$"
-            title="Формат: +380XXXXXXXXX, 380XXXXXXXXX або 0XXXXXXXXX"
-            placeholder="0955559922"
+            pattern="^[0-9]{12}$"
+            title="Формат: 12 цифр (наприклад, 380961234568)"
+            placeholder="380955559922"
         >
-        <span class="error-text">Введіть коректний номер телефону</span>
+        <span class="error-text">Введіть 12 цифр (наприклад, 380...)</span>
     </div>
 
     <div class="input-wrapper">
         <label class="modal-label" for="feedback">Коментар</label>
         <textarea 
             class="modal-textarea" 
-            name="feedback" 
+            name="comment" 
             id="feedback" 
             placeholder="Напишіть ваш коментар" 
-            required
             minlength="10" 
-            maxlength="1000"></textarea>
-         <span class="error-text">Введіть від 10 до 1000 символів</span>
+            maxlength="500"></textarea>
+         <span class="error-text">Від 10 до 500 символів</span>
     </div>
 
     <button class="btn modal-btn" type="submit">Надіслати</button>

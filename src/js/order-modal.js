@@ -5,12 +5,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('.order-form');
   const modalOverlay = document.querySelector('.order-overlay');
 
-  // Кнопка відкриття 
-  const openModalBtn = document.querySelector('.open-modal-btn');
+  let currentAnimalId = null;
 
-  // --- 1. Функції ---
+  // --- 1. ФУНКЦІЇ КЕРУВАННЯ ---
 
-  function openModal() {
+  function openModal(id) {
+    if (!id) {
+      console.error('Помилка: ID тварини не передано!');
+      return;
+    }
+    currentAnimalId = id;
     modalOverlay.classList.add('is-open');
     document.addEventListener('keydown', onEscapePress);
   }
@@ -18,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function closeModal() {
     modalOverlay.classList.remove('is-open');
     document.removeEventListener('keydown', onEscapePress);
+    currentAnimalId = null;
 
     setTimeout(() => {
       if (form) {
@@ -28,52 +33,50 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function onEscapePress(e) {
-    if (e.key === 'Escape') {
-      closeModal();
-    }
+    if (e.key === 'Escape') closeModal();
   }
 
-  // --- 2. Слухачі подій ---
-
-  if (openModalBtn) {
-    openModalBtn.addEventListener('click', openModal);
-  }
+  // --- 2. СЛУХАЧІ КЛІКІВ ---
 
   document.addEventListener('click', e => {
-    if (e.target.closest('.close-btn')) {
-      closeModal();
+    const openBtn = e.target.closest('.open-modal-btn');
+    if (openBtn) {
+      const id = openBtn.dataset.id;
+      openModal(id);
     }
 
-    if (e.target === modalOverlay) {
+    if (e.target.closest('.close-btn') || e.target === modalOverlay) {
       closeModal();
     }
   });
 
-  // --- 3. Сабміт форми ---
+  // --- 3. ВІДПРАВКА ФОРМИ (POST /orders) ---
+
   if (form) {
     form.addEventListener('submit', async e => {
-      e.preventDefault(); 
-
+      e.preventDefault();
       form.classList.add('was-validated');
 
-      if (!form.checkValidity()) {
-        return;
-      }
+      if (!form.checkValidity()) return;
 
       const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
+      const rawData = Object.fromEntries(formData.entries());
 
-      // Додаємо ID тварини згідно з ТЗ
-      data.animalId = '12345';
+      const requestData = {
+        name: rawData.name,
+        phone: rawData.phone,
+        comment: rawData.comment,
+        animalId: currentAnimalId,
+      };
 
       try {
         const response = await fetch(
-          'https://jsonplaceholder.typicode.com/posts',
+          'https://paw-hut.b.goit.study/api/orders',
           {
             method: 'POST',
-            body: JSON.stringify(data),
+            body: JSON.stringify(requestData),
             headers: {
-              'Content-type': 'application/json; charset=UTF-8',
+              'Content-Type': 'application/json',
             },
           }
         );
@@ -85,16 +88,18 @@ document.addEventListener('DOMContentLoaded', () => {
             icon: 'success',
             confirmButtonColor: '#2e2f42',
           });
-
           closeModal();
         } else {
-          throw new Error('Помилка сервера');
+          const errorInfo = await response.json();
+          console.error('Сервер повернув помилку:', errorInfo);
+          throw new Error();
         }
       } catch (error) {
         Swal.fire({
           title: 'Помилка!',
-          text: 'Щось пішло не так. Спробуйте, будь ласка, пізніше.',
+          text: 'Не вдалося надіслати заявкую. Спробуйте ще раз',
           icon: 'error',
+          confirmButtonColor: '#2e2f42',
         });
       }
     });
