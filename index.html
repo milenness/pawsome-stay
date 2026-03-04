@@ -17,7 +17,9 @@
 
   <!-- Custom CSS -->
   <script type="module" crossorigin src="/pawsome-stay/index.js"></script>
-  <link rel="stylesheet" crossorigin href="/pawsome-stay/assets/index-BZBq-Sg2.css">
+  <link rel="modulepreload" crossorigin href="/pawsome-stay/assets/vendor-CaasQ_d4.js">
+  <link rel="stylesheet" crossorigin href="/pawsome-stay/assets/vendor-BuaPyqhD.css">
+  <link rel="stylesheet" crossorigin href="/pawsome-stay/assets/index-zsygRHNz.css">
 </head>
 
 <body>
@@ -532,7 +534,63 @@
       </nav>
 </div>
  
-  
+  <div class = "order-overlay">
+        <div class="order-modal">
+            <button class="close-btn" type="button">
+                <svg class="close-icon" width="24" height="24">
+                    <use href="/pawsome-stay/assets/icons-jruN1hFq.svg#close"></use>
+                </svg>
+            </button>
+            <p class="modal-title">Залишіть заявку на знайомство
+            </p>
+            <form class="order-form">
+    <div class="input-wrapper">
+    <label class="modal-label" for="username">Ім’я*</label>
+    <input 
+        type="text" 
+        class="modal-input" 
+        name="username" 
+        id="username" 
+        required
+        pattern="^\s*[A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+\s*$" 
+        title="Будь ласка, введіть коректне ім'я (одне слово)" 
+        placeholder="Андрій"
+    >
+    <span class="error-text">Введіть коректне ім'я (одне слово)</span>
+</div>
+
+    <div class="input-wrapper">
+        <label class="modal-label" for="tel">Телефон*</label>
+        <input 
+            type="tel" 
+            class="modal-input" 
+            name="tel" 
+            id="tel" 
+            required
+            pattern="^\s*(?:\+380|380|0)\d{9}\s*$"
+            title="Формат: +380XXXXXXXXX, 380XXXXXXXXX або 0XXXXXXXXX"
+            placeholder="0955559922"
+        >
+        <span class="error-text">Введіть коректний номер телефону</span>
+    </div>
+
+    <div class="input-wrapper">
+        <label class="modal-label" for="feedback">Коментар</label>
+        <textarea 
+            class="modal-textarea" 
+            name="feedback" 
+            id="feedback" 
+            placeholder="Напишіть ваш коментар" 
+            required
+            minlength="10" 
+            maxlength="1000"
+        ></textarea>
+    </div>
+
+    <button class="btn modal-btn" type="submit">Надіслати</button>
+</form>
+        </div>
+    </div>
 
 </body>
 
