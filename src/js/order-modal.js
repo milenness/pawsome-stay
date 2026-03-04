@@ -80,8 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (response.ok) {
           Swal.fire({
-            title: 'Успіх!',
-            text: 'Ваша заявка успішно надіслана.',
+            title: 'Заявку успішно надіслано!',
+            text: 'Ми зв’яжемося з вами найближчим часом.',
             icon: 'success',
             confirmButtonColor: '#2e2f42',
           });
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (error) {
         Swal.fire({
           title: 'Помилка!',
-          text: 'Щось пішло не так. Спробуйте пізніше.',
+          text: 'Щось пішло не так. Спробуйте, будь ласка, пізніше.',
           icon: 'error',
         });
       }

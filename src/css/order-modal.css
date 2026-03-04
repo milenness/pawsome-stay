@@ -158,7 +158,19 @@ background: var(--color-mariner-dark);
   background-color: var(--color-mariner-light);
   color: var(--color-neutral-darkest);
   border-color: var(--color-neutral-darkest);
-  box-shadow: 0 0 0 4px rgba(46, 47, 66, 0.1);
+  box-shadow: 0 0 0 4px rgba(129, 134, 225, 0.1);
+}
+
+.error-text {
+    position: absolute;
+    bottom: -16px; 
+    left: 0;
+    font-size: 12px; 
+    line-height: 1.2;
+    color: var(--color-red);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 250ms ease-in-out;
 }
 
 .modal-input:not(:focus):not(:placeholder-shown):invalid,
@@ -172,21 +184,6 @@ background: var(--color-mariner-dark);
     opacity: 1;
 }
 
-.error-text {
-    position: absolute;
-    bottom: -18px;
-    left: 0;
-    font-size: 12px;
-    opacity: 0;
-color: var(--color-red);
-    transition: opacity 250ms ease-in-out;
-}
-
-.order-form.was-validated .modal-input:invalid::placeholder,
-.order-form.was-validated .modal-textarea:invalid::placeholder {
-    color: var(--color-red);
-}
-
 .order-form.was-validated .modal-input:invalid,
 .order-form.was-validated .modal-textarea:invalid {
     border-color: var(--color-red);
@@ -198,7 +195,7 @@ color: var(--color-red);
     opacity: 1;
 }
 
-.close-icon,
-.close-icon use {
-    pointer-events: none;
+.order-form.was-validated .modal-input:invalid::placeholder,
+.order-form.was-validated .modal-textarea:invalid::placeholder {
+    color: var(--color-red);
 }
