@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const GET_ALL_CATEGORIES = '/categories';
 const GET_ANIMALS = '/animals';
+const CREATE_ORDER = '/orders';
 
 axios.defaults.baseURL = 'https://paw-hut.b.goit.study/api';
 
@@ -21,5 +22,11 @@ export async function getAnimalsByCategory(categoryId, page = 1, limit = 9) {
     params.categoryId = categoryId;
   }
   const response = await axios.get(`${GET_ANIMALS}`, { params });
+  return response.data;
+}
+
+// Функція для створення замовлення
+export async function createOrder(orderData) {
+  const response = await axios.post(CREATE_ORDER, orderData);
   return response.data;
 }
