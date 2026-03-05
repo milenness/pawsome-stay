@@ -1,0 +1,43 @@
+.nav-logo,
+.footer__logo {
+  cursor: none;
+}
+
+.custom-cursor {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.2s ease;
+  z-index: 9999;
+}
+
+.custom-cursor img {
+  width: 100%;
+  height: 100%;
+}
+
+/* РОЗМІРИ */
+.custom-cursor.small {
+  width: 60px;
+  height: 60px;
+}
+
+.custom-cursor.large {
+  width: 100px;
+  height: 100px;
+}
+
+/* heartbeat */
+.custom-cursor.beating {
+  animation: heartbeat 1s infinite;
+}
+
+@keyframes heartbeat {
+  0%   { transform: translate(-50%, -50%) scale(1); }
+  20%  { transform: translate(-50%, -50%) scale(1.2); }
+  40%  { transform: translate(-50%, -50%) scale(1); }
+  60%  { transform: translate(-50%, -50%) scale(1.15); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
