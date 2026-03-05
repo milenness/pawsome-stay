@@ -57,7 +57,7 @@
 }
 .pet-list {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: flex-start;
   flex-direction: column;
   gap: 32px;
@@ -66,7 +66,7 @@
 .pet-list-item {
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: space-between;
   flex-direction: column;
   gap: 16px;
   border-radius: 16px;
@@ -119,6 +119,7 @@
 .pet-more-info {
   width: 100%;
   border: 1px solid var(--color-neutral-darkest);
+  background-color: var(--color-scheme-1-foreground);
   border-radius: 8px;
   padding: 8px 20px;
   font-size: 14px;
@@ -127,6 +128,7 @@
   transition:
     background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
     color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: auto;
 }
 .pet-more-info:hover,
 .pet-more-info:focus,
@@ -139,7 +141,6 @@
     inset 0 4px 6px -2px rgba(0, 0, 0, 0.03),
     inset 0 12px 16px -4px rgba(0, 0, 0, 0.08);
 }
-
 .load-more-pets-btn-wrapper {
   text-align: center;
 }
@@ -178,9 +179,12 @@
   }
   .pet-list-item {
     width: calc((100% - 32px) / 2);
-  }
-  .pet-info-categories-list {
-    min-height: 54px;
+  }  
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1439px) {
+  .pet-list-item:last-child {
+    display: none;
   }
 }
 
@@ -214,9 +218,6 @@
   }
   .pet-info-name {
     font-size: 24px;
-  }
-  .pet-info-categories-list {
-    min-height: 60px;
   }
   .pet-info-categories-list-item {
     font-size: 12px;
