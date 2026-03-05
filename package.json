@@ -17,6 +17,7 @@
   "author": "Milena Karpenko <milenness06@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "accordion": "^3.0.2",
     "accordion-js": "^3.4.1",
     "axios": "^1.13.6",
     "sweetalert2": "^11.26.21",
