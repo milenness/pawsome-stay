@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-// Імпортуйте функцію з вашого API-файлу
+
 import { createOrder } from '/js/api/api.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -59,13 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async e => {
       e.preventDefault();
 
-      // Додаємо клас валідації (для CSS стилів)
       form.classList.add('was-validated');
 
-      // Перевірка вбудованої валідації браузера
       if (!form.checkValidity()) return;
 
-      // Збираємо дані форми
       const formData = new FormData(form);
       const rawData = Object.fromEntries(formData.entries());
 
@@ -77,13 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       try {
-        // Деактивуємо кнопку, щоб уникнути подвійних кліків
         if (submitBtn) submitBtn.disabled = true;
 
-        // Викликаємо функцію з нашого API-сервісу
         await createOrder(requestData);
 
-        // Успішне сповіщення
         Swal.fire({
           title: 'Заявку успішно надіслано!',
           text: 'Ми зв’яжемося з вами найближчим часом.',
@@ -93,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         closeModal();
       } catch (error) {
-        // Обробка помилок (Axios автоматично кине помилку, якщо статус не 2xx)
         console.error(
           'Помилка відправки:',
           error.response?.data || error.message
@@ -106,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
           confirmButtonColor: '#2e2f42',
         });
       } finally {
-        // Повертаємо кнопку в активний стан у будь-якому випадку
         if (submitBtn) submitBtn.disabled = false;
       }
     });
