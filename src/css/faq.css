@@ -5,41 +5,11 @@
   line-height: 1.2;
   letter-spacing: -0.01em;
   text-align: center;
-  color: var(--color-scheme-1-text);
-  font-family: var(--second-family);
-
-  max-width: 768px;
-  margin-bottom: 40px;
-  margin-left: auto;
-  margin-right: auto;
+margin: 0 auto 40px;
 }
 
 .faq-section {
-  padding-top: 64px;
-  padding-bottom: 64px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#faq-accordion .ac .ac-trigger {
-  width: 100%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  text-align: left;
-  background: transparent;
-  border: 0;
-  font-weight: 700;
-  font-size: 16px;
-  padding-left: 24px;
-
-  line-height: 1.5;
-  color: var(--color-scheme-1-text);
-  font-family: var(--font-family);
-  min-height: 112px;
-  display: flex;
-  align-items: center;
-
-  justify-content: space-between;
+  padding: 64px 0;
 }
 
 .accordion {
@@ -50,14 +20,30 @@
   justify-content: center;
   flex-direction: column;
   gap: 16px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 335px;
 }
 
-.ac-header {
-  border: 0px solid var(--color-scheme-1-border);
-  border-radius: 8px;
+.ac {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background-color: var(--color-scheme-1-foreground) !important;
+  box-shadow: none !important;
+}
 
-  padding-top: 20px;
-  padding-bottom: 20px;
+#faq-accordion .ac .ac-trigger {
+  padding: 20px 24px !important;
+  
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  cursor: pointer;
+
+  font-family: var(--font-family);
+  font-weight: 700;
 }
 
 .ac-trigger::after {
@@ -67,7 +53,7 @@
 .faq-span {
   align-self: center;
   flex: 1;
-  width: 100%;
+  max-width: 239px;
 }
 
 .icon-wrapper {
@@ -117,15 +103,13 @@
 }
 
 #faq-accordion .ac .ac-text {
-  font-size: 14px;
-
-  line-height: 1.5;
-  color: var(--color-scheme-1-text);
   font-family: var(--font-family);
-  padding-left: 24px;
-  padding-right: 24px;
+  font-size: 14px;
+  color: var(--color-scheme-1-text);
 
-  padding-bottom: 24px;
+  padding: 0 24px 24px 24px !important;
+  
+  margin: 0 !important;
 }
 
 .ac.is-active .ac-header {
@@ -145,40 +129,34 @@
 }
 
 .faq-list li {
+  font-family: var(--font-family);
   font-size: 14px;
 
-  line-height: 1.5;
-  color: var(--color-scheme-1-text);
-  font-family: var(--font-family);
-  padding-left: 2px;
-  padding-right: 24px;
-  font-weight: 400;
+  padding: 0 24px 0 2px !important;
+  
+  margin: 0 !important;
 }
 
 .faq-list {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-top: 0px;
-  margin-bottom: 0px;
   padding-bottom: 24px;
 }
 
 .faq-list-ul {
   list-style: none;
-  margin-top: 16px;
-  padding: 0 24px;
+  padding: 0 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .faq-list-ul li {
   position: relative;
   padding-left: 18px;
-  margin-bottom: 15px;
 
-  font-weight: 400;
   font-size: 14px;
-  line-height: 1.5;
-  color: var(--color-scheme-1-text);
   font-family: var(--font-family);
 }
 
@@ -188,23 +166,21 @@
   left: 0;
 }
 
-.first-text {
-  margin-bottom: 15px;
-}
-
-#faq-accordion .ac .ac-text:last-child {
-  margin-bottom: 0px;
-}
-
-.ac {
-  width: 100%;
+#faq-accordion .ac .ac-trigger:hover,
+#faq-accordion .ac .ac-trigger:focus,
+#faq-accordion .ac .ac-trigger:active {
+  color: var(--color-scheme-1-text) !important;
+  background: transparent !important;
+  text-decoration: none !important;
 }
 
 @media screen and (min-width: 768px) {
-  .ac {
-    max-width: 864px;
-    max-height: 100%;
-  }
+.accordion {
+  max-width: 704px;
+}
+  .faq-span {
+  max-width: 608px;
+}
 
   .hero-faq-section {
     margin-bottom: 80px;
@@ -212,6 +188,7 @@
   #faq-accordion .ac .ac-text {
     font-size: 16px;
   }
+
   .faq-list-ul li,
   .faq-list li {
     font-size: 16px;
@@ -219,8 +196,16 @@
 }
 
 @media screen and (min-width: 1440px) {
-  .faq-section {
-    padding-top: 80px;
-    padding-bottom: 80px;
-  }
+  .accordion {
+  max-width: 704px;
 }
+
+  .faq-section {
+    padding: 80px 0;
+  }
+
+.faq-span {
+  max-width: 864px;
+}
+}
+
