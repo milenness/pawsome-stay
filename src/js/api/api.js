@@ -15,20 +15,22 @@ export async function getAllCategories() {
 }
 
 // Функція для отримання всіх тварин за категорією з пагінацією
-export async function getAnimalsByCategory(categoryId = null, page = 1, limit = 9) {
+export async function getAnimalsByCategory(
+  categoryId = null,
+  page = 1,
+  limit = 9
+) {
   const params = { page, limit };
   if (categoryId) {
     params.categoryId = categoryId;
   }
-  
+
   const { data } = await api.get(GET_ANIMALS, { params });
   return data; // Очікуємо { animals: [], totalItems: 5, page: 1 }
-
-  
 }
 
 // Функція для створення замовлення
 export async function createOrder(orderData) {
-  const response = await axios.post(CREATE_ORDER, orderData);
-  return response.data;
+  const { data } = await axios.post(CREATE_ORDER, orderData);
+  return data;
 }

@@ -6,14 +6,40 @@ const loadMoreBtn = document.querySelector('.load-more-pets-btn');
 let currentPage = 1;
 let currentCategory = null;
 let isLoading = false;
+let isFirstLoad = true;
 
 const getLimit = () => {
   const width = window.innerWidth;
   return width >= 768 && width < 1440 ? 8 : 9;
 };
 
+function createLoaderMarkup() {
+  return `
+    <li class="pet-list-loader">
+      <div class="loader-content">
+        <div class="paw">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <div class="pad"></div>
+        </div>
+      </div>
+    </li>
+  `;
+}
+
+function removeLoader() {
+  const loader = petList.querySelector('.pet-list-loader');
+  if (loader) {
+    loader.remove();
+  }
+}
+
 export function createPetListMarkup(animals) {
-  return animals.map(({ _id, name, age, gender, image, species, categories, behavior }) => `
+  return animals
+    .map(
+      ({ _id, name, age, gender, image, species, categories, behavior }) => `
     <li class="pet-list-item" id="${_id}">
       <img src="${image}" alt="${name}" class="pet-image">
       <div class="pet-info">
@@ -21,9 +47,11 @@ export function createPetListMarkup(animals) {
         <h3 class="pet-info-name">${name}</h3>
 
         <ul class="pet-info-categories-list">
-          ${categories.map(c =>
-            `<li class="pet-info-categories-list-item">${c.name}</li>`
-          ).join('')}
+          ${categories
+            .map(
+              c => `<li class="pet-info-categories-list-item">${c.name}</li>`
+            )
+            .join('')}
         </ul>
 
         <div class="pet-age-and-gender-wrapper">
@@ -38,63 +66,81 @@ export function createPetListMarkup(animals) {
         Дізнатись більше
       </button>
     </li>
-  `).join('');
+  `
+    )
+    .join('');
 }
 
 export async function loadPets(categoryId = null, isNewCategory = false) {
-
   if (isLoading) return;
 
   if (isNewCategory) {
     currentPage = 1;
     currentCategory = categoryId;
     petList.innerHTML = '';
-    loadMoreBtn.classList.remove('is-hidden');
+    if (loadMoreBtn) {
+      loadMoreBtn.classList.remove('is-hidden');
+    }
   }
 
+  petList.insertAdjacentHTML('beforeend', createLoaderMarkup());
   isLoading = true;
 
   try {
     const limit = getLimit();
 
-    const { animals, totalItems } =
-      await getAnimalsByCategory(currentCategory, currentPage, limit);
-
-    petList.insertAdjacentHTML(
-      'beforeend',
-      createPetListMarkup(animals)
+    const { animals, totalItems } = await getAnimalsByCategory(
+      currentCategory,
+      currentPage,
+      limit
     );
+
+    removeLoader();
+    petList.insertAdjacentHTML('beforeend', createPetListMarkup(animals));
 
     const totalPages = Math.ceil(totalItems / limit);
 
     if (currentPage >= totalPages || animals.length === 0) {
-      loadMoreBtn.classList.add('is-hidden');
+      if (loadMoreBtn) {
+        loadMoreBtn.classList.add('is-hidden');
+      }
     } else {
-      loadMoreBtn.classList.remove('is-hidden');
+      if (loadMoreBtn) {
+        loadMoreBtn.classList.remove('is-hidden');
+      }
     }
-
   } catch (error) {
     console.error('Ошибка загрузки:', error);
-    loadMoreBtn.classList.add('is-hidden');
+    removeLoader();
+    if (loadMoreBtn) {
+      loadMoreBtn.classList.add('is-hidden');
+    }
   } finally {
     isLoading = false;
+    if (isFirstLoad) {
+      isFirstLoad = false;
+    }
   }
 }
 
-loadMoreBtn.addEventListener('click', async () => {
+if (loadMoreBtn) {
+  loadMoreBtn.addEventListener('click', async () => {
+    if (isLoading) return;
 
-  if (isLoading) return;
+    currentPage += 1;
 
-  currentPage += 1;
+    await loadPets(currentCategory);
 
-  await loadPets(currentCategory);
+    const firstItem = petList.querySelector('.pet-list-item');
+    if (firstItem) {
+      const { height } = firstItem.getBoundingClientRect();
 
-  const { height } = petList.firstElementChild.getBoundingClientRect();
-
-  window.scrollBy({
-    top: height,
-    behavior: 'smooth'
+      window.scrollBy({
+        top: height,
+        behavior: 'smooth',
+      });
+    }
   });
-});
+}
 
 loadPets();
