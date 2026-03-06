@@ -1,7 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
 
-const LOADER_ID = "global-loader";
+const LOADER_ID = 'global-loader';
 let activeRequests = 0;
+
+function shouldTrackRequest(config) {
+  return !config?.skipGlobalLoader;
+}
 
 function getLoader() {
   return document.getElementById(LOADER_ID);
@@ -11,8 +15,8 @@ function showLoader() {
   const loader = getLoader();
   if (!loader) return;
 
-  loader.classList.remove("is-hidden");
-  document.body.style.overflow = "hidden";
+  loader.classList.remove('is-hidden');
+  document.body.style.overflow = 'hidden';
 }
 
 function hideLoader() {
@@ -21,19 +25,19 @@ function hideLoader() {
 
   if (activeRequests > 0) return;
 
-  loader.classList.add("is-hidden");
-  document.body.style.overflow = "";
+  loader.classList.add('is-hidden');
+  document.body.style.overflow = '';
 }
 
 /* ===============================
    PAGE LOAD
 =============================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   showLoader();
 });
 
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   setTimeout(() => {
     hideLoader();
   }, 600);
@@ -66,6 +70,8 @@ window.fetch = async (...args) => {
 =============================== */
 
 axios.interceptors.request.use(config => {
+  if (!shouldTrackRequest(config)) return config;
+
   activeRequests++;
   showLoader();
   return config;
@@ -73,6 +79,10 @@ axios.interceptors.request.use(config => {
 
 axios.interceptors.response.use(
   response => {
+    if (!shouldTrackRequest(response.config)) {
+      return response;
+    }
+
     activeRequests--;
 
     setTimeout(() => {
@@ -82,6 +92,10 @@ axios.interceptors.response.use(
     return response;
   },
   error => {
+    if (!shouldTrackRequest(error.config)) {
+      return Promise.reject(error);
+    }
+
     activeRequests--;
 
     setTimeout(() => {
@@ -102,6 +116,8 @@ axios.create = function (...args) {
   const instance = originalCreate.apply(this, args);
 
   instance.interceptors.request.use(config => {
+    if (!shouldTrackRequest(config)) return config;
+
     activeRequests++;
     showLoader();
     return config;
@@ -109,6 +125,10 @@ axios.create = function (...args) {
 
   instance.interceptors.response.use(
     response => {
+      if (!shouldTrackRequest(response.config)) {
+        return response;
+      }
+
       activeRequests--;
 
       setTimeout(() => {
@@ -118,6 +138,10 @@ axios.create = function (...args) {
       return response;
     },
     error => {
+      if (!shouldTrackRequest(error.config)) {
+        return Promise.reject(error);
+      }
+
       activeRequests--;
 
       setTimeout(() => {
