@@ -1,6 +1,7 @@
 import { getAnimalsByCategory } from '../api/api';
+import { notify, UA_TOAST } from '../notifications';
 
-export const petList = document.querySelector('.pet-list');
+const petList = document.querySelector('.pet-list');
 const loadMoreBtn = document.querySelector('.load-more-pets-btn');
 const loadMoreBtnWrapper = document.querySelector(
   '.load-more-pets-btn-wrapper'
@@ -10,6 +11,15 @@ let currentPage = 1;
 let currentCategory = null;
 let isLoading = false;
 let isFirstLoad = true;
+
+export function clearPetList() {
+  petList.innerHTML = '';
+  currentPage = 1;
+  currentCategory = null;
+
+  loadMoreBtn.classList.add('is-hidden');
+  loadMoreBtnWrapper.classList.add('is-hidden');
+}
 
 function hasPets() {
   return petList.querySelectorAll('.pet-list-item').length > 0;
@@ -53,7 +63,7 @@ function removeLoader() {
   }
 }
 
-export function createPetListMarkup(animals) {
+function createPetListMarkup(animals) {
   return animals
     .map(
       ({ _id, name, age, gender, image, species, categories, behavior }) => `
@@ -66,7 +76,8 @@ export function createPetListMarkup(animals) {
         <ul class="pet-info-categories-list">
           ${categories
             .map(
-              c => `<li class="pet-info-categories-list-item">${c.name}</li>`
+              ({ name }) =>
+                `<li class="pet-info-categories-list-item">${name}</li>`
             )
             .join('')}
         </ul>
@@ -113,6 +124,12 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
       limit
     );
 
+    if (!Array.isArray(animals) || animals.length === 0) {
+      clearPetList();
+      notify.failure(UA_TOAST.PETS_EMPTY);
+      return;
+    }
+
     removeLoader();
     petList.insertAdjacentHTML('beforeend', createPetListMarkup(animals));
 
@@ -128,7 +145,14 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
       }
     }
   } catch (error) {
-    console.error('Ошибка загрузки:', error);
+    const isNetworkError = !error.response;
+    if (isNetworkError) {
+      notify.failure(UA_TOAST.NETWORK);
+      return;
+    }
+
+    notify.failure(UA_TOAST.UNKNOWN_ERROR);
+
     removeLoader();
     if (loadMoreBtn) {
       loadMoreBtn.classList.add('is-hidden');
@@ -163,5 +187,3 @@ if (loadMoreBtn) {
     }
   });
 }
-
-loadPets();
