@@ -17,13 +17,8 @@ export function clearPetList() {
   currentPage = 1;
   currentCategory = null;
 
-  if (loadMoreBtn) {
-    loadMoreBtn.classList.add('is-hidden');
-  }
-
-  if (loadMoreBtnWrapper) {
-    loadMoreBtnWrapper.classList.add('is-hidden');
-  }
+  loadMoreBtn.classList.add('is-hidden');
+  loadMoreBtnWrapper.classList.add('is-hidden');
 }
 
 function hasPets() {
@@ -81,7 +76,8 @@ function createPetListMarkup(animals) {
         <ul class="pet-info-categories-list">
           ${categories
             .map(
-              c => `<li class="pet-info-categories-list-item">${c.name}</li>`
+              ({ name }) =>
+                `<li class="pet-info-categories-list-item">${name}</li>`
             )
             .join('')}
         </ul>
