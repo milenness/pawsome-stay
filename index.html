@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ua">
   <head>
     <meta charset="UTF-8" />
@@ -13,10 +13,19 @@
     />
 
     <!-- Custom CSS -->
+
+    <!-- Critical above-the-fold image for header -->
+    <link
+      rel="preload"
+      as="image"
+      href="/pawsome-stay/assets/icons-4wqh6OW-.svg"
+      type="image/svg+xml"
+      fetchpriority="high"
+    />
     <script type="module" crossorigin src="/pawsome-stay/index.js"></script>
     <link rel="modulepreload" crossorigin href="/pawsome-stay/assets/vendor-CKomqpEw.js">
     <link rel="stylesheet" crossorigin href="/pawsome-stay/assets/vendor-0Bqj8AqF.css">
-    <link rel="stylesheet" crossorigin href="/pawsome-stay/assets/index-D1DKIuQE.css">
+    <link rel="stylesheet" crossorigin href="/pawsome-stay/assets/index-CB345EYx.css">
   </head>
 
   <body>
@@ -59,6 +68,27 @@
 
     <main>
       <section class="hero-section">
+  <picture class="hero-media">
+    <source
+      media="(min-width: 1440px)"
+      srcset="/pawsome-stay/assets/hero-desk-qMSZZwKA.webp 1x, /pawsome-stay/assets/hero-desk@2x-Bc3lL1Mr.webp 2x"
+    />
+    <source
+      media="(min-width: 768px)"
+      srcset="/pawsome-stay/assets/hero-tabl-APtCn5zU.webp 1x, /pawsome-stay/assets/hero-tabl@2x-CWixtYCP.webp 2x"
+    />
+    <img
+      class="hero-image"
+      src="/pawsome-stay/assets/hero-tel-Bf2gcILm.webp"
+      srcset="/pawsome-stay/assets/hero-tel-Bf2gcILm.webp 1x, /pawsome-stay/assets/hero-tel@2x-xGXWyzS1.webp 2x"
+      alt=""
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      aria-hidden="true"
+    />
+  </picture>
+
   <div class="container">
     <h1 class="title-hero">
       Кожне життя має значення. Знайди свого вірного друга
@@ -565,7 +595,7 @@
     </svg>
   </span>
 </button>
-  <!-- PET MODAL - Animal Details Modal -->
+    <!-- PET MODAL - Animal Details Modal -->
 <div id="petModal" class="pet-modal-overlay">
   <div class="pet-modal">
     <!-- Закрити кнопка -->
@@ -619,7 +649,7 @@
     </div>
   </div>
 </div>
-   
+
 
   </body>
 </html>
