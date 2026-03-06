@@ -22,7 +22,6 @@ getAllCategories()
     loadPets();
   })
   .catch(err => {
-    console.error(err);
     clearPetList();
 
     const isNetworkError = !err.response;

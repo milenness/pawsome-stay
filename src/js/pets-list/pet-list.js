@@ -1,4 +1,5 @@
 import { getAnimalsByCategory } from '../api/api';
+import { notify, UA_TOAST } from '../notifications';
 
 const petList = document.querySelector('.pet-list');
 const loadMoreBtn = document.querySelector('.load-more-pets-btn');
@@ -67,7 +68,7 @@ function removeLoader() {
   }
 }
 
-export function createPetListMarkup(animals) {
+function createPetListMarkup(animals) {
   return animals
     .map(
       ({ _id, name, age, gender, image, species, categories, behavior }) => `
@@ -127,6 +128,12 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
       limit
     );
 
+    if (!Array.isArray(animals) || animals.length === 0) {
+      clearPetList();
+      notify.failure(UA_TOAST.PETS_EMPTY);
+      return;
+    }
+
     removeLoader();
     petList.insertAdjacentHTML('beforeend', createPetListMarkup(animals));
 
@@ -142,7 +149,14 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
       }
     }
   } catch (error) {
-    console.error('Ошибка загрузки:', error);
+    const isNetworkError = !error.response;
+    if (isNetworkError) {
+      notify.failure(UA_TOAST.NETWORK);
+      return;
+    }
+
+    notify.failure(UA_TOAST.UNKNOWN_ERROR);
+
     removeLoader();
     if (loadMoreBtn) {
       loadMoreBtn.classList.add('is-hidden');
