@@ -9,16 +9,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentAnimalId = null;
 
-  // --- 1. ФУНКЦІЇ КЕРУВАННЯ ---
+  /* --- 1. ГЛОБАЛЬНІ ФУНКЦІЇ КЕРУВАННЯ --- */
 
-  function openModal(id) {
-    if (!id) return;
+  window.openOrderModal = function (id) {
+    if (!id) {
+      console.warn('Спроба відкрити форму без ID тварини');
+      return;
+    }
 
     currentAnimalId = id;
     modalOverlay.classList.add('is-open');
     document.body.classList.add('modal-open');
     document.addEventListener('keydown', onEscapePress);
-  }
+  };
 
   function closeModal() {
     modalOverlay.classList.remove('is-open');
@@ -38,21 +41,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeModal();
   }
 
-  // --- 2. СЛУХАЧІ КЛІКІВ ---
+  /* --- 2. СЛУХАЧІ ПОДІЙ --- */
 
-  document.addEventListener('click', e => {
-    const openBtn = e.target.closest('.open-modal-btn');
-    if (openBtn) {
-      const id = openBtn.dataset.id || openBtn.getAttribute('data-id');
-      openModal(id);
-    }
-
+  modalOverlay.addEventListener('click', e => {
     if (e.target.closest('.close-btn') || e.target === modalOverlay) {
       closeModal();
     }
   });
 
-  // --- 3. ВІДПРАВКА ФОРМИ ---
+  /* --- 3. ВІДПРАВКА ФОРМИ --- */
 
   if (form) {
     form.addEventListener('submit', async e => {
@@ -64,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!currentAnimalId) {
         Swal.fire({
           title: 'Помилка',
-          text: 'Не вдалося визначити ID тварини. Спробуйте ще раз.',
+          text: 'Не вдалося визначити ID тварини.',
           icon: 'error',
           confirmButtonColor: '#2e2f42',
         });
@@ -99,14 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
         closeModal();
       } catch (error) {
         const serverError =
-          error.response?.data?.message || 'Сталася помилка при відправці.';
-
-        Swal.fire({
-          title: 'Помилка!',
-          text: serverError,
-          icon: 'error',
-          confirmButtonColor: '#2e2f42',
-        });
+          error.response?.data?.message || 'Помилка при відправці.';
+        Swal.fire({ title: 'Помилка!', text: serverError, icon: 'error' });
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
@@ -116,4 +107,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-
