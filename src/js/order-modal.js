@@ -1,13 +1,16 @@
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+import { createOrder } from '/js/api/api.js';
+
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('.order-form');
   const modalOverlay = document.querySelector('.order-overlay');
+  const submitBtn = form?.querySelector('button[type="submit"]');
 
   let currentAnimalId = null;
 
-  // --- 1. ФУНКЦІЇ КЕРУВАННЯ ---
+  // --- 1. ФУНКЦІЇ КЕРУВАННЯ МОДАЛКОЮ ---
 
   function openModal(id) {
     if (!id) {
@@ -50,11 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // --- 3. ВІДПРАВКА ФОРМИ (POST /orders) ---
+  // --- 3. ВІДПРАВКА ФОРМИ ---
 
   if (form) {
     form.addEventListener('submit', async e => {
       e.preventDefault();
+
       form.classList.add('was-validated');
 
       if (!form.checkValidity()) return;
@@ -70,37 +74,32 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       try {
-        const response = await fetch(
-          'https://paw-hut.b.goit.study/api/orders',
-          {
-            method: 'POST',
-            body: JSON.stringify(requestData),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
+        if (submitBtn) submitBtn.disabled = true;
+
+        await createOrder(requestData);
+
+        Swal.fire({
+          title: 'Заявку успішно надіслано!',
+          text: 'Ми зв’яжемося з вами найближчим часом.',
+          icon: 'success',
+          confirmButtonColor: '#2e2f42',
+        });
+
+        closeModal();
+      } catch (error) {
+        console.error(
+          'Помилка відправки:',
+          error.response?.data || error.message
         );
 
-        if (response.ok) {
-          Swal.fire({
-            title: 'Заявку успішно надіслано!',
-            text: 'Ми зв’яжемося з вами найближчим часом.',
-            icon: 'success',
-            confirmButtonColor: '#2e2f42',
-          });
-          closeModal();
-        } else {
-          const errorInfo = await response.json();
-          console.error('Сервер повернув помилку:', errorInfo);
-          throw new Error();
-        }
-      } catch (error) {
         Swal.fire({
           title: 'Помилка!',
-          text: 'Не вдалося надіслати заявкую. Спробуйте ще раз',
+          text: 'Не вдалося надіслати заявку. Спробуйте, будь ласка, ще раз пізніше.',
           icon: 'error',
           confirmButtonColor: '#2e2f42',
         });
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
       }
     });
   }
