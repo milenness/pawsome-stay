@@ -263,14 +263,14 @@ body.modal-open {
    TABLET
    ========================= */
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 767px) and (max-width: 1440px) {
 
-  pet-modal-content {
+  .categories-list {
     grid-template-columns: 320px 1fr;
     gap: 24px;
   }
 
-  /* робимо grid у правій колонці */
+
   .pet-modal-info {
     display: grid;
     grid-template-areas:
@@ -299,6 +299,19 @@ body.modal-open {
   grid-area: button;
   width: 100%;
 }
+  .pet-modal-image-wrapper {
+
+
+    overflow: hidden;
+  }
+
+  .pet-modal-image {
+    width: 110%;
+    height: 70%;
+    object-fit: cover;
+    transform: scale(1.05);
+    transform-origin: center;
+  }
 }
 
 
@@ -370,6 +383,19 @@ body.modal-open {
     max-width: 192px;
     font-size: 16px;
   }
+  .pet-modal-name{
+    font-size: 48px;    
+  }
+  .pet-modal-meta-item{
+    font-size: 21px;
+  }
+
+  .pet-modal-section-title{
+    font-size: 24px;
+  }
+  .pet-modal-section-text{
+    font-size: 24px;
+  }
 
 }
 
@@ -404,6 +430,20 @@ body.modal-open {
     max-height: none;
     overflow: visible;
     padding-right: 0;
+  }
+
+  .pet-modal-name{
+    font-size: 38px;    
+  }
+  .pet-modal-meta-item{
+    font-size: 18px;
+  }
+
+  .pet-modal-section-title{
+    font-size: 21px;
+  }
+  .pet-modal-section-text{
+    font-size: 21px;
   }
 
 }
