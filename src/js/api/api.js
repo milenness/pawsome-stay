@@ -30,7 +30,7 @@ export async function getAnimalsByCategory(
 }
 
 // Функція для створення замовлення
-export async function createOrder(orderData) {
-  const { data } = await axios.post(CREATE_ORDER, orderData);
-  return data;
-}
+export const createOrder = async orderData => {
+  const response = await api.post('/orders', orderData);
+  return response.data;
+};
