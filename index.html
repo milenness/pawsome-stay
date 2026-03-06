@@ -14,9 +14,9 @@
 
     <!-- Custom CSS -->
     <script type="module" crossorigin src="/pawsome-stay/index.js"></script>
-    <link rel="modulepreload" crossorigin href="/pawsome-stay/assets/vendor-CtFDwIGa.js">
-    <link rel="stylesheet" crossorigin href="/pawsome-stay/assets/vendor-CaSgTwAY.css">
-    <link rel="stylesheet" crossorigin href="/pawsome-stay/assets/index-BEY34YXX.css">
+    <link rel="modulepreload" crossorigin href="/pawsome-stay/assets/vendor-CKomqpEw.js">
+    <link rel="stylesheet" crossorigin href="/pawsome-stay/assets/vendor-0Bqj8AqF.css">
+    <link rel="stylesheet" crossorigin href="/pawsome-stay/assets/index-DQw1yyBv.css">
   </head>
 
   <body>
@@ -314,10 +314,63 @@
 
       <section class="stories-section" id="stories">
   <div class="container">
-    <!-- Код -->
+
+    <div class="stories-header">
+      <h2 class="stories-title">Щасливі історії, що надихають</h2>
+      <p class="stories-subtitle">Ці хвостики вже знайшли свій дім. Ваш майбутній друг теж чекає на вас</p>
+    </div>
+
+    <!-- Loading state -->
+    <div class="stories-loading" id="stories-loading">
+      <span class="stories-spinner"></span>
+    </div>
+
+    <!-- Slider -->
+    <div class="stories-slider-wrap" id="stories-slider-wrap">
+      <div class="swiper stories-swiper" id="stories-swiper">
+        <ul class="swiper-wrapper stories-list" id="stories-swiper-wrapper">
+          <!-- Cards rendered by JS -->
+        </ul>
+      </div>
+
+      <div class="stories-controls">
+        <!-- Pagination -->
+        <div
+          class="stories-pagination"
+          id="stories-pagination"
+          role="tablist"
+          aria-label="Навігація відгуками"
+        ></div>
+
+        <!-- Nav buttons -->
+        <div class="stories-nav" role="group" aria-label="Кнопки навігації">
+          <button
+            class="stories-nav-btn stories-nav-btn--prev"
+            id="stories-btn-prev"
+            type="button"
+            aria-label="Попередній відгук"
+            disabled
+          >
+            <svg class="stories-nav-icon" aria-hidden="true">
+              <use href="/pawsome-stay/assets/icons-4wqh6OW-.svg#arrow_back"></use>
+            </svg>
+          </button>
+          <button
+            class="stories-nav-btn stories-nav-btn--next"
+            id="stories-btn-next"
+            type="button"
+            aria-label="Наступний відгук"
+          >
+            <svg class="stories-nav-icon" aria-hidden="true">
+              <use href="/pawsome-stay/assets/icons-4wqh6OW-.svg#arrow_forward"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
-
     </main>
 
     <footer class="footer">
