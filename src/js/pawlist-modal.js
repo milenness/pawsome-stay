@@ -92,6 +92,10 @@ function renderModalMarkup(petData) {
               <h3 class="pet-modal-section-title">Здоров'я:</h3>
               <p class="pet-modal-section-text">${petData.healthStatus || 'Здоровий(а)'}</p>
             </div>
+            <div class="pet-modal-section">
+              <h3 class="pet-modal-section-title">Поведінка:</h3>
+              <p class="pet-modal-section-text">${petData.behavior || 'Дружелюбний(а)'}</p>
+            </div>
           </div>
 
           <button id="petModalActionBtn" class="info-pet-btn" type="button" data-id="${id}">
