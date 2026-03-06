@@ -17,11 +17,17 @@
   "author": "Milena Karpenko <milenness06@gmail.com>",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "@lemonadejs/rating": "^5.8.1",
     "raty-js": "^4.3.0",
     "star-rating.js": "^4.3.1",
     "swiger": "^0.0.2",
     "swiper": "^12.1.2",
+=======
+    "accordion-js": "^3.4.1",
+    "axios": "^1.13.6",
+    "sweetalert2": "^11.26.21",
+>>>>>>> main
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-html-inject": "^1.1.2"
   }
