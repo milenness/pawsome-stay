@@ -1,6 +1,6 @@
 import { getAnimalsByCategory } from '../api/api';
 
-export const petList = document.querySelector('.pet-list');
+const petList = document.querySelector('.pet-list');
 const loadMoreBtn = document.querySelector('.load-more-pets-btn');
 const loadMoreBtnWrapper = document.querySelector(
   '.load-more-pets-btn-wrapper'
@@ -10,6 +10,20 @@ let currentPage = 1;
 let currentCategory = null;
 let isLoading = false;
 let isFirstLoad = true;
+
+export function clearPetList() {
+  petList.innerHTML = '';
+  currentPage = 1;
+  currentCategory = null;
+
+  if (loadMoreBtn) {
+    loadMoreBtn.classList.add('is-hidden');
+  }
+
+  if (loadMoreBtnWrapper) {
+    loadMoreBtnWrapper.classList.add('is-hidden');
+  }
+}
 
 function hasPets() {
   return petList.querySelectorAll('.pet-list-item').length > 0;
@@ -163,5 +177,3 @@ if (loadMoreBtn) {
     }
   });
 }
-
-loadPets();
