@@ -145,6 +145,8 @@
   text-align: center;
 }
 .load-more-pets-btn {
+  display: block;
+  margin: 0 auto;
   width: 100%;
   max-width: 335px;
   border: 1px solid var(--color-mariner-dark);
@@ -170,7 +172,9 @@
   border-color: var(--color-neutral-darkest);
   box-shadow: 0 0 0 4px rgba(46, 47, 66, 0.1);
 }
-
+.load-more-pets-btn.is-hidden {
+  display: none;
+}
 /* Tablet screen styles */
 @media only screen and (min-width: 768px) {
   .pet-list {
@@ -182,11 +186,11 @@
   }  
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1439px) {
+/* @media only screen and (min-width: 768px) and (max-width: 1439px) {
   .pet-list-item:last-child {
     display: none;
   }
-}
+} */
 
 /* Desktop screen styles */
 @media only screen and (min-width: 1440px) {
@@ -241,3 +245,4 @@
     background: var(--color-mariner-dark);
   }
 }
+
