@@ -25,7 +25,10 @@ export async function getAnimalsByCategory(
     params.categoryId = categoryId;
   }
 
-  const { data } = await api.get(GET_ANIMALS, { params });
+  const { data } = await api.get(GET_ANIMALS, {
+    params,
+    skipGlobalLoader: true,
+  });
   return data; // Очікуємо { animals: [], totalItems: 5, page: 1 }
 }
 
