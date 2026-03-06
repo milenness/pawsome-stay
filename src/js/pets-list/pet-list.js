@@ -2,11 +2,28 @@ import { getAnimalsByCategory } from '../api/api';
 
 export const petList = document.querySelector('.pet-list');
 const loadMoreBtn = document.querySelector('.load-more-pets-btn');
+const loadMoreBtnWrapper = document.querySelector(
+  '.load-more-pets-btn-wrapper'
+);
 
 let currentPage = 1;
 let currentCategory = null;
 let isLoading = false;
 let isFirstLoad = true;
+
+function hasPets() {
+  return petList.querySelectorAll('.pet-list-item').length > 0;
+}
+
+function updateButtonVisibility(shouldShow) {
+  if (!loadMoreBtnWrapper) return;
+
+  if (shouldShow) {
+    loadMoreBtnWrapper.classList.remove('is-hidden');
+  } else {
+    loadMoreBtnWrapper.classList.add('is-hidden');
+  }
+}
 
 const getLimit = () => {
   const width = window.innerWidth;
@@ -78,8 +95,9 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
     currentPage = 1;
     currentCategory = categoryId;
     petList.innerHTML = '';
-    if (loadMoreBtn) {
-      loadMoreBtn.classList.remove('is-hidden');
+    // Hide wrapper when switching to new category
+    if (loadMoreBtnWrapper) {
+      loadMoreBtnWrapper.classList.add('is-hidden');
     }
   }
 
@@ -120,6 +138,9 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
     if (isFirstLoad) {
       isFirstLoad = false;
     }
+
+    // Show wrapper only if there are pets in the list
+    updateButtonVisibility(hasPets());
   }
 }
 
