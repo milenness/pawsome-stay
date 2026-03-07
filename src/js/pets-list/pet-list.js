@@ -12,6 +12,7 @@ let currentCategory = null;
 let isLoading = false;
 let isFirstLoad = true;
 let loadedAnimals = [];
+let lastViewportType = getViewportType();
 
 export function getPetById(petId) {
   return loadedAnimals.find(
@@ -52,6 +53,19 @@ function updateButtonVisibility(shouldShow) {
   } else {
     loadMoreBtnWrapper.classList.add('is-hidden');
   }
+}
+
+const isTabletViewport = () => {
+  const width = window.innerWidth;
+  return width >= 768 && width < 1440;
+};
+
+function getViewportType() {
+  const width = window.innerWidth;
+
+  if (width < 768) return 'mobile';
+  if (width < 1440) return 'tablet';
+  return 'desktop';
 }
 
 const getLimit = () => {
@@ -118,6 +132,28 @@ function createPetListMarkup(animals) {
     .join('');
 }
 
+function renderPetList(hasMorePets) {
+  const shouldKeepEvenCount =
+    isTabletViewport() && hasMorePets && loadedAnimals.length % 2 !== 0;
+
+  const animalsToRender = shouldKeepEvenCount
+    ? loadedAnimals.slice(0, -1)
+    : loadedAnimals;
+
+  petList.innerHTML = createPetListMarkup(animalsToRender);
+}
+
+function recalculateAndRenderOnResize() {
+  if (!loadedAnimals.length || isLoading) return;
+
+  const currentViewportType = getViewportType();
+  if (currentViewportType === lastViewportType) return;
+
+  lastViewportType = currentViewportType;
+  const hasMorePets = !loadMoreBtn.classList.contains('is-hidden');
+  renderPetList(hasMorePets);
+}
+
 export async function loadPets(categoryId = null, isNewCategory = false) {
   if (isLoading) return;
 
@@ -150,13 +186,15 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
       return;
     }
 
-    removeLoader();
-    petList.insertAdjacentHTML('beforeend', createPetListMarkup(animals));
     loadedAnimals = mergeUniqueAnimals(loadedAnimals, animals);
 
     const totalPages = Math.ceil(totalItems / limit);
+    const hasMorePets = currentPage < totalPages;
 
-    if (currentPage >= totalPages || animals.length === 0) {
+    removeLoader();
+    renderPetList(hasMorePets);
+
+    if (!hasMorePets || animals.length === 0) {
       if (loadMoreBtn) {
         loadMoreBtn.classList.add('is-hidden');
       }
@@ -208,3 +246,5 @@ if (loadMoreBtn) {
     }
   });
 }
+
+window.addEventListener('resize', recalculateAndRenderOnResize);
