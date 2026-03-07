@@ -31,11 +31,11 @@ const team = [
   },
 ];
 
-const devTeamBtn = refs.devTeamBtn;
-const devTeamModalOverlay = refs.devTeamModalOverlay;
+// const devTeamBtn = refs.devTeamBtn;
+// const devTeamModalOverlay = refs.devTeamModalOverlay;
 
-devTeamBtn.addEventListener('click', evt => {
-  devTeamModalOverlay.innerHTML = renderModalMarkup();
+refs.devTeamBtn.addEventListener('click', evt => {
+  refs.devTeamModalOverlay.innerHTML = renderModalMarkup();
 
   openModal();
 });
@@ -100,17 +100,17 @@ const onEscapePress = e => {
 };
 
 const openModal = () => {
-  devTeamModalOverlay.classList.add('is-open');
+  refs.devTeamModalOverlay.classList.add('is-open');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onEscapePress);
 };
 
 const closeModal = () => {
-  devTeamModalOverlay.classList.remove('is-open');
+  refs.devTeamModalOverlay.classList.remove('is-open');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscapePress);
   setTimeout(() => {
-    devTeamModalOverlay.innerHTML = '';
+    refs.devTeamModalOverlay.innerHTML = '';
   }, 300);
 };
 
@@ -119,7 +119,7 @@ document.addEventListener('click', evt => {
 
   if (
     target.closest('.dev-team-modal-close') ||
-    target === devTeamModalOverlay
+    target === refs.devTeamModalOverlay
   ) {
     closeModal();
     return;
