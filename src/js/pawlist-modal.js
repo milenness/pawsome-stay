@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import iconsSpriteUrl from '../img/icons.svg?url';
 
 const modalOverlay = document.querySelector('.pet-modal-overlay');
 
@@ -64,7 +65,7 @@ function renderModalMarkup(petData) {
     <div class="pet-modal">
       <button class="pet-modal-close" type="button" aria-label="Закрити">
         <svg class="close-icon" width="24" height="24">
-          <use href="/img/icons.svg#close"></use>
+          <use href="${iconsSpriteUrl}#close"></use>
         </svg>
       </button>
 
