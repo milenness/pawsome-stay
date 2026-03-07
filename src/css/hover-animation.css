@@ -9,7 +9,7 @@
   height: 40px;
   pointer-events: none;
   transform: translate(-50%, -50%) scale(0);
-  transition: transform 0.2s ease;
+  transition: transform var(--transition-duration-200) ease;
   z-index: 9999;
 }
 
@@ -31,13 +31,23 @@
 
 /* heartbeat */
 .custom-cursor.beating {
-  animation: heartbeat 1s infinite;
+  animation: heartbeat var(--transition-duration-1000) infinite;
 }
 
 @keyframes heartbeat {
-  0%   { transform: translate(-50%, -50%) scale(1); }
-  20%  { transform: translate(-50%, -50%) scale(1.2); }
-  40%  { transform: translate(-50%, -50%) scale(1); }
-  60%  { transform: translate(-50%, -50%) scale(1.15); }
-  100% { transform: translate(-50%, -50%) scale(1); }
-} 
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  20% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  40% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

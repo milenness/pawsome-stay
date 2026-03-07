@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   --color-scheme-1-background: var(--color-mariner-lightest);
   --color-neutral-darkest: #02060a;
@@ -42,9 +48,59 @@
   --color-scheme-2-accent: var(--color-white);
   --color-scheme-2-foreground: var(--color-mariner-dark);
   --color-red: #ae0000;
+  --color-menu-link-hover: #9a8a78;
+  --color-menu-link-disabled: #bdbdbd;
+  --color-loader-background: #8b6f47;
+  --color-loader-text: #2e2f42;
 
   --font-family: 'IBM Plex Sans', sans-serif;
   --second-family: 'Open Sans', sans-serif;
+
+  --transition-curve: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-modal-curve: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --transition-duration-0: 0ms;
+  --transition-duration-70: 70ms;
+  --transition-duration-120: 120ms;
+  --transition-duration-140: 140ms;
+  --transition-duration-200: 200ms;
+  --transition-duration-250: 250ms;
+  --transition-duration-300: 300ms;
+  --transition-duration-350: 350ms;
+  --transition-duration-400: 400ms;
+  --transition-duration-600: 600ms;
+  --transition-duration-800: 800ms;
+  --transition-duration-1000: 1000ms;
+  --transition-duration-1400: 1400ms;
+
+  --border-shadow-button:
+    inset 0 4px 6px -2px rgba(0, 0, 0, 0.03),
+    inset 0 12px 16px -4px rgba(0, 0, 0, 0.08);
+
+  --modal-animation: modalSlideIn var(--transition-duration-400)
+    var(--transition-modal-curve);
+  --modal-overlay-animation: modalFadeIn var(--transition-duration-300)
+    ease-in-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 html {
@@ -97,4 +153,26 @@ body:has(.mobile-menu.is-open) {
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
+}
+
+@supports (scrollbar-width: auto) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-mariner-lighter) var(--color-mariner-light);
+  }
+}
+
+html::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-track {
+  background-color: var(--color-mariner-lighter);
+  border-radius: 8px;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--color-mariner-light);
+  border-radius: 8px;
+  height: 128px;
 }
