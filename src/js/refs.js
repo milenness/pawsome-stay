@@ -44,4 +44,8 @@ export const refs = {
 
   // global-loader
   globalLoader: document.getElementById('global-loader'),
+
+  //dev-team-btn
+  devTeamBtn: document.querySelector('.dev-team-btn'),
+  devTeamModalOverlay: document.querySelector('.dev-team-modal-overlay'),
 };

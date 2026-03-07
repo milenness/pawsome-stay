@@ -95,6 +95,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  background: none;
 
   transition: transform var(--transition-duration-200) var(--transition-curve);
 }
