@@ -3,43 +3,8 @@ import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import iconsSpriteUrl from '../img/icons.svg?url';
-
-// ─── Constants ───────────────────────────────────────────────────────────────
-
-const API_URL = 'https://paw-hut.b.goit.study/api/feedbacks';
-
-const DEMO_FEEDBACKS = [
-  {
-    rating: 4.5,
-    comment:
-      'Ми довго вагались, чи готові до собаки, але коли побачили на сайті Хатинки фото Арчі, зрозуміли — це наш. Тепер ми не уявляємо ранків без його веселого гавкоту та вечорів без спільних прогулянок. Він приніс у наш дім стільки сміху та любові! Дякуємо „Хатинці лапок" за нашого найкращого друга.',
-    author: 'Марина та Сергій',
-  },
-  {
-    rating: 5,
-    comment:
-      "Я завжди хотіла взяти котика, але боялась, що доросла тварина не зможе звикнути. Волонтери переконали мене дати шанс Алісі, і це було найкраще рішення! Її муркотіння — найкращий антистрес після робочого дня. Не бійтеся брати дорослих хвостиків, вони віддають вам безмежною любов'ю!",
-    author: 'Олена',
-  },
-  {
-    rating: 5,
-    comment:
-      'Ніколи не думала, що зважусь взяти собаку з притулку, але після першої зустрічі з Барсиком все змінилось. Він такий ніжний і вдячний! Дякую всій команді за підтримку та поради. Рекомендую всім — рятуйте тваринок, вони це заслуговують!',
-    author: 'Наталія',
-  },
-  {
-    rating: 4,
-    comment:
-      "Взяли кошеня на ім'я Рудик три місяці тому. Він вже повністю освоївся і став господарем квартири. Дуже вдячні волонтерам за допомогу та консультації з догляду. Прекрасна організація, яка дійсно піклується про тваринок!",
-    author: 'Дмитро та Ірина',
-  },
-  {
-    rating: 4.5,
-    comment:
-      'Лабрадор Бонні прийшла до нас два роки тому — і ми не уявляємо без неї жодного дня. Вона подружилась із нашими дітьми з першої хвилини. Щиро дякуємо за те, що зводите людей і тваринок разом!',
-    author: "Сім'я Ковальських",
-  },
-];
+import { fetchFeedbacks } from './api/api';
+import { notify, UA_TOAST } from './notifications';
 
 // ─── DOM refs ─────────────────────────────────────────────────────────────────
 
@@ -128,25 +93,35 @@ function getSpaceBetween() {
   return 16;
 }
 
-// ─── Fetch ───────────────────────────────────────────────────────────────────
-
-async function fetchFeedbacks() {
-  try {
-    const res = await fetch(API_URL);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    const list = Array.isArray(data) ? data : data.feedbacks || data.data || [];
-    if (list.length >= 3) return list;
-  } catch {
-    // fallback to demo
-  }
-  return DEMO_FEEDBACKS;
+function extractFeedbackList(data) {
+  return Array.isArray(data) ? data : data.feedbacks || data.data || [];
 }
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
 async function initStories() {
-  const feedbacks = await fetchFeedbacks();
+  let currentPage = 1;
+  let totalFeedbacks = 0;
+  let isLoadingMore = false;
+  let feedbacks = [];
+
+  try {
+    const data = await fetchFeedbacks(currentPage);
+    feedbacks = extractFeedbackList(data);
+    if (!feedbacks.length) {
+      notify.info(UA_TOAST.NO_FEEDBACKS);
+      return;
+    }
+    totalFeedbacks = Number(data?.total) || feedbacks.length;
+  } catch (err) {
+    const isNetworkError = !err.response;
+    if (isNetworkError) {
+      notify.failure(UA_TOAST.NETWORK);
+      return;
+    }
+    notify.failure(UA_TOAST.UNKNOWN_ERROR);
+    totalFeedbacks = 0;
+  }
 
   wrapperEl.innerHTML = feedbacks.map(buildSlide).join('');
 
@@ -172,9 +147,57 @@ async function initStories() {
       },
       slideChange(swiper) {
         updateNavButtons(swiper);
+        void maybeLoadMore(swiper);
       },
     },
   });
+
+  async function maybeLoadMore(swiper) {
+    if (isLoadingMore) return;
+
+    const loadedCount = wrapperEl.children.length;
+    if (loadedCount >= totalFeedbacks) return;
+
+    const visibleSlides = Math.ceil(Number(swiper.params.slidesPerView) || 1);
+    const isNearEnd =
+      swiper.activeIndex + visibleSlides >= swiper.slides.length;
+    if (!isNearEnd) return;
+
+    isLoadingMore = true;
+
+    try {
+      const nextPage = currentPage + 1;
+      const data = await fetchFeedbacks(nextPage);
+      if (!data || !extractFeedbackList(data).length) {
+        notify.info(UA_TOAST.NO_MORE_FEEDBACKS);
+        return;
+      }
+      const nextFeedbacks = extractFeedbackList(data);
+      totalFeedbacks = Number(data?.total) || totalFeedbacks;
+
+      if (!nextFeedbacks.length) {
+        totalFeedbacks = loadedCount;
+        return;
+      }
+
+      wrapperEl.insertAdjacentHTML(
+        'beforeend',
+        nextFeedbacks.map(buildSlide).join('')
+      );
+      currentPage = nextPage;
+      swiper.update();
+    } catch (err) {
+      const isNetworkError = !err.response;
+      if (isNetworkError) {
+        notify.failure(UA_TOAST.NETWORK);
+        return;
+      }
+      notify.failure(UA_TOAST.UNKNOWN_ERROR);
+    } finally {
+      isLoadingMore = false;
+      updateNavButtons(swiper);
+    }
+  }
 
   window.addEventListener('resize', () => {
     swiperInstance.params.slidesPerView = getSlidesPerView();
@@ -184,7 +207,12 @@ async function initStories() {
   });
 
   btnPrev.addEventListener('click', () => swiperInstance.slidePrev());
-  btnNext.addEventListener('click', () => swiperInstance.slideNext());
+  btnNext.addEventListener('click', async () => {
+    if (swiperInstance.isEnd) {
+      await maybeLoadMore(swiperInstance);
+    }
+    swiperInstance.slideNext();
+  });
 }
 
 initStories();
