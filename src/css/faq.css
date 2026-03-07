@@ -47,7 +47,7 @@
   width: 100%;
   padding: 20px 24px !important;
   cursor: pointer;
-
+  
   /* Скидання дефолту бібліотеки */
   background: transparent !important;
   border: none !important;
@@ -58,7 +58,7 @@
   font: inherit !important;
   font-family: var(--font-family) !important;
   font-weight: 700 !important;
-  font-size: 16px !important;
+  font-size: 16px !important; 
   line-height: 1.5 !important;
   color: var(--color-scheme-1-text) !important;
 }
@@ -94,18 +94,12 @@
   display: block;
   width: 24px;
   height: 24px;
-  transition: opacity var(--transition-duration-250) ease;
+  transition: opacity 250ms ease;
 }
 
-.icon-close {
-  opacity: 0;
-}
-.ac.is-active .icon-plus {
-  opacity: 0;
-}
-.ac.is-active .icon-close {
-  opacity: 1;
-}
+.icon-close { opacity: 0; }
+.ac.is-active .icon-plus { opacity: 0; }
+.ac.is-active .icon-close { opacity: 1; }
 
 /* --- Контент (Текст відповіді) --- */
 .ac-panel {
@@ -124,20 +118,15 @@
 }
 
 /* --- Списки всередині --- */
-.faq-list,
+.faq-list, 
 .faq-list-ul {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.faq-list {
-  padding-bottom: 24px;
-}
-.faq-list-ul {
-  padding: 0 24px 24px;
-  list-style: none;
-}
+.faq-list { padding-bottom: 24px; }
+.faq-list-ul { padding: 0 24px 24px; list-style: none; }
 
 .faq-list li,
 .faq-list-ul li {
@@ -163,13 +152,9 @@
 
 /* --- Адаптивність --- */
 @media screen and (min-width: 768px) {
-  .accordion {
-    max-width: 704px;
-  }
-  .hero-faq-section {
-    margin-bottom: 80px;
-  }
-
+  .accordion { max-width: 704px; }
+  .hero-faq-section { margin-bottom: 80px; }
+  
   #faq-accordion .ac .ac-text,
   .faq-list li,
   .faq-list-ul li {
@@ -179,12 +164,8 @@
 
 @media screen and (min-width: 1440px) {
   #faq-accordion .ac .ac-trigger {
-    font-size: 18px !important;
-  }
-  .faq-section {
-    padding: 80px 0;
-  }
-  .accordion {
-    max-width: 864px;
-  }
+  font-size: 18px !important; 
+}
+  .faq-section { padding: 80px 0; }
+  .accordion { max-width: 864px; }
 }

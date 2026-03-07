@@ -1,7 +1,6 @@
-import { refs } from './refs';
-
 function initScrollToTop() {
-  if (!refs.scrollToTopBtn) return;
+  const btn = document.querySelector('[data-scroll-top]');
+  if (!btn) return;
 
   let shown = false;
   let burstTimer = null;
@@ -21,13 +20,13 @@ function initScrollToTop() {
     lastBurstAt = now;
 
     // up – сліди над кнопкою, down – сліди під кнопкою
-    refs.scrollToTopBtn.classList.remove('dir-up', 'dir-down');
-    refs.scrollToTopBtn.classList.add(direction === 'up' ? 'dir-up' : 'dir-down');
+    btn.classList.remove('dir-up', 'dir-down');
+    btn.classList.add(direction === 'up' ? 'dir-up' : 'dir-down');
 
-    refs.scrollToTopBtn.classList.add('tracks-burst');
+    btn.classList.add('tracks-burst');
     clearTimeout(burstTimer);
     burstTimer = setTimeout(
-      () => refs.scrollToTopBtn.classList.remove('tracks-burst'),
+      () => btn.classList.remove('tracks-burst'),
       BURST_DURATION
     );
   };
@@ -36,14 +35,14 @@ function initScrollToTop() {
     const shouldShow = window.scrollY > 400;
 
     if (shouldShow && !shown) {
-      refs.scrollToTopBtn.classList.add('show');
-      refs.scrollToTopBtn.classList.add('dir-up');
+      btn.classList.add('show');
+      btn.classList.add('dir-up');
       shown = true;
       return;
     }
 
     if (!shouldShow && shown) {
-      refs.scrollToTopBtn.classList.remove('show', 'tracks-burst');
+      btn.classList.remove('show', 'tracks-burst');
       clearTimeout(burstTimer);
       shown = false;
     }
@@ -73,7 +72,7 @@ function initScrollToTop() {
   window.addEventListener('scroll', onScroll, { passive: true });
   toggle();
 
-  refs.scrollToTopBtn.addEventListener('click', () => {
+  btn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }

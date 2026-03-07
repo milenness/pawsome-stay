@@ -22,10 +22,10 @@
   pointer-events: none;
 
   transition:
-    opacity var(--transition-duration-200) ease,
-    transform var(--transition-duration-200) ease,
-    background var(--transition-duration-200) ease,
-    color var(--transition-duration-200) ease;
+    opacity 200ms ease,
+    transform 200ms ease,
+    background 200ms ease,
+    color 200ms ease;
 }
 
 .scroll-top.show {
@@ -94,8 +94,8 @@
   opacity: 0;
   transform: translateX(-50%) translateY(6px) scale(0.9);
   transition:
-    opacity var(--transition-duration-120) ease,
-    transform var(--transition-duration-200) ease;
+    opacity 120ms ease,
+    transform 200ms ease;
 }
 
 /* UP */
@@ -149,22 +149,22 @@
 }
 
 .scroll-top.tracks-burst .track--1 {
-  transition-delay: var(--transition-duration-0);
+  transition-delay: 0ms;
 }
 
 .scroll-top.tracks-burst .track--2 {
-  transition-delay: var(--transition-duration-70);
+  transition-delay: 70ms;
 }
 
 .scroll-top.tracks-burst .track--3 {
-  transition-delay: var(--transition-duration-140);
+  transition-delay: 140ms;
 }
 
 /* швидке зникнення */
 
 .scroll-top:not(.tracks-burst) .track {
   opacity: 0;
-  transition: opacity var(--transition-duration-120) ease;
+  transition: opacity 120ms ease;
 }
 
 /* кнопка зменшена для мобілок */
