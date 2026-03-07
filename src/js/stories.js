@@ -1,5 +1,6 @@
 import Swiper from 'swiper';
 import 'swiper/css';
+import iconsSpriteUrl from '../img/icons.svg?url';
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -80,7 +81,7 @@ function renderStars(rating) {
     html += `
       <span class="review-star">
         <svg class="review-star-icon" aria-hidden="true">
-          <use href="/img/icons.svg#${iconId}"></use>
+          <use href="${iconsSpriteUrl}#${iconId}"></use>
         </svg>
       </span>`;
   }
