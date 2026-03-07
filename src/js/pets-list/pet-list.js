@@ -11,11 +11,30 @@ let currentPage = 1;
 let currentCategory = null;
 let isLoading = false;
 let isFirstLoad = true;
+let loadedAnimals = [];
+
+export function getPetById(petId) {
+  return loadedAnimals.find(
+    animal => String(animal._id || animal.id) === String(petId)
+  );
+}
+
+function mergeUniqueAnimals(existing, incoming) {
+  return Array.from(
+    new Map(
+      [...existing, ...incoming].map(animal => [
+        String(animal._id || animal.id),
+        animal,
+      ])
+    ).values()
+  );
+}
 
 export function clearPetList() {
   petList.innerHTML = '';
   currentPage = 1;
   currentCategory = null;
+  loadedAnimals = [];
 
   loadMoreBtn.classList.add('is-hidden');
   loadMoreBtnWrapper.classList.add('is-hidden');
@@ -106,6 +125,7 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
     currentPage = 1;
     currentCategory = categoryId;
     petList.innerHTML = '';
+    loadedAnimals = [];
     // Hide wrapper when switching to new category
     if (loadMoreBtnWrapper) {
       loadMoreBtnWrapper.classList.add('is-hidden');
@@ -132,6 +152,7 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
 
     removeLoader();
     petList.insertAdjacentHTML('beforeend', createPetListMarkup(animals));
+    loadedAnimals = mergeUniqueAnimals(loadedAnimals, animals);
 
     const totalPages = Math.ceil(totalItems / limit);
 
