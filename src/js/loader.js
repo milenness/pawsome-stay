@@ -1,25 +1,31 @@
 import axios from 'axios';
-import { refs } from './refs';
 
+const LOADER_ID = 'global-loader';
 let activeRequests = 0;
 
 function shouldTrackRequest(config) {
   return !config?.skipGlobalLoader;
 }
 
-function showLoader() {
-  if (!refs.globalLoader) return;
+function getLoader() {
+  return document.getElementById(LOADER_ID);
+}
 
-  refs.globalLoader.classList.remove('is-hidden');
+function showLoader() {
+  const loader = getLoader();
+  if (!loader) return;
+
+  loader.classList.remove('is-hidden');
   document.body.style.overflow = 'hidden';
 }
 
 function hideLoader() {
-  if (!refs.globalLoader) return;
+  const loader = getLoader();
+  if (!loader) return;
 
   if (activeRequests > 0) return;
 
-  refs.globalLoader.classList.add('is-hidden');
+  loader.classList.add('is-hidden');
   document.body.style.overflow = '';
 }
 

@@ -10,5 +10,3 @@ import '/js/pawlist-modal.js';
 import '/js/scroll-to-top.js';
 import '/js/stories.js';
 import '/js/about-slider.js';
-import '/js/cursor.js';
-import '/js/footer.js';

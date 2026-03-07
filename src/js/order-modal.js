@@ -1,10 +1,11 @@
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import { createOrder } from '/js/api/api.js';
-import { refs } from './refs';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const submitBtn = refs.orderForm?.querySelector('button[type="submit"]');
+  const form = document.querySelector('.order-form');
+  const modalOverlay = document.querySelector('.order-overlay');
+  const submitBtn = form?.querySelector('button[type="submit"]');
 
   let currentAnimalId = null;
 
@@ -17,21 +18,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     currentAnimalId = id;
-    refs.orderOverlay.classList.add('is-open');
+    modalOverlay.classList.add('is-open');
     document.body.classList.add('modal-open');
     document.addEventListener('keydown', onEscapePress);
   };
 
   function closeModal() {
-    refs.orderOverlay.classList.remove('is-open');
+    modalOverlay.classList.remove('is-open');
     document.body.classList.remove('modal-open');
     document.removeEventListener('keydown', onEscapePress);
 
     setTimeout(() => {
       currentAnimalId = null;
-      if (refs.orderForm) {
-        refs.orderForm.reset();
-        refs.orderForm.classList.remove('was-validated');
+      if (form) {
+        form.reset();
+        form.classList.remove('was-validated');
       }
     }, 250);
   }
@@ -42,20 +43,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* --- 2. СЛУХАЧІ ПОДІЙ --- */
 
-  refs.orderOverlay.addEventListener('click', e => {
-    if (e.target.closest('.close-btn') || e.target === refs.orderOverlay) {
+  modalOverlay.addEventListener('click', e => {
+    if (e.target.closest('.close-btn') || e.target === modalOverlay) {
       closeModal();
     }
   });
 
   /* --- 3. ВІДПРАВКА ФОРМИ --- */
 
-  if (refs.orderForm) {
-    refs.orderForm.addEventListener('submit', async e => {
+  if (form) {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
-      refs.orderForm.classList.add('was-validated');
+      form.classList.add('was-validated');
 
-      if (!refs.orderForm.checkValidity()) return;
+      if (!form.checkValidity()) return;
 
       if (!currentAnimalId) {
         Swal.fire({
@@ -67,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const formData = new FormData(refs.orderForm);
+      const formData = new FormData(form);
       const rawData = Object.fromEntries(formData.entries());
 
       const requestData = {

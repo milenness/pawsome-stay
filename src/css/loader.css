@@ -12,8 +12,8 @@
 
   opacity: 1;
   transition:
-    opacity var(--transition-duration-350) ease,
-    visibility var(--transition-duration-350) ease;
+    opacity 0.35s ease,
+    visibility 0.35s ease;
 }
 
 .is-hidden {
@@ -24,7 +24,7 @@
 
 .loader-content {
   text-align: center;
-  animation: fadeScale var(--transition-duration-400) ease;
+  animation: fadeScale 0.4s ease;
 }
 
 /*  Paw */
@@ -41,34 +41,34 @@
   position: absolute;
   width: 20px;
   height: 30px;
-  background: var(--color-loader-background);
+  background: #8b6f47;
   border-radius: 50%;
-  animation: bounce var(--transition-duration-1400) infinite ease-in-out;
+  animation: bounce 1.4s infinite ease-in-out;
 }
 
 /* розташування пальців */
 .paw span:nth-child(1) {
   top: 5px;
   left: 20px;
-  animation-delay: var(--transition-duration-0);
+  animation-delay: 0s;
 }
 
 .paw span:nth-child(2) {
   top: 5px;
   right: 20px;
-  animation-delay: var(--transition-duration-200);
+  animation-delay: 0.2s;
 }
 
 .paw span:nth-child(3) {
   top: 28px;
   left: 2px;
-  animation-delay: var(--transition-duration-400);
+  animation-delay: 0.4s;
 }
 
 .paw span:nth-child(4) {
   top: 28px;
   right: 2px;
-  animation-delay: var(--transition-duration-600);
+  animation-delay: 0.6s;
 }
 
 /* подушечка лапки */
@@ -79,15 +79,14 @@
   transform: translateX(-10%);
   width: 52px;
   height: 38px;
-  background: var(--color-loader-background);
+  background: #8b6f47;
   border-radius: 50% 50% 40% 40%;
-  animation: bounce var(--transition-duration-1400) infinite ease-in-out
-    var(--transition-duration-800);
+  animation: bounce 1.4s infinite ease-in-out 0.8s;
 }
 /* Text */
 .loader-text {
   font-size: 15px;
-  color: var(--color-loader-text);
+  color: #2e2f42;
   letter-spacing: 0.4px;
 }
 
