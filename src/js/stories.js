@@ -1,10 +1,13 @@
 import Swiper from 'swiper';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/pagination';
+import iconsSpriteUrl from '../img/icons.svg?url';
 import { refs } from './refs';
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const API_URL = '/feedbacks';
+const API_URL = 'https://paw-hut.b.goit.study/api/feedbacks';
 
 const DEMO_FEEDBACKS = [
   {
@@ -81,7 +84,7 @@ function renderStars(rating) {
     html += `
       <span class="review-star">
         <svg class="review-star-icon" aria-hidden="true">
-          <use href="/img/icons.svg#${iconId}"></use>
+          <use href="${iconsSpriteUrl}#${iconId}"></use>
         </svg>
       </span>`;
   }
@@ -91,9 +94,9 @@ function renderStars(rating) {
 }
 
 function buildSlide(review) {
-  const rating = parseFloat(review.rating) || 5;
+  const rating  = parseFloat(review.rating) || 5;
   const comment = escHtml(review.comment || review.text || '');
-  const author = escHtml(review.author || review.name || 'Анонім');
+  const author  = escHtml(review.author  || review.name  || 'Анонім');
 
   return `
     <li class="swiper-slide">
@@ -112,7 +115,7 @@ function buildPagination(count, swiperInstance) {
   for (let i = 0; i < count; i++) {
     const dot = document.createElement('button');
     dot.className = 'stories-pagination-dot' + (i === 0 ? ' is-active' : '');
-    dot.type = 'button';
+    dot.type      = 'button';
     dot.setAttribute('role', 'tab');
     dot.setAttribute('aria-label', `Відгук ${i + 1}`);
     dot.addEventListener('click', () => swiperInstance.slideTo(i));
@@ -171,19 +174,23 @@ async function initStories() {
   sliderWrap.classList.add('is-visible');
 
   const swiperInstance = new Swiper(swiperEl, {
+    modules: [Pagination],
     slidesPerView: getSlidesPerView(),
     spaceBetween: getSpaceBetween(),
     grabCursor: true,
     speed: 400,
     observer: true,
     observeParents: true,
+    pagination: {
+      el: paginationEl,
+      clickable: true,
+      dynamicBullets: true,
+    },
     on: {
       init(swiper) {
-        buildPagination(feedbacks.length, swiper);
         updateNavButtons(swiper);
       },
       slideChange(swiper) {
-        updatePagination(swiper.activeIndex);
         updateNavButtons(swiper);
       },
     },
@@ -193,8 +200,6 @@ async function initStories() {
     swiperInstance.params.slidesPerView = getSlidesPerView();
     swiperInstance.params.spaceBetween = getSpaceBetween();
     swiperInstance.update();
-    buildPagination(feedbacks.length, swiperInstance);
-    updatePagination(swiperInstance.activeIndex);
     updateNavButtons(swiperInstance);
   });
 

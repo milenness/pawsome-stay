@@ -93,6 +93,7 @@
 
 .modal-input::placeholder {
   color: var(--opacity-neutral-darkest-60);
+  font-size: 14px;
 }
 
 .modal-input:focus,
@@ -130,9 +131,15 @@
   color: var(--color-white);
   background: var(--color-mariner-dark);
   transition:
-    background-color var(--transition-duration-250) var(--transition-curve),
-    color var(--transition-duration-250) var(--transition-curve),
-    border-color var(--transition-duration-250) var(--transition-curve);
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media screen and (min-width: 1440px) {
+  .modal-btn {
+    font-size: 16px;
+  }
 }
 
 .modal-btn:hover,
