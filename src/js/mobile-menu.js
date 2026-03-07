@@ -1,10 +1,6 @@
-const mobileMenu = document.querySelector('.mobile-menu');
-const menuBtnOpen = document.querySelector('.menu-btn-open');
-const menuBtnClose = document.querySelector('.menu-btn-close');
+import { refs } from './refs';
 
-const menuLinks = document.querySelectorAll('.mob-menu-link, .mob-menu-button');
-
-const toggleMenu = () => mobileMenu.classList.toggle('is-open');
+const toggleMenu = () => refs.mobileMenu.classList.toggle('is-open');
 const disableScroll = () =>
   document.body.classList.toggle('is-scroll-disabled');
 
@@ -13,12 +9,12 @@ const handleLinkClick = () => {
   disableScroll();
 };
 
-menuBtnOpen.addEventListener('click', toggleMenu);
-menuBtnClose.addEventListener('click', toggleMenu);
+refs.menuBtnOpen.addEventListener('click', toggleMenu);
+refs.menuBtnClose.addEventListener('click', toggleMenu);
 
-menuBtnOpen.addEventListener('click', disableScroll);
-menuBtnClose.addEventListener('click', disableScroll);
+refs.menuBtnOpen.addEventListener('click', disableScroll);
+refs.menuBtnClose.addEventListener('click', disableScroll);
 
-menuLinks.forEach(link => {
+refs.menuLinks.forEach(link => {
   link.addEventListener('click', handleLinkClick);
 });

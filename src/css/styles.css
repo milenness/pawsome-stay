@@ -3,6 +3,7 @@
 @import url('./base.css');
 @import url('./container.css');
 @import url('./fonts.css');
+@import url('./cursor.css');
 
 /* Sections style */
 @import url('./header.css');
@@ -18,3 +19,4 @@
 @import url('./loader.css');
 @import url('./hover-animation.css');
 @import url('./scroll-to-top.css');
+@import url('./dev-team-modal.css');

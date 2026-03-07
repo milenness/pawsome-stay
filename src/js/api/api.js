@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://paw-hut.b.goit.study/api',
+  baseURL: import.meta.env.VITE_GOIT_API_URL,
 });
 
 const GET_ALL_CATEGORIES = '/categories';

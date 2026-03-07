@@ -1,32 +1,30 @@
-const cursor = document.querySelector('.custom-cursor');
-const headerLogo = document.querySelector('.nav-logo');
-const footerLogo = document.querySelector('.footer__logo');
+import { refs } from './refs';
 
-document.addEventListener('mousemove', (e) => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
+document.addEventListener('mousemove', e => {
+  refs.cursor.style.left = e.clientX + 'px';
+  refs.cursor.style.top = e.clientY + 'px';
 });
 
 /* HEADER — маленька */
-headerLogo.addEventListener('mouseenter', () => {
-  cursor.classList.add('beating', 'small');
-  cursor.classList.remove('large');
-  cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+refs.navLogo.addEventListener('mouseenter', () => {
+  refs.cursor.classList.add('beating', 'small');
+  refs.cursor.classList.remove('large');
+  refs.cursor.style.transform = 'translate(-50%, -50%) scale(1)';
 });
 
-headerLogo.addEventListener('mouseleave', () => {
-  cursor.classList.remove('beating', 'small');
-  cursor.style.transform = 'translate(-50%, -50%) scale(0)';
+refs.navLogo.addEventListener('mouseleave', () => {
+  refs.cursor.classList.remove('beating', 'small');
+  refs.cursor.style.transform = 'translate(-50%, -50%) scale(0)';
 });
 
 /* FOOTER — велика */
-footerLogo.addEventListener('mouseenter', () => {
-  cursor.classList.add('beating', 'large');
-  cursor.classList.remove('small');
-  cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+refs.footerLogo.addEventListener('mouseenter', () => {
+  refs.cursor.classList.add('beating', 'large');
+  refs.cursor.classList.remove('small');
+  refs.cursor.style.transform = 'translate(-50%, -50%) scale(1)';
 });
 
-footerLogo.addEventListener('mouseleave', () => {
-  cursor.classList.remove('beating', 'large');
-  cursor.style.transform = 'translate(-50%, -50%) scale(0)';
+refs.footerLogo.addEventListener('mouseleave', () => {
+  refs.cursor.classList.remove('beating', 'large');
+  refs.cursor.style.transform = 'translate(-50%, -50%) scale(0)';
 });
