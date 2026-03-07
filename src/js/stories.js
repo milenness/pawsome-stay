@@ -4,7 +4,7 @@ import iconsSpriteUrl from '../img/icons.svg?url';
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const API_URL = 'https://paw-hut.b.goit.study/api/feedbacks';
+const API_URL = '/feedbacks';
 
 const DEMO_FEEDBACKS = [
   {
