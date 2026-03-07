@@ -1,6 +1,5 @@
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-
 import { createOrder } from '/js/api/api.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,24 +9,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentAnimalId = null;
 
-  // --- 1. ФУНКЦІЇ КЕРУВАННЯ МОДАЛКОЮ ---
+  /* --- 1. ГЛОБАЛЬНІ ФУНКЦІЇ КЕРУВАННЯ --- */
 
-  function openModal(id) {
+  window.openOrderModal = function (id) {
     if (!id) {
-      console.error('Помилка: ID тварини не передано!');
+      console.warn('Спроба відкрити форму без ID тварини');
       return;
     }
+
     currentAnimalId = id;
     modalOverlay.classList.add('is-open');
+    document.body.classList.add('modal-open');
     document.addEventListener('keydown', onEscapePress);
-  }
+  };
 
   function closeModal() {
     modalOverlay.classList.remove('is-open');
+    document.body.classList.remove('modal-open');
     document.removeEventListener('keydown', onEscapePress);
-    currentAnimalId = null;
 
     setTimeout(() => {
+      currentAnimalId = null;
       if (form) {
         form.reset();
         form.classList.remove('was-validated');
@@ -39,46 +41,52 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeModal();
   }
 
-  // --- 2. СЛУХАЧІ КЛІКІВ ---
+  /* --- 2. СЛУХАЧІ ПОДІЙ --- */
 
-  document.addEventListener('click', e => {
-    const openBtn = e.target.closest('.open-modal-btn');
-    if (openBtn) {
-      const id = openBtn.dataset.id;
-      openModal(id);
-    }
-
+  modalOverlay.addEventListener('click', e => {
     if (e.target.closest('.close-btn') || e.target === modalOverlay) {
       closeModal();
     }
   });
 
-  // --- 3. ВІДПРАВКА ФОРМИ ---
+  /* --- 3. ВІДПРАВКА ФОРМИ --- */
 
   if (form) {
     form.addEventListener('submit', async e => {
       e.preventDefault();
-
       form.classList.add('was-validated');
 
       if (!form.checkValidity()) return;
+
+      if (!currentAnimalId) {
+        Swal.fire({
+          title: 'Помилка',
+          text: 'Не вдалося визначити ID тварини.',
+          icon: 'error',
+          confirmButtonColor: '#2e2f42',
+        });
+        return;
+      }
 
       const formData = new FormData(form);
       const rawData = Object.fromEntries(formData.entries());
 
       const requestData = {
-        name: rawData.name,
-        phone: rawData.phone,
-        comment: rawData.comment,
+        name: rawData.name.trim(),
+        phone: rawData.phone.trim(),
+        comment: rawData.comment ? rawData.comment.trim() : 'Хочу стати другом',
         animalId: currentAnimalId,
       };
 
       try {
-        if (submitBtn) submitBtn.disabled = true;
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Надсилаємо...';
+        }
 
         await createOrder(requestData);
 
-        Swal.fire({
+        await Swal.fire({
           title: 'Заявку успішно надіслано!',
           text: 'Ми зв’яжемося з вами найближчим часом.',
           icon: 'success',
@@ -87,19 +95,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         closeModal();
       } catch (error) {
-        console.error(
-          'Помилка відправки:',
-          error.response?.data || error.message
-        );
-
-        Swal.fire({
-          title: 'Помилка!',
-          text: 'Не вдалося надіслати заявку. Спробуйте, будь ласка, ще раз пізніше.',
-          icon: 'error',
-          confirmButtonColor: '#2e2f42',
-        });
+        const serverError =
+          error.response?.data?.message || 'Помилка при відправці.';
+        Swal.fire({ title: 'Помилка!', text: serverError, icon: 'error' });
       } finally {
-        if (submitBtn) submitBtn.disabled = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Надіслати';
+        }
       }
     });
   }
