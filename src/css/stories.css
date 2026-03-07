@@ -87,7 +87,9 @@
 }
 
 @keyframes storiesSpin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ── Slider wrap ── */
@@ -189,31 +191,38 @@
 
 /* ── Pagination ── */
 .stories-pagination {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  position: static !important;
+  left: auto !important;
+  transform: none !important;
+
+  min-height: 8px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.stories-pagination-dot {
-  display: block;
+.stories-pagination .swiper-pagination-bullet {
   width: 8px;
   height: 8px;
+  margin: 0 4px !important;
   border-radius: 50%;
   background: var(--color-neutral-lighter);
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transition: background 0.25s ease, transform 0.25s ease;
+  opacity: 1;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
 }
 
-.stories-pagination-dot:hover {
-  background: var(--color-neutral-light);
-  transform: scale(1.25);
-}
-
-.stories-pagination-dot.is-active {
+.stories-pagination .swiper-pagination-bullet-active {
   background: var(--color-neutral-darkest);
-  transform: scale(1.3);
+}
+
+.stories-pagination .swiper-pagination-bullet-active-prev,
+.stories-pagination .swiper-pagination-bullet-active-next {
+  transform: scale(0.85);
+}
+
+.stories-pagination .swiper-pagination-bullet-active-prev-prev,
+.stories-pagination .swiper-pagination-bullet-active-next-next {
+  transform: scale(0.7);
 }
 
 /* ── Nav buttons ── */
@@ -250,7 +259,7 @@
 /* Hover / Focus */
 .stories-nav-btn:hover,
 .stories-nav-btn:focus-visible {
-  background: #EEE9E3;
+  background: #eee9e3;
   border-color: var(--color-scheme-1-border);
   opacity: 0.4;
   outline: none;
@@ -258,7 +267,7 @@
 
 /* Active */
 .stories-nav-btn:active {
-  background: #EEE9E3;
+  background: #eee9e3;
   border-color: var(--color-scheme-1-border);
   opacity: 1;
 }
