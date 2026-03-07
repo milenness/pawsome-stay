@@ -94,6 +94,7 @@ transition: border-color 250ms ease-in-out;
 
 .modal-input::placeholder {
 color: var(--opacity-neutral-darkest-60);
+font-size: 14px;
 }
 
 .modal-input:focus,
@@ -118,6 +119,19 @@ background-color: var(--opacity-neutral-darkest-5);
 
 .modal-textarea::placeholder {
 color: var(--opacity-neutral-darkest-60);
+font-size: 14px;
+}
+
+@media screen and (min-width: 1440px) {
+    .modal-label {
+font-size: 16px;
+}
+    .modal-textarea::placeholder {
+font-size: 16px;
+}
+.modal-textarea::placeholder {
+font-size: 16px;
+}
 }
 
 .modal-btn {
@@ -128,11 +142,18 @@ color: var(--opacity-neutral-darkest-60);
     border: 1px solid var(--color-mariner-dark);
 border-radius: 8px;
 padding: 12px 81.5px;
+font-size: 14px;
 color: var(--color-white);
 background: var(--color-mariner-dark);
  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), 
               color 250ms cubic-bezier(0.4, 0, 0.2, 1),
               border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media screen and (min-width: 1440px) {
+.modal-btn {
+font-size: 16px;
+}
 }
 
 .modal-btn:hover,
