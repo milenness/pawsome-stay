@@ -1,0 +1,345 @@
+/* =========================
+   LIGHT MODE DEFAULT
+========================= */
+
+.header-section {
+  background-color: #f3efe9;
+}
+
+.menu-link,
+.burger-button,
+.nav-logo,
+.close-btn,
+.mob-nav-logo {
+  color: #332c22;
+}
+
+.burger-icon,
+.close-icon,
+.logo-icon {
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+.section-desc-title,
+.section-desc-descriptor,
+.pet-info-category,
+.pet-info-name,
+.pet-age-and-gender-wrapper,
+.pet-about,
+.ac-trigger,
+.ac-text {
+  color: #332c22;
+}
+
+/* =========================
+   THEME TOGGLE
+========================= */
+
+.theme-switch {
+  position: relative;
+  display: inline-flex;
+  width: 54px;
+  height: 28px;
+  margin-left: 12px;
+  flex-shrink: 0;
+}
+
+.theme-switch__checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.theme-switch__slider {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  border-radius: 999px;
+  background-color: #000000;
+  border: 1px solid #444;
+  transition: background-color 250ms ease, border-color 250ms ease;
+}
+
+.theme-switch__thumb {
+  position: absolute;
+  left: 3px;
+  top: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  transition: transform 250ms ease, background-color 250ms ease;
+  overflow: hidden;
+}
+
+.theme-switch__thumb svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+}
+
+.paw-dark {
+  opacity: 1;
+}
+
+.paw-light {
+  opacity: 0;
+}
+
+.theme-switch__checkbox:checked + .theme-switch__slider .theme-switch__thumb {
+  transform: translateX(26px);
+}
+
+/* =========================
+   CURSOR PAW
+========================= */
+
+.custom-cursor {
+  filter: none;
+}
+
+body.darkmode .custom-cursor {
+  filter: invert(1);
+}
+
+/* =========================
+   DARK MODE HEADER
+========================= */
+
+body.darkmode .header-section {
+  background-color: #1c1c1c;
+}
+
+body.darkmode .menu-link,
+body.darkmode .burger-button,
+body.darkmode .nav-logo,
+body.darkmode .close-btn,
+body.darkmode .mob-nav-logo {
+  color: #ffffff;
+}
+
+body.darkmode .burger-icon,
+body.darkmode .close-icon,
+body.darkmode .logo-icon {
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+body.darkmode .theme-switch__slider {
+  background-color: #ffffff;
+  border-color: #ccc;
+}
+
+body.darkmode .theme-switch__thumb {
+  background-color: #000000;
+}
+
+body.darkmode .paw-dark {
+  opacity: 0;
+}
+
+body.darkmode .paw-light {
+  opacity: 1;
+}
+
+/* =========================
+   DARK MODE HERO
+========================= */
+
+body.darkmode .hero-section .button,
+body.darkmode .hero-section .hero-btn,
+body.darkmode .hero-section a[href="#stories"] {
+  background-color: #9a8a78;
+  color: #ffffff;
+  border-color: #9a8a78;
+}
+
+body.darkmode .hero-section .button:hover,
+body.darkmode .hero-section .hero-btn:hover,
+body.darkmode .hero-section .button:focus,
+body.darkmode .hero-section .hero-btn:focus,
+body.darkmode .hero-section a[href="#stories"]:hover,
+body.darkmode .hero-section a[href="#stories"]:focus {
+  background-color: #b7a58e;
+  border-color: #b7a58e;
+  color: #ffffff;
+}
+
+/* =========================
+   DARK MODE LIST SECTION
+========================= */
+
+body.darkmode .list-section {
+  background-color: #181818;
+}
+
+/* =========================
+   DARK MODE PET CARDS
+========================= */
+
+body.darkmode .pet-list-item {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+body.darkmode .pet-info-name,
+body.darkmode .pet-info-category,
+body.darkmode .pet-age-and-gender-wrapper,
+body.darkmode .pet-about,
+body.darkmode .section-desc-title,
+body.darkmode .section-desc-descriptor {
+  color: #ffffff;
+}
+
+body.darkmode .pet-info-categories-list-item {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* =========================
+   DARK MODE CATEGORY FILTER
+========================= */
+
+body.darkmode .categories-list-item {
+  color: #ffffff;
+}
+
+body.darkmode .categories-list-item.active {
+  background-color: #9a8a78;
+  color: #ffffff;
+}
+
+/* =========================
+   DARK MODE BUTTONS
+========================= */
+
+body.darkmode .pet-more-info {
+  background-color: #9a8a78;
+  color: #ffffff;
+  border: 1px solid #9a8a78;
+}
+
+body.darkmode .pet-more-info:hover,
+body.darkmode .pet-more-info:focus {
+  background-color: #b7a58e;
+  border-color: #b7a58e;
+  color: #ffffff;
+}
+
+body.darkmode .load-more-pets-btn {
+  background-color: #9a8a78;
+  border-color: #9a8a78;
+  color: #ffffff;
+}
+
+body.darkmode .load-more-pets-btn:hover,
+body.darkmode .load-more-pets-btn:focus {
+  background-color: #b7a58e;
+  border-color: #b7a58e;
+  color: #ffffff;
+}
+
+/* =========================
+   DARK MODE FAQ
+========================= */
+
+body.darkmode #faq-accordion .ac {
+  background: #f3efe9 !important;
+}
+
+body.darkmode #faq-accordion .ac-trigger {
+  color: #111111 !important;
+}
+
+body.darkmode #faq-accordion .ac-panel,
+body.darkmode #faq-accordion .ac-text,
+body.darkmode #faq-accordion .ac p,
+body.darkmode #faq-accordion .ac li,
+body.darkmode #faq-accordion .faq-list li,
+body.darkmode #faq-accordion .faq-list-ul li {
+  color: #111111 !important;
+}
+
+body.darkmode #faq-accordion .ac-header,
+body.darkmode #faq-accordion .ac-panel {
+  background: transparent !important;
+}
+
+/* =========================
+   CARD HOVER
+========================= */
+
+.pet-list-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* ================= MOBILE MENU DARK MODE FIX ================= */
+
+body.darkmode .mobile-menu {
+  background-color: #1c1c1c !important;
+}
+
+body.darkmode .mobile-menu .menu-link,
+body.darkmode .mobile-menu a,
+body.darkmode .mob-menu-list a {
+  color: #ffffff !important;
+}
+
+body.darkmode .mob-nav-logo,
+body.darkmode .close-btn {
+  color: #ffffff !important;
+}
+
+body.darkmode .mob-nav-logo svg,
+body.darkmode .mob-nav-logo svg * {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+body.darkmode .close-icon,
+body.darkmode .close-icon * {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+  color: #ffffff !important;
+}
+
+body.darkmode .mob-menu-button {
+  background-color: #9a8a78 !important;
+  border-color: #9a8a78 !important;
+  color: #ffffff !important;
+}
+
+body.darkmode .mob-menu-button:hover,
+body.darkmode .mob-menu-button:focus {
+  background-color: #b7a58e !important;
+  border-color: #b7a58e !important;
+  color: #ffffff !important;
+}
+
+/* світла тема */
+
+.nav-logo {
+  color: #000;
+}
+
+/* темна тема */
+
+body.darkmode .nav-logo {
+  color: #fff;
+}
+
+.nav-logo svg path,
+.nav-logo svg use,
+.nav-logo svg * {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
