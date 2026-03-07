@@ -128,12 +128,6 @@
   cursor: grabbing;
 }
 
-@media only screen and (min-width: 768px) {
-  .review-card {
-    padding: 0;
-  }
-}
-
 /* ── Stars ── */
 .review-stars {
   display: flex;
@@ -176,6 +170,7 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--color-neutral-darkest);
+  margin-top: auto;
 }
 
 /* ── Controls ── */
