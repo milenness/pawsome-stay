@@ -246,3 +246,30 @@ background-color: var(--color-mariner-light);
     background: var(--color-mariner-dark);
   }
 }
+
+.darkmode .pets-card,
+.darkmode .pets-item,
+.darkmode .pet-card {
+  background-color: #2b2b2b;
+}
+
+.darkmode .pets-card h3,
+.darkmode .pets-item h3,
+.darkmode .pet-card h3 {
+  color: #ffffff;
+}
+
+.darkmode .pets-card p,
+.darkmode .pets-item p,
+.darkmode .pet-card p {
+  color: #e0e0e0;
+}
+
+.darkmode .pets-card span,
+.darkmode .pets-item span,
+.darkmode .pet-card span,
+.darkmode .pets-card small,
+.darkmode .pets-item small,
+.darkmode .pet-card small {
+  color: #cfcfcf;
+}
