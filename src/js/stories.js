@@ -59,9 +59,9 @@ function renderStars(rating) {
 }
 
 function buildSlide(review) {
-  const rating  = parseFloat(review.rating) || 5;
+  const rating = parseFloat(review.rating) || 5;
   const comment = escHtml(review.comment || review.text || '');
-  const author  = escHtml(review.author  || review.name  || 'Анонім');
+  const author = escHtml(review.author || review.name || 'Анонім');
 
   return `
     <li class="swiper-slide">
@@ -80,7 +80,7 @@ function buildPagination(count, swiperInstance) {
   for (let i = 0; i < count; i++) {
     const dot = document.createElement('button');
     dot.className = 'stories-pagination-dot' + (i === 0 ? ' is-active' : '');
-    dot.type      = 'button';
+    dot.type = 'button';
     dot.setAttribute('role', 'tab');
     dot.setAttribute('aria-label', `Відгук ${i + 1}`);
     dot.addEventListener('click', () => swiperInstance.slideTo(i));
