@@ -90,11 +90,5 @@ margin: 0 auto;
 }
 }
 
-.darkmode .mobile-menu {
-  background-color: #1c1c1c;
-}
 
-.darkmode .mobile-menu a,
-.darkmode .mobile-menu .menu-link {
-  color: #ffffff;
-}
+
