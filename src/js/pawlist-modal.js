@@ -8,7 +8,7 @@ const modalOverlay = refs.petModalOverlay;
 let animalsCache = [];
 
 const api = axios.create({
-  baseURL: 'https://paw-hut.b.goit.study/api',
+  baseURL: import.meta.env.VITE_GOIT_API_URL,
 });
 
 const UA_MESSAGES = {
@@ -29,7 +29,10 @@ async function ensureAnimalsCache() {
     let allAnimals = [];
 
     while (allAnimals.length < totalItems) {
-      const response = await api.get('/animals', { params: { page, limit } });
+      const response = await api.get(
+        import.meta.env.VITE_GOIT_API_GET_ANIMALS_URL,
+        { params: { page, limit } }
+      );
       const { animals, totalItems: serverTotal } = response.data;
 
       if (!Array.isArray(animals) || (page === 1 && animals.length === 0))
