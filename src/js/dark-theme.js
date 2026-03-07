@@ -10,9 +10,7 @@ if (toggle) {
 
   toggle.addEventListener('change', () => {
     const isDark = toggle.checked;
-
     document.body.classList.toggle('darkmode', isDark);
-
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
   });
 }
