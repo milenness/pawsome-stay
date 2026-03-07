@@ -42,8 +42,8 @@
   transform: scaleX(0);
   transform-origin: right;
   transition:
-    transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transform var(--transition-duration-250) var(--transition-curve),
+    background-color var(--transition-duration-250) var(--transition-curve);
 }
 .categories-list-item:not(.active):hover::after,
 .categories-list-item:not(.active):focus-within::after,
@@ -125,17 +125,17 @@
   font-size: 14px;
   color: var(--color-neutral-darkest);
   text-align: center;
-  transition:
-    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color var(--transition-duration-250)
+    var(--transition-curve);
   margin-top: auto;
 }
 .pet-more-info:hover,
 .pet-more-info:focus {
-background-color: var(--color-mariner-light);
+  background-color: var(--color-mariner-light);
 }
 .pet-more-info:active {
-box-shadow: inset 0 4px 6px -2px rgba(0, 0, 0, 0.03), inset 0 12px 16px -4px rgba(0, 0, 0, 0.08);
-background-color: var(--color-mariner-light);
+  box-shadow: var(--border-shadow-button);
+  background-color: var(--color-mariner-light);
 }
 .load-more-pets-btn-wrapper {
   text-align: center;
@@ -152,9 +152,9 @@ background-color: var(--color-mariner-light);
   color: var(--color-white);
   background: var(--color-mariner-dark);
   transition:
-    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    color 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    background-color var(--transition-duration-250) var(--transition-curve),
+    color var(--transition-duration-250) var(--transition-curve),
+    border-color var(--transition-duration-250) var(--transition-curve);
 }
 @media (hover: hover) {
   .load-more-pets-btn:hover {

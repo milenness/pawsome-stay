@@ -1,11 +1,6 @@
 import { getAnimalsByCategory } from '../api/api';
 import { notify, UA_TOAST } from '../notifications';
-
-const petList = document.querySelector('.pet-list');
-const loadMoreBtn = document.querySelector('.load-more-pets-btn');
-const loadMoreBtnWrapper = document.querySelector(
-  '.load-more-pets-btn-wrapper'
-);
+import { refs } from '../refs';
 
 let currentPage = 1;
 let currentCategory = null;
@@ -32,26 +27,26 @@ function mergeUniqueAnimals(existing, incoming) {
 }
 
 export function clearPetList() {
-  petList.innerHTML = '';
+  refs.petList.innerHTML = '';
   currentPage = 1;
   currentCategory = null;
   loadedAnimals = [];
 
-  loadMoreBtn.classList.add('is-hidden');
-  loadMoreBtnWrapper.classList.add('is-hidden');
+  refs.petListLoadMoreBtn.classList.add('is-hidden');
+  refs.petListLoadMoreBtnWrapper.classList.add('is-hidden');
 }
 
 function hasPets() {
-  return petList.querySelectorAll('.pet-list-item').length > 0;
+  return refs.petList.querySelectorAll('.pet-list-item').length > 0;
 }
 
 function updateButtonVisibility(shouldShow) {
-  if (!loadMoreBtnWrapper) return;
+  if (!refs.petListLoadMoreBtnWrapper) return;
 
   if (shouldShow) {
-    loadMoreBtnWrapper.classList.remove('is-hidden');
+    refs.petListLoadMoreBtnWrapper.classList.remove('is-hidden');
   } else {
-    loadMoreBtnWrapper.classList.add('is-hidden');
+    refs.petListLoadMoreBtnWrapper.classList.add('is-hidden');
   }
 }
 
@@ -90,7 +85,7 @@ function createLoaderMarkup() {
 }
 
 function removeLoader() {
-  const loader = petList.querySelector('.pet-list-loader');
+  const loader = refs.petList.querySelector('.pet-list-loader');
   if (loader) {
     loader.remove();
   }
@@ -140,7 +135,7 @@ function renderPetList(hasMorePets) {
     ? loadedAnimals.slice(0, -1)
     : loadedAnimals;
 
-  petList.innerHTML = createPetListMarkup(animalsToRender);
+  refs.petList.innerHTML = createPetListMarkup(animalsToRender);
 }
 
 function recalculateAndRenderOnResize() {
@@ -150,7 +145,7 @@ function recalculateAndRenderOnResize() {
   if (currentViewportType === lastViewportType) return;
 
   lastViewportType = currentViewportType;
-  const hasMorePets = !loadMoreBtn.classList.contains('is-hidden');
+  const hasMorePets = !refs.petListLoadMoreBtn.classList.contains('is-hidden');
   renderPetList(hasMorePets);
 }
 
@@ -160,15 +155,15 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
   if (isNewCategory) {
     currentPage = 1;
     currentCategory = categoryId;
-    petList.innerHTML = '';
+    refs.petList.innerHTML = '';
     loadedAnimals = [];
     // Hide wrapper when switching to new category
-    if (loadMoreBtnWrapper) {
-      loadMoreBtnWrapper.classList.add('is-hidden');
+    if (refs.petListLoadMoreBtnWrapper) {
+      refs.petListLoadMoreBtnWrapper.classList.add('is-hidden');
     }
   }
 
-  petList.insertAdjacentHTML('beforeend', createLoaderMarkup());
+  refs.petList.insertAdjacentHTML('beforeend', createLoaderMarkup());
   isLoading = true;
 
   try {
@@ -195,12 +190,12 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
     renderPetList(hasMorePets);
 
     if (!hasMorePets || animals.length === 0) {
-      if (loadMoreBtn) {
-        loadMoreBtn.classList.add('is-hidden');
+      if (refs.petListLoadMoreBtn) {
+        refs.petListLoadMoreBtn.classList.add('is-hidden');
       }
     } else {
-      if (loadMoreBtn) {
-        loadMoreBtn.classList.remove('is-hidden');
+      if (refs.petListLoadMoreBtn) {
+        refs.petListLoadMoreBtn.classList.remove('is-hidden');
       }
     }
   } catch (error) {
@@ -213,8 +208,8 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
     notify.failure(UA_TOAST.UNKNOWN_ERROR);
 
     removeLoader();
-    if (loadMoreBtn) {
-      loadMoreBtn.classList.add('is-hidden');
+    if (refs.petListLoadMoreBtn) {
+      refs.petListLoadMoreBtn.classList.add('is-hidden');
     }
   } finally {
     isLoading = false;
@@ -227,15 +222,15 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
   }
 }
 
-if (loadMoreBtn) {
-  loadMoreBtn.addEventListener('click', async () => {
+if (refs.petListLoadMoreBtn) {
+  refs.petListLoadMoreBtn.addEventListener('click', async () => {
     if (isLoading) return;
 
     currentPage += 1;
 
     await loadPets(currentCategory);
 
-    const firstItem = petList.querySelector('.pet-list-item');
+    const firstItem = refs.petList.querySelector('.pet-list-item');
     if (firstItem) {
       const { height } = firstItem.getBoundingClientRect();
 
