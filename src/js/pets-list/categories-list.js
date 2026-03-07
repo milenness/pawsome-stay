@@ -1,8 +1,9 @@
 import { getAllCategories } from '../api/api';
 import { clearPetList, loadPets } from './pet-list';
 import { notify, UA_TOAST } from '../notifications';
+import { refs } from '../refs';
 
-const categoriesList = document.querySelector('.categories-list');
+const categoriesList = refs.categoriesList;
 
 getAllCategories()
   .then(categories => {
@@ -37,7 +38,7 @@ categoriesList.addEventListener('click', event => {
   const item = event.target;
   if (item.nodeName !== 'LI' || item.classList.contains('active')) return;
 
-  const activeItem = categoriesList.querySelector('.active');
+  const activeItem = refs.categoriesList.querySelector('.active');
   if (activeItem) {
     activeItem.classList.remove('active');
   }

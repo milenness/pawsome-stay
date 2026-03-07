@@ -1,7 +1,7 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 :root {
@@ -67,6 +67,8 @@ body {
   overflow-x: hidden;
   color: var(--color-scheme-1-text);
   background: var(--color-scheme-1-background);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-mariner-lighter) var(--color-mariner-light);
 }
 
 h1,
@@ -103,4 +105,26 @@ body:has(.mobile-menu.is-open) {
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
+}
+
+@supports (scrollbar-width: auto) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-mariner-lighter) var(--color-mariner-light);
+  }
+}
+
+html::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-track {
+  background-color: var(--color-mariner-lighter);
+  border-radius: 8px;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--color-mariner-light);
+  border-radius: 8px;
+  height: 128px;
 }

@@ -1,8 +1,9 @@
-const mobileMenu = document.querySelector('.mobile-menu');
-const menuBtnOpen = document.querySelector('.menu-btn-open');
-const menuBtnClose = document.querySelector('.menu-btn-close');
+import { refs } from './refs';
+const mobileMenu = refs.mobileMenu;
+const menuBtnOpen = refs.menuBtnOpen;
+const menuBtnClose = refs.menuBtnClose;
 
-const menuLinks = document.querySelectorAll('.mob-menu-link, .mob-menu-button');
+const menuLinks = refs.menuLinks;
 
 const toggleMenu = () => mobileMenu.classList.toggle('is-open');
 const disableScroll = () =>

@@ -1,5 +1,6 @@
 import Swiper from 'swiper';
 import 'swiper/css';
+import { refs } from './refs';
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -15,7 +16,7 @@ const DEMO_FEEDBACKS = [
   {
     rating: 5,
     comment:
-      'Я завжди хотіла взяти котика, але боялась, що доросла тварина не зможе звикнути. Волонтери переконали мене дати шанс Алісі, і це було найкраще рішення! Її муркотіння — найкращий антистрес після робочого дня. Не бійтеся брати дорослих хвостиків, вони віддають вам безмежною любов\'ю!',
+      "Я завжди хотіла взяти котика, але боялась, що доросла тварина не зможе звикнути. Волонтери переконали мене дати шанс Алісі, і це було найкраще рішення! Її муркотіння — найкращий антистрес після робочого дня. Не бійтеся брати дорослих хвостиків, вони віддають вам безмежною любов'ю!",
     author: 'Олена',
   },
   {
@@ -27,26 +28,26 @@ const DEMO_FEEDBACKS = [
   {
     rating: 4,
     comment:
-      'Взяли кошеня на ім\'я Рудик три місяці тому. Він вже повністю освоївся і став господарем квартири. Дуже вдячні волонтерам за допомогу та консультації з догляду. Прекрасна організація, яка дійсно піклується про тваринок!',
+      "Взяли кошеня на ім'я Рудик три місяці тому. Він вже повністю освоївся і став господарем квартири. Дуже вдячні волонтерам за допомогу та консультації з догляду. Прекрасна організація, яка дійсно піклується про тваринок!",
     author: 'Дмитро та Ірина',
   },
   {
     rating: 4.5,
     comment:
       'Лабрадор Бонні прийшла до нас два роки тому — і ми не уявляємо без неї жодного дня. Вона подружилась із нашими дітьми з першої хвилини. Щиро дякуємо за те, що зводите людей і тваринок разом!',
-    author: 'Сім\'я Ковальських',
+    author: "Сім'я Ковальських",
   },
 ];
 
 // ─── DOM refs ─────────────────────────────────────────────────────────────────
 
-const loadingEl    = document.getElementById('stories-loading');
-const sliderWrap   = document.getElementById('stories-slider-wrap');
-const swiperEl     = document.getElementById('stories-swiper');
-const wrapperEl    = document.getElementById('stories-swiper-wrapper');
-const paginationEl = document.getElementById('stories-pagination');
-const btnPrev      = document.getElementById('stories-btn-prev');
-const btnNext      = document.getElementById('stories-btn-next');
+const loadingEl = refs.storiesLoadingEl;
+const sliderWrap = refs.storiesSliderWrap;
+const swiperEl = refs.storiesSwiperEl;
+const wrapperEl = refs.storiesWrapperEl;
+const paginationEl = refs.storiesPaginationEl;
+const btnPrev = refs.storiesBtnPrev;
+const btnNext = refs.storiesBtnNext;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -90,9 +91,9 @@ function renderStars(rating) {
 }
 
 function buildSlide(review) {
-  const rating  = parseFloat(review.rating) || 5;
+  const rating = parseFloat(review.rating) || 5;
   const comment = escHtml(review.comment || review.text || '');
-  const author  = escHtml(review.author  || review.name  || 'Анонім');
+  const author = escHtml(review.author || review.name || 'Анонім');
 
   return `
     <li class="swiper-slide">
@@ -111,7 +112,7 @@ function buildPagination(count, swiperInstance) {
   for (let i = 0; i < count; i++) {
     const dot = document.createElement('button');
     dot.className = 'stories-pagination-dot' + (i === 0 ? ' is-active' : '');
-    dot.type      = 'button';
+    dot.type = 'button';
     dot.setAttribute('role', 'tab');
     dot.setAttribute('aria-label', `Відгук ${i + 1}`);
     dot.addEventListener('click', () => swiperInstance.slideTo(i));
@@ -151,7 +152,7 @@ async function fetchFeedbacks() {
     const res = await fetch(API_URL);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    const list = Array.isArray(data) ? data : (data.feedbacks || data.data || []);
+    const list = Array.isArray(data) ? data : data.feedbacks || data.data || [];
     if (list.length >= 3) return list;
   } catch {
     // fallback to demo
@@ -190,7 +191,7 @@ async function initStories() {
 
   window.addEventListener('resize', () => {
     swiperInstance.params.slidesPerView = getSlidesPerView();
-    swiperInstance.params.spaceBetween  = getSpaceBetween();
+    swiperInstance.params.spaceBetween = getSpaceBetween();
     swiperInstance.update();
     buildPagination(feedbacks.length, swiperInstance);
     updatePagination(swiperInstance.activeIndex);

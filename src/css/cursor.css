@@ -1,0 +1,9 @@
+.cursor {
+  z-index: 9999;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  display: block;
+}

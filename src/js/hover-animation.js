@@ -1,8 +1,9 @@
-const cursor = document.querySelector('.custom-cursor');
-const headerLogo = document.querySelector('.nav-logo');
-const footerLogo = document.querySelector('.footer__logo');
+import { refs } from './refs';
+const cursor = refs.customCursor;
+const headerLogo = refs.navLogo;
+const footerLogo = refs.footerLogo;
 
-document.addEventListener('mousemove', (e) => {
+document.addEventListener('mousemove', e => {
   cursor.style.left = e.clientX + 'px';
   cursor.style.top = e.clientY + 'px';
 });

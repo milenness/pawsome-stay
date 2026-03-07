@@ -1,11 +1,10 @@
 import { getAnimalsByCategory } from '../api/api';
 import { notify, UA_TOAST } from '../notifications';
+import { refs } from '../refs';
 
-const petList = document.querySelector('.pet-list');
-const loadMoreBtn = document.querySelector('.load-more-pets-btn');
-const loadMoreBtnWrapper = document.querySelector(
-  '.load-more-pets-btn-wrapper'
-);
+const petList = refs.petList;
+const loadMoreBtn = refs.petListLoadMoreBtn;
+const loadMoreBtnWrapper = refs.petListLoadMoreBtnWrapper;
 
 let currentPage = 1;
 let currentCategory = null;
@@ -22,7 +21,7 @@ export function clearPetList() {
 }
 
 function hasPets() {
-  return petList.querySelectorAll('.pet-list-item').length > 0;
+  return refs.petList.querySelectorAll('.pet-list-item').length > 0;
 }
 
 function updateButtonVisibility(shouldShow) {
@@ -57,7 +56,7 @@ function createLoaderMarkup() {
 }
 
 function removeLoader() {
-  const loader = petList.querySelector('.pet-list-loader');
+  const loader = refs.petList.querySelector('.pet-list-loader');
   if (loader) {
     loader.remove();
   }
@@ -176,7 +175,7 @@ if (loadMoreBtn) {
 
     await loadPets(currentCategory);
 
-    const firstItem = petList.querySelector('.pet-list-item');
+    const firstItem = refs.petList.querySelector('.pet-list-item');
     if (firstItem) {
       const { height } = firstItem.getBoundingClientRect();
 

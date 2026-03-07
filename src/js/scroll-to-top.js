@@ -1,5 +1,7 @@
+import { refs } from './refs';
+
 function initScrollToTop() {
-  const btn = document.querySelector('[data-scroll-top]');
+  const btn = refs.scrollToTopBtn;
   if (!btn) return;
 
   let shown = false;

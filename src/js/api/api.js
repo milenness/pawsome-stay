@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://paw-hut.b.goit.study/api',
+  baseURL: import.meta.env.VITE_GOIT_API_URL,
 });
 
-const GET_ALL_CATEGORIES = '/categories';
-const GET_ANIMALS = '/animals';
-const CREATE_ORDER = '/orders';
+const GET_ALL_CATEGORIES = import.meta.env.VITE_GOIT_API_GET_ALL_CATEGORIES_URL;
+const GET_ANIMALS = import.meta.env.VITE_GOIT_API_GET_ANIMALS_URL;
+const CREATE_ORDER = import.meta.env.VITE_GOIT_API_CREATE_ORDER_URL;
 
 // Функція для отримання всіх категорій
 export async function getAllCategories() {

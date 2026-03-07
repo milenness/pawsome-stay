@@ -1,8 +1,9 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import { refs } from './refs';
 
-const modalOverlay = document.querySelector('.pet-modal-overlay');
+const modalOverlay = refs.petModalOverlay;
 
 let animalsCache = [];
 
