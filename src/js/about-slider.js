@@ -1,30 +1,30 @@
-import Swiper from "swiper";
-import { Navigation, Pagination, Keyboard } from "swiper/modules";
+import Swiper from 'swiper';
+import { Navigation, Pagination, Keyboard } from 'swiper/modules';
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-const swiper = new Swiper(".about-swiper", {
+const swiper = new Swiper('.about-swiper', {
   modules: [Navigation, Pagination, Keyboard],
 
   slidesPerView: 1,
   spaceBetween: 20,
 
   navigation: {
-    nextEl: ".about-button-next",
-    prevEl: ".about-button-prev",
+    nextEl: '.about-button-next',
+    prevEl: '.about-button-prev',
   },
 
   pagination: {
-    el: ".swiper-pagination",
+    el: '.about-swiper-container .swiper-pagination',
     clickable: true,
     dynamicBullets: true,
   },
 
   watchOverflow: true,
 
-    keyboard: {
+  keyboard: {
     enabled: true,
     onlyInViewport: true,
   },

@@ -1,5 +1,7 @@
 import Swiper from 'swiper';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/pagination';
 import iconsSpriteUrl from '../img/icons.svg?url';
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -107,27 +109,6 @@ function buildSlide(review) {
     </li>`;
 }
 
-// ─── Pagination ───────────────────────────────────────────────────────────────
-
-function buildPagination(count, swiperInstance) {
-  paginationEl.innerHTML = '';
-  for (let i = 0; i < count; i++) {
-    const dot = document.createElement('button');
-    dot.className = 'stories-pagination-dot' + (i === 0 ? ' is-active' : '');
-    dot.type = 'button';
-    dot.setAttribute('role', 'tab');
-    dot.setAttribute('aria-label', `Відгук ${i + 1}`);
-    dot.addEventListener('click', () => swiperInstance.slideTo(i));
-    paginationEl.appendChild(dot);
-  }
-}
-
-function updatePagination(activeIndex) {
-  paginationEl.querySelectorAll('.stories-pagination-dot').forEach((dot, i) => {
-    dot.classList.toggle('is-active', i === activeIndex);
-  });
-}
-
 // ─── Nav buttons ──────────────────────────────────────────────────────────────
 
 function updateNavButtons(swiperInstance) {
@@ -173,19 +154,23 @@ async function initStories() {
   sliderWrap.classList.add('is-visible');
 
   const swiperInstance = new Swiper(swiperEl, {
+    modules: [Pagination],
     slidesPerView: getSlidesPerView(),
     spaceBetween: getSpaceBetween(),
     grabCursor: true,
     speed: 400,
     observer: true,
     observeParents: true,
+    pagination: {
+      el: paginationEl,
+      clickable: true,
+      dynamicBullets: true,
+    },
     on: {
       init(swiper) {
-        buildPagination(feedbacks.length - getSlidesPerView() + 1, swiper);
         updateNavButtons(swiper);
       },
       slideChange(swiper) {
-        updatePagination(swiper.activeIndex);
         updateNavButtons(swiper);
       },
     },
@@ -195,8 +180,6 @@ async function initStories() {
     swiperInstance.params.slidesPerView = getSlidesPerView();
     swiperInstance.params.spaceBetween = getSpaceBetween();
     swiperInstance.update();
-    buildPagination(feedbacks.length - getSlidesPerView() + 1, swiperInstance);
-    updatePagination(swiperInstance.activeIndex);
     updateNavButtons(swiperInstance);
   });
 
