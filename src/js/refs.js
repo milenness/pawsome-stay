@@ -41,4 +41,7 @@ export const refs = {
   petListLoadMoreBtnWrapper: document.querySelector(
     '.load-more-pets-btn-wrapper'
   ),
+
+  // global-loader
+  globalLoader: document.getElementById('global-loader'),
 };

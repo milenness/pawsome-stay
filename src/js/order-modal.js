@@ -4,9 +4,7 @@ import { createOrder } from '/js/api/api.js';
 import { refs } from './refs';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const form = refs.orderForm;
-  const modalOverlay = refs.orderOverlay;
-  const submitBtn = form?.querySelector('button[type="submit"]');
+  const submitBtn = refs.orderForm?.querySelector('button[type="submit"]');
 
   let currentAnimalId = null;
 
@@ -19,21 +17,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     currentAnimalId = id;
-    modalOverlay.classList.add('is-open');
+    refs.orderOverlay.classList.add('is-open');
     document.body.classList.add('modal-open');
     document.addEventListener('keydown', onEscapePress);
   };
 
   function closeModal() {
-    modalOverlay.classList.remove('is-open');
+    refs.orderOverlay.classList.remove('is-open');
     document.body.classList.remove('modal-open');
     document.removeEventListener('keydown', onEscapePress);
 
     setTimeout(() => {
       currentAnimalId = null;
-      if (form) {
-        form.reset();
-        form.classList.remove('was-validated');
+      if (refs.orderForm) {
+        refs.orderForm.reset();
+        refs.orderForm.classList.remove('was-validated');
       }
     }, 250);
   }
@@ -44,20 +42,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* --- 2. СЛУХАЧІ ПОДІЙ --- */
 
-  modalOverlay.addEventListener('click', e => {
-    if (e.target.closest('.close-btn') || e.target === modalOverlay) {
+  refs.orderOverlay.addEventListener('click', e => {
+    if (e.target.closest('.close-btn') || e.target === refs.orderOverlay) {
       closeModal();
     }
   });
 
   /* --- 3. ВІДПРАВКА ФОРМИ --- */
 
-  if (form) {
-    form.addEventListener('submit', async e => {
+  if (refs.orderForm) {
+    refs.orderForm.addEventListener('submit', async e => {
       e.preventDefault();
-      form.classList.add('was-validated');
+      refs.orderForm.classList.add('was-validated');
 
-      if (!form.checkValidity()) return;
+      if (!refs.orderForm.checkValidity()) return;
 
       if (!currentAnimalId) {
         Swal.fire({
@@ -69,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const formData = new FormData(form);
+      const formData = new FormData(refs.orderForm);
       const rawData = Object.fromEntries(formData.entries());
 
       const requestData = {

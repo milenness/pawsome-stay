@@ -7,16 +7,6 @@ import { refs } from './refs';
 import { fetchFeedbacks } from './api/api';
 import { notify, UA_TOAST } from './notifications';
 
-// ─── DOM refs ─────────────────────────────────────────────────────────────────
-
-const loadingEl = refs.storiesLoadingEl;
-const sliderWrap = refs.storiesSliderWrap;
-const swiperEl = refs.storiesSwiperEl;
-const wrapperEl = refs.storiesWrapperEl;
-const paginationEl = refs.storiesPaginationEl;
-const btnPrev = refs.storiesBtnPrev;
-const btnNext = refs.storiesBtnNext;
-
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function escHtml(str) {
@@ -76,7 +66,7 @@ function buildSlide(review) {
 // ─── Pagination ───────────────────────────────────────────────────────────────
 
 function buildPagination(count, swiperInstance) {
-  paginationEl.innerHTML = '';
+  refs.storiesPaginationEl.innerHTML = '';
   for (let i = 0; i < count; i++) {
     const dot = document.createElement('button');
     dot.className = 'stories-pagination-dot' + (i === 0 ? ' is-active' : '');
@@ -84,21 +74,23 @@ function buildPagination(count, swiperInstance) {
     dot.setAttribute('role', 'tab');
     dot.setAttribute('aria-label', `Відгук ${i + 1}`);
     dot.addEventListener('click', () => swiperInstance.slideTo(i));
-    paginationEl.appendChild(dot);
+    refs.storiesPaginationEl.appendChild(dot);
   }
 }
 
 function updatePagination(activeIndex) {
-  paginationEl.querySelectorAll('.stories-pagination-dot').forEach((dot, i) => {
-    dot.classList.toggle('is-active', i === activeIndex);
-  });
+  refs.storiesPaginationEl
+    .querySelectorAll('.stories-pagination-dot')
+    .forEach((dot, i) => {
+      dot.classList.toggle('is-active', i === activeIndex);
+    });
 }
 
 // ─── Nav buttons ──────────────────────────────────────────────────────────────
 
 function updateNavButtons(swiperInstance) {
-  btnPrev.disabled = swiperInstance.isBeginning;
-  btnNext.disabled = swiperInstance.isEnd;
+  refs.storiesBtnPrev.disabled = swiperInstance.isBeginning;
+  refs.storiesBtnNext.disabled = swiperInstance.isEnd;
 }
 
 // ─── Responsive ───────────────────────────────────────────────────────────────
@@ -143,12 +135,12 @@ async function initStories() {
     totalFeedbacks = 0;
   }
 
-  wrapperEl.innerHTML = feedbacks.map(buildSlide).join('');
+  refs.storiesWrapperEl.innerHTML = feedbacks.map(buildSlide).join('');
 
-  loadingEl.classList.add('is-hidden');
-  sliderWrap.classList.add('is-visible');
+  refs.storiesLoadingEl.classList.add('is-hidden');
+  refs.storiesSliderWrap.classList.add('is-visible');
 
-  const swiperInstance = new Swiper(swiperEl, {
+  const swiperInstance = new Swiper(refs.storiesSwiperEl, {
     modules: [Pagination],
     slidesPerView: getSlidesPerView(),
     spaceBetween: getSpaceBetween(),
@@ -157,7 +149,7 @@ async function initStories() {
     observer: true,
     observeParents: true,
     pagination: {
-      el: paginationEl,
+      el: refs.storiesPaginationEl,
       clickable: true,
       dynamicBullets: true,
     },
@@ -175,7 +167,7 @@ async function initStories() {
   async function maybeLoadMore(swiper) {
     if (isLoadingMore) return;
 
-    const loadedCount = wrapperEl.children.length;
+    const loadedCount = refs.storiesWrapperEl.children.length;
     if (loadedCount >= totalFeedbacks) return;
 
     const visibleSlides = Math.ceil(Number(swiper.params.slidesPerView) || 1);
@@ -200,7 +192,7 @@ async function initStories() {
         return;
       }
 
-      wrapperEl.insertAdjacentHTML(
+      refs.storiesWrapperEl.insertAdjacentHTML(
         'beforeend',
         nextFeedbacks.map(buildSlide).join('')
       );
@@ -226,8 +218,10 @@ async function initStories() {
     updateNavButtons(swiperInstance);
   });
 
-  btnPrev.addEventListener('click', () => swiperInstance.slidePrev());
-  btnNext.addEventListener('click', async () => {
+  refs.storiesBtnPrev.addEventListener('click', () =>
+    swiperInstance.slidePrev()
+  );
+  refs.storiesBtnNext.addEventListener('click', async () => {
     if (swiperInstance.isEnd) {
       await maybeLoadMore(swiperInstance);
     }

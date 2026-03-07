@@ -3,8 +3,6 @@ import iconsSpriteUrl from '../img/icons.svg?url';
 import { getPetById } from './pets-list/pet-list';
 import { refs } from './refs';
 
-const modalOverlay = refs.petModalOverlay;
-
 /* --- 1. ГЕНЕРАЦІЯ РОЗМІТКИ --- */
 
 function renderModalMarkup(petData) {
@@ -70,7 +68,7 @@ function fetchPetDetails(petId) {
   const petData = getPetById(petId);
 
   if (petData) {
-    modalOverlay.innerHTML = renderModalMarkup(petData);
+    refs.petModalOverlay.innerHTML = renderModalMarkup(petData);
     openModal();
   } else {
     notify.failure(UA_TOAST.LOAD_FAIL);
@@ -80,17 +78,17 @@ function fetchPetDetails(petId) {
 /* --- 2. КЕРУВАННЯ ТА СЛУХАЧІ --- */
 
 function openModal() {
-  modalOverlay.classList.add('is-open');
+  refs.petModalOverlay.classList.add('is-open');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onEscapePress);
 }
 
 function closeModal() {
-  modalOverlay.classList.remove('is-open');
+  refs.petModalOverlay.classList.remove('is-open');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscapePress);
   setTimeout(() => {
-    modalOverlay.innerHTML = '';
+    refs.petModalOverlay.innerHTML = '';
   }, 300);
 }
 
@@ -108,7 +106,7 @@ document.addEventListener('click', e => {
     return;
   }
 
-  if (target.closest('.pet-modal-close') || target === modalOverlay) {
+  if (target.closest('.pet-modal-close') || target === refs.petModalOverlay) {
     closeModal();
     return;
   }

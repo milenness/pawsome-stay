@@ -2,10 +2,6 @@ import { getAnimalsByCategory } from '../api/api';
 import { notify, UA_TOAST } from '../notifications';
 import { refs } from '../refs';
 
-const petList = refs.petList;
-const loadMoreBtn = refs.petListLoadMoreBtn;
-const loadMoreBtnWrapper = refs.petListLoadMoreBtnWrapper;
-
 let currentPage = 1;
 let currentCategory = null;
 let isLoading = false;
@@ -31,13 +27,13 @@ function mergeUniqueAnimals(existing, incoming) {
 }
 
 export function clearPetList() {
-  petList.innerHTML = '';
+  refs.petList.innerHTML = '';
   currentPage = 1;
   currentCategory = null;
   loadedAnimals = [];
 
-  loadMoreBtn.classList.add('is-hidden');
-  loadMoreBtnWrapper.classList.add('is-hidden');
+  refs.petListLoadMoreBtn.classList.add('is-hidden');
+  refs.petListLoadMoreBtnWrapper.classList.add('is-hidden');
 }
 
 function hasPets() {
@@ -45,12 +41,12 @@ function hasPets() {
 }
 
 function updateButtonVisibility(shouldShow) {
-  if (!loadMoreBtnWrapper) return;
+  if (!refs.petListLoadMoreBtnWrapper) return;
 
   if (shouldShow) {
-    loadMoreBtnWrapper.classList.remove('is-hidden');
+    refs.petListLoadMoreBtnWrapper.classList.remove('is-hidden');
   } else {
-    loadMoreBtnWrapper.classList.add('is-hidden');
+    refs.petListLoadMoreBtnWrapper.classList.add('is-hidden');
   }
 }
 
@@ -139,7 +135,7 @@ function renderPetList(hasMorePets) {
     ? loadedAnimals.slice(0, -1)
     : loadedAnimals;
 
-  petList.innerHTML = createPetListMarkup(animalsToRender);
+  refs.petList.innerHTML = createPetListMarkup(animalsToRender);
 }
 
 function recalculateAndRenderOnResize() {
@@ -149,7 +145,7 @@ function recalculateAndRenderOnResize() {
   if (currentViewportType === lastViewportType) return;
 
   lastViewportType = currentViewportType;
-  const hasMorePets = !loadMoreBtn.classList.contains('is-hidden');
+  const hasMorePets = !refs.petListLoadMoreBtn.classList.contains('is-hidden');
   renderPetList(hasMorePets);
 }
 
@@ -159,15 +155,15 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
   if (isNewCategory) {
     currentPage = 1;
     currentCategory = categoryId;
-    petList.innerHTML = '';
+    refs.petList.innerHTML = '';
     loadedAnimals = [];
     // Hide wrapper when switching to new category
-    if (loadMoreBtnWrapper) {
-      loadMoreBtnWrapper.classList.add('is-hidden');
+    if (refs.petListLoadMoreBtnWrapper) {
+      refs.petListLoadMoreBtnWrapper.classList.add('is-hidden');
     }
   }
 
-  petList.insertAdjacentHTML('beforeend', createLoaderMarkup());
+  refs.petList.insertAdjacentHTML('beforeend', createLoaderMarkup());
   isLoading = true;
 
   try {
@@ -194,12 +190,12 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
     renderPetList(hasMorePets);
 
     if (!hasMorePets || animals.length === 0) {
-      if (loadMoreBtn) {
-        loadMoreBtn.classList.add('is-hidden');
+      if (refs.petListLoadMoreBtn) {
+        refs.petListLoadMoreBtn.classList.add('is-hidden');
       }
     } else {
-      if (loadMoreBtn) {
-        loadMoreBtn.classList.remove('is-hidden');
+      if (refs.petListLoadMoreBtn) {
+        refs.petListLoadMoreBtn.classList.remove('is-hidden');
       }
     }
   } catch (error) {
@@ -212,8 +208,8 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
     notify.failure(UA_TOAST.UNKNOWN_ERROR);
 
     removeLoader();
-    if (loadMoreBtn) {
-      loadMoreBtn.classList.add('is-hidden');
+    if (refs.petListLoadMoreBtn) {
+      refs.petListLoadMoreBtn.classList.add('is-hidden');
     }
   } finally {
     isLoading = false;
@@ -226,8 +222,8 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
   }
 }
 
-if (loadMoreBtn) {
-  loadMoreBtn.addEventListener('click', async () => {
+if (refs.petListLoadMoreBtn) {
+  refs.petListLoadMoreBtn.addEventListener('click', async () => {
     if (isLoading) return;
 
     currentPage += 1;

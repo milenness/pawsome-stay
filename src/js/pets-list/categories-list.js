@@ -3,8 +3,6 @@ import { clearPetList, loadPets } from './pet-list';
 import { notify, UA_TOAST } from '../notifications';
 import { refs } from '../refs';
 
-const categoriesList = refs.categoriesList;
-
 getAllCategories()
   .then(categories => {
     if (!Array.isArray(categories) || categories.length === 0) {
@@ -16,7 +14,7 @@ getAllCategories()
       ({ _id, name }) =>
         `<li class="categories-list-item" data-category-id="${_id}">${name}</li>`
     );
-    categoriesList.innerHTML =
+    refs.categoriesList.innerHTML =
       `<li class="categories-list-item active" data-category-id="">Всі</li>` +
       markup.join('');
 
@@ -34,7 +32,7 @@ getAllCategories()
     notify.failure(UA_TOAST.UNKNOWN_ERROR);
   });
 
-categoriesList.addEventListener('click', event => {
+refs.categoriesList.addEventListener('click', event => {
   const item = event.target;
   if (item.nodeName !== 'LI' || item.classList.contains('active')) return;
 
