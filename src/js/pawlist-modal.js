@@ -1,52 +1,10 @@
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import { notify, UA_TOAST } from './notifications';
+import iconsSpriteUrl from '../img/icons.svg?url';
+import { getPetById } from './pets-list/pet-list';
 
 const modalOverlay = document.querySelector('.pet-modal-overlay');
 
-let animalsCache = [];
-
-const api = axios.create({
-  baseURL: 'https://paw-hut.b.goit.study/api',
-});
-
-const UA_MESSAGES = {
-  NETWORK: 'Відсутній зв’язок з сервером. Перевірте інтернет.',
-  EMPTY_DATA: 'Інформацію про тварин не знайдено.',
-  LOAD_FAIL: 'Не вдалося завантажити деталі тварини.',
-};
-
-/* --- 1. КЕШУВАННЯ --- */
-
-async function ensureAnimalsCache() {
-  if (animalsCache.length > 0) return;
-
-  try {
-    let page = 1;
-    const limit = 20;
-    let totalItems = Infinity;
-    let allAnimals = [];
-
-    while (allAnimals.length < totalItems) {
-      const response = await api.get('/animals', { params: { page, limit } });
-      const { animals, totalItems: serverTotal } = response.data;
-
-      if (!Array.isArray(animals) || (page === 1 && animals.length === 0))
-        break;
-
-      allAnimals.push(...animals);
-      totalItems = serverTotal || allAnimals.length;
-      page++;
-    }
-    animalsCache = allAnimals;
-  } catch (err) {
-    if (!err.response) {
-      Swal.fire({ title: 'Мережа', text: UA_MESSAGES.NETWORK, icon: 'error' });
-    }
-  }
-}
-
-/* --- 2. ГЕНЕРАЦІЯ РОЗМІТКИ --- */
+/* --- 1. ГЕНЕРАЦІЯ РОЗМІТКИ --- */
 
 function renderModalMarkup(petData) {
   const categoryMap = {
@@ -64,7 +22,7 @@ function renderModalMarkup(petData) {
     <div class="pet-modal">
       <button class="pet-modal-close" type="button" aria-label="Закрити">
         <svg class="close-icon" width="24" height="24">
-          <use href="/img/icons.svg#close"></use>
+          <use href="${iconsSpriteUrl}#close"></use>
         </svg>
       </button>
 
@@ -92,6 +50,10 @@ function renderModalMarkup(petData) {
               <h3 class="pet-modal-section-title">Здоров'я:</h3>
               <p class="pet-modal-section-text">${petData.healthStatus || 'Здоровий(а)'}</p>
             </div>
+            <div class="pet-modal-section">
+              <h3 class="pet-modal-section-title">Поведінка:</h3>
+              <p class="pet-modal-section-text">${petData.behavior || 'Дружелюбний(а)'}</p>
+            </div>
           </div>
 
           <button id="petModalActionBtn" class="info-pet-btn" type="button" data-id="${id}">
@@ -103,25 +65,18 @@ function renderModalMarkup(petData) {
   `;
 }
 
-async function fetchPetDetails(petId) {
-  await ensureAnimalsCache();
-  const petData = animalsCache.find(
-    a => String(a._id || a.id) === String(petId)
-  );
+function fetchPetDetails(petId) {
+  const petData = getPetById(petId);
 
   if (petData) {
     modalOverlay.innerHTML = renderModalMarkup(petData);
     openModal();
   } else {
-    Swal.fire({
-      title: 'Помилка',
-      text: UA_MESSAGES.LOAD_FAIL,
-      icon: 'warning',
-    });
+    notify.failure(UA_TOAST.LOAD_FAIL);
   }
 }
 
-/* --- 3. КЕРУВАННЯ ТА СЛУХАЧІ --- */
+/* --- 2. КЕРУВАННЯ ТА СЛУХАЧІ --- */
 
 function openModal() {
   modalOverlay.classList.add('is-open');
@@ -157,8 +112,9 @@ document.addEventListener('click', e => {
     return;
   }
 
-  if (target.closest('#petModalActionBtn')) {
-    const petId = target.closest('#petModalActionBtn').dataset.id;
+  const actionBtn = target.closest('#petModalActionBtn');
+  if (actionBtn) {
+    const petId = actionBtn.dataset.id;
 
     closeModal();
 
