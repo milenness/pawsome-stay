@@ -85,3 +85,24 @@
   <path fill="#332C22" d="M14.482,32.182c0-5.377-3.181-9.59-7.241-9.59S0,26.805,0,32.182c0,5.375,3.181,9.588,7.241,9.588 S14.482,37.557,14.482,32.182z M7.241,38.77C4.942,38.77,3,35.752,3,32.182c0-3.572,1.942-6.59,4.241-6.59 c2.299,0,4.241,3.018,4.241,6.59C11.482,35.752,9.54,38.77,7.241,38.77z"></path>
 </symbol>
 </svg>
+
+<!--Darkthema-->
+<svg width="0" height="0" class="hidden">
+  <symbol fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="paw-dark">
+    <circle cx="6" cy="8" r="2"></circle>
+    <circle cx="10" cy="5" r="2"></circle>
+    <circle cx="14" cy="5" r="2"></circle>
+    <circle cx="18" cy="8" r="2"></circle>
+    <ellipse cx="12" cy="14" rx="5" ry="3"></ellipse>
+  </symbol>
+</svg>
+
+<svg width="0" height="0" class="hidden">
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="paw-light">
+    <circle cx="6" cy="8" r="2" fill="#ffffff" stroke="#000000" stroke-width="0.8"></circle>
+    <circle cx="10" cy="5" r="2" fill="#ffffff" stroke="#000000" stroke-width="0.8"></circle>
+    <circle cx="14" cy="5" r="2" fill="#ffffff" stroke="#000000" stroke-width="0.8"></circle>
+    <circle cx="18" cy="8" r="2" fill="#ffffff" stroke="#000000" stroke-width="0.8"></circle>
+    <ellipse cx="12" cy="14" rx="5" ry="3" fill="#ffffff" stroke="#000000" stroke-width="0.8"></ellipse>
+  </symbol>
+</svg>
