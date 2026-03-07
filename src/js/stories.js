@@ -4,7 +4,7 @@ import iconsSpriteUrl from '../img/icons.svg?url';
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const API_URL = '/feedbacks';
+const API_URL = 'https://paw-hut.b.goit.study/api/feedbacks';
 
 const DEMO_FEEDBACKS = [
   {
@@ -91,8 +91,10 @@ function renderStars(rating) {
 }
 
 function buildSlide(review) {
-  const rating = parseFloat(review.rating) || 5;
-  const comment = escHtml(review.comment || review.text || '');
+  const rating = parseFloat(review.rating ?? review.rate) || 5;
+  const comment = escHtml(
+    review.comment || review.text || review.description || ''
+  );
   const author = escHtml(review.author || review.name || 'Анонім');
 
   return `
