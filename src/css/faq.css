@@ -169,3 +169,22 @@
   .faq-section { padding: 80px 0; }
   .accordion { max-width: 864px; }
 }
+
+body.darkmode #faq-accordion .ac {
+  background: #f3efe9 !important;
+}
+
+body.darkmode #faq-accordion .ac .ac-trigger {
+  color: #111111 !important;
+}
+
+body.darkmode #faq-accordion .ac .ac-text,
+body.darkmode #faq-accordion .faq-list li,
+body.darkmode #faq-accordion .faq-list-ul li {
+  color: #111111 !important;
+}
+
+body.darkmode #faq-accordion .ac-header,
+body.darkmode #faq-accordion .ac-panel {
+  background: transparent !important;
+}

@@ -61,6 +61,7 @@ body {
   overflow-x: hidden;
   color: var(--color-scheme-1-text);
   background: var(--color-scheme-1-background);
+  transition: background-color 0.3s ease, color 0.3s ease, background 0.3s ease;
 }
 
 h1,
@@ -97,4 +98,36 @@ body:has(.mobile-menu.is-open) {
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
+}
+
+
+body.darkmode {
+  --color-scheme-1-background: #181818;
+  --color-scheme-1-text: #ffffff;
+  --color-scheme-1-border: rgba(255, 255, 255, 0.15);
+
+  --color-neutral-darkest: #ffffff;
+  --color-neutral-darker: #f2f2f2;
+  --color-neutral-dark: #d9d9da;
+  --color-neutral: #b3b4b5;
+  --color-neutral-light: #808284;
+  --color-neutral-lighter: #4d5053;
+  --color-neutral-lightest: #2a2a2a;
+
+  --color-mariner-lightest: #202020;
+  --color-mariner-lighter: #2a2a2a;
+  --color-mariner-light: #c3b49d;
+  --color-mariner: #c3b49d;
+  --color-mariner-dark: #9a8a78;
+  --color-mariner-darker: #e6dccf;
+  --color-mariner-darkest: #ffffff;
+
+  --opacity-neutral-darkest-5: rgba(255, 255, 255, 0.05);
+  --opacity-neutral-darkest-10: rgba(255, 255, 255, 0.1);
+  --opacity-neutral-darkest-15: rgba(255, 255, 255, 0.15);
+  --opacity-neutral-darkest-20: rgba(255, 255, 255, 0.2);
+  --opacity-neutral-darkest-30: rgba(255, 255, 255, 0.3);
+  --opacity-neutral-darkest-40: rgba(255, 255, 255, 0.4);
+  --opacity-neutral-darkest-50: rgba(255, 255, 255, 0.5);
+  --opacity-neutral-darkest-60: rgba(255, 255, 255, 0.6);
 }

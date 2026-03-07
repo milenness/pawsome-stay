@@ -103,3 +103,25 @@
   color: var(--color-neutral-darkest);
   border-color: var(--color-neutral-darkest);
 }
+
+.hero-section .button,
+.hero-section .hero-btn,
+.hero-section a {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body.darkmode .hero-section .button,
+body.darkmode .hero-section .hero-btn,
+body.darkmode .hero-section a[href="#stories"] {
+  background-color: #9a8a78;
+  color: #ffffff;
+  border-color: #9a8a78;
+}
+
+body.darkmode .hero-section .button:hover,
+body.darkmode .hero-section .hero-btn:hover,
+body.darkmode .hero-section a[href="#stories"]:hover {
+  background-color: #b39f88;
+  color: #ffffff;
+  border-color: #b39f88;
+}
