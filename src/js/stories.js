@@ -3,9 +3,18 @@ import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import iconsSpriteUrl from '../img/icons.svg?url';
-import { refs } from './refs';
 import { fetchFeedbacks } from './api/api';
 import { notify, UA_TOAST } from './notifications';
+
+// ─── DOM refs ─────────────────────────────────────────────────────────────────
+
+const loadingEl = document.getElementById('stories-loading');
+const sliderWrap = document.getElementById('stories-slider-wrap');
+const swiperEl = document.getElementById('stories-swiper');
+const wrapperEl = document.getElementById('stories-swiper-wrapper');
+const paginationEl = document.getElementById('stories-pagination');
+const btnPrev = document.getElementById('stories-btn-prev');
+const btnNext = document.getElementById('stories-btn-next');
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -49,8 +58,10 @@ function renderStars(rating) {
 }
 
 function buildSlide(review) {
-  const rating = parseFloat(review.rating) || 5;
-  const comment = escHtml(review.comment || review.text || '');
+  const rating = parseFloat(review.rating ?? review.rate) || 5;
+  const comment = escHtml(
+    review.comment || review.text || review.description || ''
+  );
   const author = escHtml(review.author || review.name || 'Анонім');
 
   return `
@@ -63,34 +74,11 @@ function buildSlide(review) {
     </li>`;
 }
 
-// ─── Pagination ───────────────────────────────────────────────────────────────
-
-function buildPagination(count, swiperInstance) {
-  refs.storiesPaginationEl.innerHTML = '';
-  for (let i = 0; i < count; i++) {
-    const dot = document.createElement('button');
-    dot.className = 'stories-pagination-dot' + (i === 0 ? ' is-active' : '');
-    dot.type = 'button';
-    dot.setAttribute('role', 'tab');
-    dot.setAttribute('aria-label', `Відгук ${i + 1}`);
-    dot.addEventListener('click', () => swiperInstance.slideTo(i));
-    refs.storiesPaginationEl.appendChild(dot);
-  }
-}
-
-function updatePagination(activeIndex) {
-  refs.storiesPaginationEl
-    .querySelectorAll('.stories-pagination-dot')
-    .forEach((dot, i) => {
-      dot.classList.toggle('is-active', i === activeIndex);
-    });
-}
-
 // ─── Nav buttons ──────────────────────────────────────────────────────────────
 
 function updateNavButtons(swiperInstance) {
-  refs.storiesBtnPrev.disabled = swiperInstance.isBeginning;
-  refs.storiesBtnNext.disabled = swiperInstance.isEnd;
+  btnPrev.disabled = swiperInstance.isBeginning;
+  btnNext.disabled = swiperInstance.isEnd;
 }
 
 // ─── Responsive ───────────────────────────────────────────────────────────────
@@ -135,12 +123,12 @@ async function initStories() {
     totalFeedbacks = 0;
   }
 
-  refs.storiesWrapperEl.innerHTML = feedbacks.map(buildSlide).join('');
+  wrapperEl.innerHTML = feedbacks.map(buildSlide).join('');
 
-  refs.storiesLoadingEl.classList.add('is-hidden');
-  refs.storiesSliderWrap.classList.add('is-visible');
+  loadingEl.classList.add('is-hidden');
+  sliderWrap.classList.add('is-visible');
 
-  const swiperInstance = new Swiper(refs.storiesSwiperEl, {
+  const swiperInstance = new Swiper(swiperEl, {
     modules: [Pagination],
     slidesPerView: getSlidesPerView(),
     spaceBetween: getSpaceBetween(),
@@ -149,7 +137,7 @@ async function initStories() {
     observer: true,
     observeParents: true,
     pagination: {
-      el: refs.storiesPaginationEl,
+      el: paginationEl,
       clickable: true,
       dynamicBullets: true,
     },
@@ -167,7 +155,7 @@ async function initStories() {
   async function maybeLoadMore(swiper) {
     if (isLoadingMore) return;
 
-    const loadedCount = refs.storiesWrapperEl.children.length;
+    const loadedCount = wrapperEl.children.length;
     if (loadedCount >= totalFeedbacks) return;
 
     const visibleSlides = Math.ceil(Number(swiper.params.slidesPerView) || 1);
@@ -192,7 +180,7 @@ async function initStories() {
         return;
       }
 
-      refs.storiesWrapperEl.insertAdjacentHTML(
+      wrapperEl.insertAdjacentHTML(
         'beforeend',
         nextFeedbacks.map(buildSlide).join('')
       );
@@ -218,10 +206,8 @@ async function initStories() {
     updateNavButtons(swiperInstance);
   });
 
-  refs.storiesBtnPrev.addEventListener('click', () =>
-    swiperInstance.slidePrev()
-  );
-  refs.storiesBtnNext.addEventListener('click', async () => {
+  btnPrev.addEventListener('click', () => swiperInstance.slidePrev());
+  btnNext.addEventListener('click', async () => {
     if (swiperInstance.isEnd) {
       await maybeLoadMore(swiperInstance);
     }
