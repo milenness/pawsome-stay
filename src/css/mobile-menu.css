@@ -5,7 +5,6 @@
     z-index: 98;
     width: 100%;
     height: 100%;
-    padding: 0 20px;
    background-color: var(--color-scheme-1-background);
     transform: translateX(100%);
     transition: transform 0.3s;
@@ -36,10 +35,6 @@
 
 
 @media screen and (min-width:768px) {
-    .mobile-menu {
-    padding: 0 32px;
-}
-
 .close-btn {
     right: 44px;
 }
