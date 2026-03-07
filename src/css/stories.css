@@ -112,7 +112,24 @@
   padding: 0;
 }
 
-/* ── Review Card ── */
+.review-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media only screen and (max-width: 767px) {
+  .review-group {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1439px) {
+  .review-group {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 .review-card {
   display: flex;
   flex-direction: column;
