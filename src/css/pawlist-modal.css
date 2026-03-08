@@ -109,6 +109,9 @@ body.modal-open {
   margin-bottom: 24px;
 }
 
+ .pet-modal-category-badge {
+    font-size: 12px;
+  }
 .pet-modal-section-title {
   font-weight: 600;
   font-size: 14px;

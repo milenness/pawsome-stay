@@ -495,6 +495,10 @@ color: #f6f4f1;
   color: #f6f4f1;
 }
 
+[data-theme='dark'] .pet-modal-category-badge {
+  color: #e0cbb4;
+}
+
 [data-theme='dark'] .pet-modal-meta,
 [data-theme='dark'] .pet-modal-section-title {
   color: #e0cbb4;
