@@ -3,8 +3,8 @@
   padding-bottom: 115px;
   background-color: var(--color-mariner-darkest);
   background-image: image-set(
-    url('/img/hero/hero-tel.webp') 1x,
-    url('/img/hero/hero-tel@2x.webp') 2x
+    url('../img/hero/hero-tel.webp') 1x,
+    url('../img/hero/hero-tel@2x.webp') 2x
   );
   background-repeat: no-repeat;
   background-size: cover;
@@ -15,8 +15,8 @@
   .hero-section {
     padding-bottom: 235px;
     background-image: image-set(
-      url('/img/hero/hero-tabl.webp') 1x,
-      url('/img/hero/hero-tabl@2x.webp') 2x
+      url('../img/hero/hero-tabl.webp') 1x,
+      url('../img/hero/hero-tabl@2x.webp') 2x
     );
   }
 }
@@ -26,8 +26,8 @@
     padding-top: 128px;
     padding-bottom: 413px;
     background-image: image-set(
-      url('/img/hero/hero-desk.webp') 1x,
-      url('/img/hero/hero-desk@2x.webp') 2x
+      url('../img/hero/hero-desk.webp') 1x,
+      url('../img/hero/hero-desk@2x.webp') 2x
     );
   }
 }
