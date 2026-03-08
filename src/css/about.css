@@ -130,13 +130,17 @@
   }
 
   .about-pagination {
-    position: static;
+    position: static !important;
+    left: auto !important;
+    transform: none !important;
+
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 8px;
+
     width: auto !important;
-    margin-left: 24px;
+    margin-left: 0;
     z-index: 15;
   }
 
