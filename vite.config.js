@@ -4,6 +4,19 @@ import injectHTML from 'vite-plugin-html-inject';
 import FullReload from 'vite-plugin-full-reload';
 import SortCss from 'postcss-sort-media-queries';
 
+function nonBlockingCssPlugin() {
+  return {
+    name: 'non-blocking-css-plugin',
+    enforce: 'post',
+    transformIndexHtml(html) {
+      return html.replace(
+        /<link\s+rel="stylesheet"([^>]*href="[^"]+\.css"[^>]*)>/g,
+        `<link rel="preload" as="style"$1 onload="this.onload=null;this.rel='stylesheet'">\n    <noscript><link rel="stylesheet"$1></noscript>`
+      );
+    },
+  };
+}
+
 export default defineConfig(({ command }) => {
   return {
     define: {
@@ -43,6 +56,7 @@ export default defineConfig(({ command }) => {
       SortCss({
         sort: 'mobile-first',
       }),
-    ],
+      command === 'build' && nonBlockingCssPlugin(),
+    ].filter(Boolean),
   };
 });

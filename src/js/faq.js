@@ -1,5 +1,7 @@
 import Accordion from 'accordion-js';
-import 'accordion-js/dist/accordion.min.css';
+
+// Load vendor FAQ styles after initial render to keep them off critical path.
+import('accordion-js/dist/accordion.min.css');
 
 new Accordion('#faq-accordion', {
   duration: 300,

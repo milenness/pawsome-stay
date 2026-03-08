@@ -1,10 +1,23 @@
 import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
 import { createOrder } from '/js/api/api.js';
 import { refs } from './refs';
 import { UA_TOAST } from './notifications';
 
+let swalStylesPromise;
+
+function ensureSwalStyles() {
+  if (!swalStylesPromise) {
+    swalStylesPromise = import('sweetalert2/dist/sweetalert2.min.css').catch(
+      () => undefined
+    );
+  }
+
+  return swalStylesPromise;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  ensureSwalStyles();
+
   const submitBtn = refs.orderForm?.querySelector('button[type="submit"]');
 
   let currentAnimalId = null;
@@ -75,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         await createOrder(requestData);
+        await ensureSwalStyles();
 
         await Swal.fire({
           title: UA_TOAST.ORDER_SUCCESS_TITLE,
@@ -87,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (error) {
         const serverError =
           error.response?.data?.message || UA_TOAST.ORDER_ERROR;
+        await ensureSwalStyles();
         Swal.fire({ title: 'Помилка!', text: serverError, icon: 'error' });
       } finally {
         if (submitBtn) {
