@@ -63,16 +63,12 @@
 }
 
 [data-theme='dark'] {
-  --bg-color: #88765c;
-  --header-bg: #332317;
-  --header-text: #f6f4f1;
+  --header-bg: #332317;  
+  --header-text: #f6f4f1; 
   --nav-link-muted: #e0cbb4;
-  --btn-bg-light: #f6f4f1;
-  --btn-text-dark: #332317;
-  --list-section-bg: #332317;
-  --card-bg: #443022;
-  --title-color: #f6f4f1;
-  --text-muted: #e0cbb4;
+  --card-bg: #443022; 
+  --title-color: #f6f4f1; 
+  --text-muted: #e0cbb4; 
   --category-bg: #543f2e;
   --accent-button-bg: #88765c;
   --button-hover: #946d53;
@@ -111,6 +107,10 @@ body {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+ [data-theme='dark'] .scroll-top__tracks svg,
+.scroll-top__tracks .track {
+  stroke: var(--header-text);
+}
 /* header */
 
 [data-theme='dark'] .header-section {
@@ -148,6 +148,13 @@ body {
 
 [data-theme='dark'] .burger-icon {
   fill: var(--header-text);
+}
+
+/* hero */
+
+[data-theme='dark'] .btn-hero:hover {
+    background-color: var(--button-hover);
+    color: var(--header-text);
 }
 
   /* pets list */
@@ -391,12 +398,4 @@ body {
 
 [data-theme='dark'] .footer__logo .logo-light {
   display: block;
-}
-
-[data-theme='dark'] .footer__social-icon {
-  fill: #f6f4f1;
-}
-
-[data-theme='dark'] .footer__social-link:hover .footer__social-icon {
-  fill: rgb(136, 118, 92);
 }
