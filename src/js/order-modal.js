@@ -2,6 +2,7 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import { createOrder } from '/js/api/api.js';
 import { refs } from './refs';
+import { UA_TOAST } from './notifications';
 
 document.addEventListener('DOMContentLoaded', () => {
   const submitBtn = refs.orderForm?.querySelector('button[type="submit"]');
@@ -57,16 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!refs.orderForm.checkValidity()) return;
 
-      if (!currentAnimalId) {
-        Swal.fire({
-          title: 'Помилка',
-          text: 'Не вдалося визначити ID тварини.',
-          icon: 'error',
-          confirmButtonColor: '#2e2f42',
-        });
-        return;
-      }
-
       const formData = new FormData(refs.orderForm);
       const rawData = Object.fromEntries(formData.entries());
 
@@ -86,8 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
         await createOrder(requestData);
 
         await Swal.fire({
-          title: 'Заявку успішно надіслано!',
-          text: 'Ми зв’яжемося з вами найближчим часом.',
+          title: UA_TOAST.ORDER_SUCCESS_TITLE,
+          text: UA_TOAST.ORDER_SUCCESS_TEXT,
           icon: 'success',
           confirmButtonColor: '#2e2f42',
         });
@@ -95,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         closeModal();
       } catch (error) {
         const serverError =
-          error.response?.data?.message || 'Помилка при відправці.';
+          error.response?.data?.message || UA_TOAST.ORDER_ERROR;
         Swal.fire({ title: 'Помилка!', text: serverError, icon: 'error' });
       } finally {
         if (submitBtn) {
