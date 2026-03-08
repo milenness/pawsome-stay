@@ -154,7 +154,7 @@ body {
 }
 
 [data-theme='dark'] .burger-icon {
-  fill: var(--header-text);
+  stroke: var(--header-text);
 }
 
 /* hero */
@@ -362,6 +362,10 @@ body {
   fill: currentColor !important;
 }
 
+[data-theme='dark'] .review-star-icon {
+ stroke: #f6f4f1; 
+}
+
 /* footer */
 
 [data-theme='dark'] .footer {
@@ -381,6 +385,9 @@ body {
 
 [data-theme='dark'] .footer__menu-link::after {
   background-color: rgb(136, 118, 92);
+}
+[data-theme='dark'] .footer__social-icon {
+stroke: #f6f4f1;
 }
 
 [data-theme='dark'] .footer__divider {
@@ -416,29 +423,20 @@ body {
 }
 
 [data-theme='dark'] .mobile-menu {
-  /* Твій фірмовий глибокий коричневий фон */
   background-color: #332317; 
   transition: transform 0.3s, background-color 0.4s ease;
 }
 
-[data-theme='dark'] .close-icon {
-  /* Світла іконка закриття (х) */
-  fill: #f6f4f1;
-}
-
 [data-theme='dark'] .mob-menu-link {
-  /* Текст посилань — м'який беж */
   color: #f6f4f1;
 }
 
 [data-theme='dark'] .mob-menu-link:hover,
 [data-theme='dark'] .mob-menu-link:focus {
-  /* Колір при наведенні */
   color: #e0cbb4;
 }
 
 [data-theme='dark'] .mob-menu-button {
-  /* Кнопка "Взяти друга" — твій акцентний коричневий #88765c */
   background-color: #88765c;
   color: #f6f4f1;
   border: none;
