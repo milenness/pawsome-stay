@@ -154,7 +154,7 @@ body {
 }
 
 [data-theme='dark'] .burger-icon {
-  stroke: var(--header-text);
+  color: var(--header-text);
 }
 
 /* hero */
@@ -294,8 +294,8 @@ body {
   color: #f6f4f1 !important;
 }
 
-[data-theme='dark'] .icon-wrapper svg {
-  fill: #f6f4f1;
+[data-theme='dark'] .icon-plus {
+  color: #f6f4f1;
 }
 
 [data-theme='dark'] #faq-accordion .ac .ac-text,
