@@ -1,32 +1,45 @@
-
-
 /* =========================
-   LOGO
+   LOGO - LIGHT MODE
 ========================= */
 
-/* лапка */
-.nav-logo-icon path:nth-child(-n+5) {
+/* header logo: лапка */
+.nav-logo-icon path:nth-child(-n + 5) {
   fill: #3a3128;
 }
 
-/* текст */
-.nav-logo-icon path:nth-child(n+6) {
+/* header logo: текст */
+.nav-logo-icon path:nth-child(n + 6) {
   fill: #6b5b4a;
 }
 
+/* footer logo */
+.footer__logo {
+  color: #332c22;
+}
+
+.footer__logo-icon,
+.footer__logo-icon use,
+.footer__logo-icon path,
+.footer__logo-icon * {
+  fill: currentColor !important;
+  stroke: none !important;
+}
 
 /* =========================
-   HEADER BUTTON CLASS
+   BUTTONS - LIGHT MODE
 ========================= */
 
-.header-btn {
+.header-btn,
+.menu-button {
   background-color: #a58e6f;
   border: 1px solid #a58e6f;
   color: #ffffff;
 }
 
 .header-btn:hover,
-.header-btn:focus {
+.header-btn:focus,
+.menu-button:hover,
+.menu-button:focus {
   background-color: #927c5f;
   border-color: #927c5f;
   color: #ffffff;
@@ -99,7 +112,7 @@
 }
 
 /* =========================
-   DARK MODE
+   DARK MODE BASE
 ========================= */
 
 body.darkmode {
@@ -107,26 +120,64 @@ body.darkmode {
   color: #ffffff;
 }
 
-/* =========================
-   DARK MODE HEADER
-========================= */
-
-body.darkmode .header-section {
+/* темні секції */
+body.darkmode .header-section,
+body.darkmode .list-section,
+body.darkmode .reviews-section,
+body.darkmode .stories-section,
+body.darkmode .success-section,
+body.darkmode .about-section,
+body.darkmode .mobile-menu,
+body.darkmode footer,
+body.darkmode .footer {
   background-color: #3b2f28;
-}
-
-body.darkmode .menu-link,
-body.darkmode .burger-button,
-body.darkmode .close-btn,
-body.darkmode .mob-nav-logo {
   color: #ffffff;
 }
 
-body.darkmode .burger-icon,
-body.darkmode .close-icon,
-body.darkmode .logo-icon {
-  fill: currentColor;
-  stroke: currentColor;
+body.darkmode .hero-section {
+  background-color: #2f241f;
+}
+
+/* =========================
+   DARK MODE TEXT
+========================= */
+
+body.darkmode .menu-link,
+body.darkmode .mob-nav-logo,
+body.darkmode .list-section h1,
+body.darkmode .list-section h2,
+body.darkmode .list-section h3,
+body.darkmode .list-section h4,
+body.darkmode .list-section p,
+body.darkmode .list-section span,
+body.darkmode .list-section li,
+body.darkmode .list-section .section-desc-title,
+body.darkmode .list-section .section-desc-descriptor,
+body.darkmode .list-section .categories-list-item,
+body.darkmode .stories-section h1,
+body.darkmode .stories-section h2,
+body.darkmode .stories-section h3,
+body.darkmode .stories-section h4,
+body.darkmode .stories-section p,
+body.darkmode .stories-section span,
+body.darkmode .stories-section li,
+body.darkmode .reviews-section h1,
+body.darkmode .reviews-section h2,
+body.darkmode .reviews-section h3,
+body.darkmode .reviews-section h4,
+body.darkmode .reviews-section p,
+body.darkmode .reviews-section span,
+body.darkmode .reviews-section li,
+body.darkmode footer h1,
+body.darkmode footer h2,
+body.darkmode footer h3,
+body.darkmode footer h4,
+body.darkmode footer p,
+body.darkmode footer span,
+body.darkmode footer li,
+body.darkmode footer a,
+body.darkmode .footer a {
+  color: #ffffff !important;
 }
 
 /* =========================
@@ -134,15 +185,31 @@ body.darkmode .logo-icon {
 ========================= */
 
 body.darkmode .nav-logo,
-body.darkmode .footer-logo {
+body.darkmode .footer__logo {
   color: #d9c7a7;
 }
 
+body.darkmode .nav-logo svg path,
+body.darkmode .footer__logo svg path {
+  transition: fill 0.3s ease;
+}
+
+body.darkmode .nav-logo:hover svg path,
+body.darkmode .footer__logo:hover svg path {
+  fill: #d9c7a7 !important;
+}
+
+body.darkmode .footer__logo-icon,
+body.darkmode .footer__logo-icon * {
+  fill: #d9c7a7 !important;
+}
+
 /* =========================
-   DARK MODE HEADER BUTTON
+   DARK MODE MAIN BUTTONS
 ========================= */
 
-body.darkmode .menu-button {
+body.darkmode .menu-button,
+body.darkmode .header-btn {
   background-color: #d9c7a7;
   border: 1px solid #d9c7a7;
   color: #332c22;
@@ -157,8 +224,28 @@ body.darkmode .header-btn:focus {
   color: #2f241f;
 }
 
+/* secondary buttons */
+body.darkmode .pet-more-info,
+body.darkmode .load-more-pets-btn,
+body.darkmode .mob-menu-button {
+  background-color: #8c7b64 !important;
+  border: 1px solid #8c7b64 !important;
+  color: #ffffff !important;
+}
+
+body.darkmode .pet-more-info:hover,
+body.darkmode .pet-more-info:focus,
+body.darkmode .load-more-pets-btn:hover,
+body.darkmode .load-more-pets-btn:focus,
+body.darkmode .mob-menu-button:hover,
+body.darkmode .mob-menu-button:focus {
+  background-color: #a28f75 !important;
+  border-color: #a28f75 !important;
+  color: #ffffff !important;
+}
+
 /* =========================
-   DARK MODE THEME SWITCH
+   DARK MODE SWITCH
 ========================= */
 
 body.darkmode .theme-switch__slider {
@@ -179,36 +266,7 @@ body.darkmode .paw-light {
 }
 
 /* =========================
-   DARK MODE HERO
-========================= */
-
-body.darkmode .hero-section {
-  background-color: #2f241f;
-}
-
-/* =========================
-   DARK MODE LIST SECTION
-========================= */
-
-body.darkmode .list-section {
-  background-color: #3b2f28;
-}
-
-body.darkmode .list-section h1,
-body.darkmode .list-section h2,
-body.darkmode .list-section h3,
-body.darkmode .list-section h4,
-body.darkmode .list-section p,
-body.darkmode .list-section span,
-body.darkmode .list-section li,
-body.darkmode .list-section .section-desc-title,
-body.darkmode .list-section .section-desc-descriptor,
-body.darkmode .list-section .categories-list-item {
-  color: #ffffff;
-}
-
-/* =========================
-   DARK MODE PET CARDS
+   DARK MODE CARDS / FILTER
 ========================= */
 
 body.darkmode .pet-list-item {
@@ -223,14 +281,7 @@ body.darkmode .pet-age-and-gender-wrapper,
 body.darkmode .pet-info-categories-list-item,
 body.darkmode .pet-list-item p,
 body.darkmode .pet-list-item span,
-body.darkmode .pet-list-item li {
-  color: #ffffff;
-}
-
-/* =========================
-   FILTER
-========================= */
-
+body.darkmode .pet-list-item li,
 body.darkmode .categories-list-item {
   color: #ffffff;
 }
@@ -241,95 +292,14 @@ body.darkmode .categories-list-item.active {
 }
 
 /* =========================
-   BUTTONS IN DARK MODE
-========================= */
-
-body.darkmode .pet-more-info,
-body.darkmode .load-more-pets-btn {
-  background-color: #8c7b64;
-  border: 1px solid #8c7b64;
-  color: #ffffff;
-}
-
-body.darkmode .pet-more-info:hover,
-body.darkmode .pet-more-info:focus,
-body.darkmode .load-more-pets-btn:hover,
-body.darkmode .load-more-pets-btn:focus {
-  background-color: #a28f75;
-  border-color: #a28f75;
-  color: #ffffff;
-}
-
-/* =========================
-   OTHER SECTIONS IN DARK MODE
-========================= */
-
-body.darkmode section {
-  color: #ffffff;
-}
-
-body.darkmode .reviews-section,
-body.darkmode .stories-section,
-body.darkmode .success-section,
-body.darkmode .about-section,
-body.darkmode footer,
-body.darkmode .footer {
-  background-color: #3b2f28;
-  color: #ffffff;
-}
-
-body.darkmode .reviews-section h1,
-body.darkmode .reviews-section h2,
-body.darkmode .reviews-section h3,
-body.darkmode .reviews-section h4,
-body.darkmode .reviews-section p,
-body.darkmode .reviews-section span,
-body.darkmode .reviews-section li,
-body.darkmode .stories-section h1,
-body.darkmode .stories-section h2,
-body.darkmode .stories-section h3,
-body.darkmode .stories-section h4,
-body.darkmode .stories-section p,
-body.darkmode .stories-section span,
-body.darkmode .stories-section li,
-body.darkmode .success-section h1,
-body.darkmode .success-section h2,
-body.darkmode .success-section h3,
-body.darkmode .success-section h4,
-body.darkmode .success-section p,
-body.darkmode .success-section span,
-body.darkmode .success-section li,
-body.darkmode .about-section h1,
-body.darkmode .about-section h2,
-body.darkmode .about-section h3,
-body.darkmode .about-section h4,
-body.darkmode .about-section p,
-body.darkmode .about-section span,
-body.darkmode .about-section li,
-body.darkmode footer h1,
-body.darkmode footer h2,
-body.darkmode footer h3,
-body.darkmode footer h4,
-body.darkmode footer p,
-body.darkmode footer span,
-body.darkmode footer li,
-body.darkmode footer a,
-body.darkmode .footer a {
-  color: #ffffff;
-}
-
-/* =========================
-   FAQ
+   DARK MODE FAQ
 ========================= */
 
 body.darkmode #faq-accordion .ac {
   background: #f3efe9 !important;
 }
 
-body.darkmode #faq-accordion .ac-trigger {
-  color: #111111 !important;
-}
-
+body.darkmode #faq-accordion .ac-trigger,
 body.darkmode #faq-accordion .ac-panel,
 body.darkmode #faq-accordion .ac-text,
 body.darkmode #faq-accordion .ac p,
@@ -345,67 +315,10 @@ body.darkmode #faq-accordion .ac-panel {
 }
 
 /* =========================
-   MOBILE MENU DARK MODE
+   DARK MODE ICONS
 ========================= */
 
-body.darkmode .mobile-menu {
-  background-color: #3b2f28 !important;
-}
-
-body.darkmode .mobile-menu .menu-link,
-body.darkmode .mobile-menu a,
-body.darkmode .mob-menu-list a,
-body.darkmode .mob-nav-logo,
-body.darkmode .close-btn {
-  color: #ffffff !important;
-}
-
-body.darkmode .mob-nav-logo svg,
-body.darkmode .mob-nav-logo svg * {
-  fill: #ffffff !important;
-  stroke: none !important;
-}
-
-body.darkmode .close-icon,
-body.darkmode .close-icon * {
-  fill: #ffffff !important;
-  stroke: #ffffff !important;
-  color: #ffffff !important;
-}
-
-body.darkmode .mob-menu-button {
-  background-color: #8c7b64 !important;
-  border-color: #8c7b64 !important;
-  color: #ffffff !important;
-}
-
-body.darkmode .mob-menu-button:hover,
-body.darkmode .mob-menu-button:focus {
-  background-color: #a28f75 !important;
-  border-color: #a28f75 !important;
-  color: #ffffff !important;
-}
-
-
-
-/* =========================
-   FOOTER
-========================= */
-
-body.darkmode footer a,
-body.darkmode .footer a,
-body.darkmode footer p,
-body.darkmode .footer p,
-body.darkmode footer span,
-body.darkmode .footer span {
-  color: #ffffff;
-}
-
-/* =========================
-   DARK MODE WHITE ICONS FIX
-========================= */
-
-/* зірки у відгуках */
+/* білі зірки, стрілки, соціконки */
 body.darkmode .reviews-section .icon-star,
 body.darkmode .reviews-section .stars,
 body.darkmode .reviews-section .stars svg,
@@ -413,77 +326,71 @@ body.darkmode .reviews-section .stars path,
 body.darkmode .reviews-section .rating,
 body.darkmode .reviews-section .rating svg,
 body.darkmode .reviews-section .rating path,
-body.darkmode .reviews-section [class*="star"],
-body.darkmode .reviews-section [class*="rating"] svg,
-body.darkmode .reviews-section [class*="rating"] path {
-  fill: #ffffff !important;
-  stroke: #ffffff !important;
-  color: #ffffff !important;
-}
-
-body.darkmode .reviews-section [class*="star"],
-body.darkmode .reviews-section [class*="rating"] {
-  color: #ffffff !important;
-}
-
-/* стрілки */
+body.darkmode .reviews-section [class*='star'],
+body.darkmode .reviews-section [class*='rating'] svg,
+body.darkmode .reviews-section [class*='rating'] path,
 body.darkmode .swiper-button-next,
 body.darkmode .swiper-button-prev,
 body.darkmode .swiper-button-next::after,
 body.darkmode .swiper-button-prev::after,
-body.darkmode .stories-section .swiper-button-next,
-body.darkmode .stories-section .swiper-button-prev,
-body.darkmode .reviews-section .swiper-button-next,
-body.darkmode .reviews-section .swiper-button-prev,
-body.darkmode [class*="arrow"],
-body.darkmode [class*="arrow"] svg,
-body.darkmode [class*="arrow"] path {
-  color: #ffffff !important;
+body.darkmode [class*='arrow'],
+body.darkmode [class*='arrow'] svg,
+body.darkmode [class*='arrow'] path,
+body.darkmode .footer svg,
+body.darkmode .footer svg path,
+body.darkmode .footer svg use,
+body.darkmode footer svg,
+body.darkmode footer svg path,
+body.darkmode footer svg use,
+body.darkmode .footer [class*='icon'],
+body.darkmode footer [class*='icon'] {
   fill: #ffffff !important;
   stroke: #ffffff !important;
+  color: #ffffff !important;
+}
+
+body.darkmode .swiper-button-next,
+body.darkmode .swiper-button-prev,
+body.darkmode [class*='arrow'] {
   border-color: rgba(255, 255, 255, 0.35) !important;
 }
 
-body.darkmode .nav-logo svg path,
-body.darkmode .footer-logo svg path {
-  transition: fill 0.3s ease;
-}
-
-body.darkmode .nav-logo:hover svg path,
-body.darkmode .footer-logo:hover svg path {
+/* бургер і хрестик - колір як кнопка */
+body.darkmode .burger-button,
+body.darkmode .burger-button svg,
+body.darkmode .burger-button use,
+body.darkmode .burger-button path,
+body.darkmode .burger-icon,
+body.darkmode .menu-btn-open,
+body.darkmode .menu-btn-open svg,
+body.darkmode .menu-btn-open use,
+body.darkmode .menu-btn-open path,
+body.darkmode .close-btn,
+body.darkmode .close-btn svg,
+body.darkmode .close-btn use,
+body.darkmode .close-btn path,
+body.darkmode .close-icon,
+body.darkmode .close-icon *,
+body.darkmode .menu-btn-close,
+body.darkmode .menu-btn-close svg,
+body.darkmode .menu-btn-close use,
+body.darkmode .menu-btn-close path {
+  color: #d9c7a7 !important;
   fill: #d9c7a7 !important;
+  stroke: #d9c7a7 !important;
 }
 
-footer .nav-logo,
-footer .footer-logo,
-.footer .nav-logo,
-.footer .footer-logo {
-  color: #332c22 !important;
+/* scroll-to-top */
+body.darkmode .scroll-top svg,
+body.darkmode .scroll-top svg * {
+  fill: #f6b83d !important;
+  stroke: #f6b83d !important;
 }
 
-footer .nav-logo svg *,
-footer .footer-logo svg *,
-.footer .nav-logo svg *,
-.footer .footer-logo svg * {
-  fill: currentColor !important;
-  stroke: none !important;
-}
-
-.footer__logo {
-  color: #332c22;
-}
-
-.footer__logo-icon {
-  fill: currentColor;
-}
-
-.footer__logo-icon use,
-.footer__logo-icon path,
-.footer__logo-icon * {
-  fill: currentColor !important;
-  stroke: none !important;
-}
+/* =========================
+   CURSOR
+========================= */
 
 body.darkmode .custom-cursor img {
-  filter: brightness(0) saturate(100%) invert(92%) sepia(14%) saturate(526%) hue-rotate(338deg) brightness(89%) contrast(89%);
+  filter: brightness(0) invert(1) contrast(200%);
 }
