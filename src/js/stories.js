@@ -7,6 +7,10 @@ import { fetchFeedbacks } from './api/api';
 import { notify, UA_TOAST } from './notifications';
 import { refs } from './refs';
 
+const FEEDBACKS_CACHE_KEY = 'stories-feedbacks-cache';
+const FEEDBACKS_LIMIT = 12;
+const FEEDBACKS_CACHE_TTL_MS = 6 * 60 * 60 * 1000;
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function escHtml(str) {
@@ -88,36 +92,112 @@ function extractFeedbackList(data) {
   return Array.isArray(data) ? data : data.feedbacks || data.data || [];
 }
 
+function loadFeedbackCache() {
+  try {
+    const raw = localStorage.getItem(FEEDBACKS_CACHE_KEY);
+    if (!raw) return null;
+
+    const parsed = JSON.parse(raw);
+    if (!parsed || !Array.isArray(parsed.items)) return null;
+
+    return {
+      items: parsed.items,
+      total: Number(parsed.total) || parsed.items.length,
+      page: Number(parsed.page) || 1,
+      limit: Number(parsed.limit) || FEEDBACKS_LIMIT,
+      savedAt: Number(parsed.savedAt) || 0,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function saveFeedbackCache(cache) {
+  try {
+    const items = Array.isArray(cache?.items) ? cache.items : [];
+    const total = Number(cache?.total) || items.length;
+
+    localStorage.setItem(
+      FEEDBACKS_CACHE_KEY,
+      JSON.stringify({
+        ...cache,
+        items,
+        total,
+        page: Number(cache?.page) || 1,
+        limit: Number(cache?.limit) || FEEDBACKS_LIMIT,
+        savedAt: Date.now(),
+      })
+    );
+  } catch {
+    // Skip cache writes if storage is unavailable.
+  }
+}
+
+function isCacheStale(savedAt) {
+  if (!savedAt) return true;
+  return Date.now() - savedAt > FEEDBACKS_CACHE_TTL_MS;
+}
+
+function appendFeedbacks(existingItems, incomingItems) {
+  return [...existingItems, ...incomingItems];
+}
+
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
 async function initStories() {
   let currentPage = 1;
   let totalFeedbacks = 0;
   let isLoadingMore = false;
-  let feedbacks = [];
+  let cachedItems = [];
+  let shouldRefreshStaleCache = false;
 
-  try {
-    const data = await fetchFeedbacks(currentPage);
-    feedbacks = extractFeedbackList(data);
-    if (!feedbacks.length) {
-      notify.info(UA_TOAST.NO_FEEDBACKS);
-      return;
-    }
-    totalFeedbacks = Number(data?.total) || feedbacks.length;
-  } catch (err) {
-    const isNetworkError = !err.response;
-    if (isNetworkError) {
-      notify.failure(UA_TOAST.NETWORK);
-      return;
-    }
-    notify.failure(UA_TOAST.UNKNOWN_ERROR);
-    totalFeedbacks = 0;
+  const cachedData = loadFeedbackCache();
+  if (cachedData) {
+    cachedItems = cachedData.items;
+    totalFeedbacks = cachedData.total;
+    currentPage = cachedData.page;
+    shouldRefreshStaleCache = isCacheStale(cachedData.savedAt);
   }
 
-  refs.storiesWrapperEl.innerHTML = feedbacks.map(buildSlide).join('');
+  if (cachedItems.length) {
+    // Show only one API-sized chunk from cache on initial load.
+    const firstChunk = cachedItems.slice(0, FEEDBACKS_LIMIT);
+    refs.storiesWrapperEl.innerHTML = firstChunk.map(buildSlide).join('');
+    refs.storiesLoadingEl.classList.add('is-hidden');
+    refs.storiesSliderWrap.classList.add('is-visible');
+  } else {
+    try {
+      const data = await fetchFeedbacks(1, FEEDBACKS_LIMIT);
+      const firstBatch = extractFeedbackList(data);
+      if (!firstBatch.length) {
+        notify.info(UA_TOAST.NO_FEEDBACKS);
+        return;
+      }
 
-  refs.storiesLoadingEl.classList.add('is-hidden');
-  refs.storiesSliderWrap.classList.add('is-visible');
+      cachedItems = firstBatch;
+      currentPage = 1;
+      totalFeedbacks = Number(data?.total) || firstBatch.length;
+
+      saveFeedbackCache({
+        items: cachedItems,
+        total: totalFeedbacks,
+        page: currentPage,
+        limit: FEEDBACKS_LIMIT,
+      });
+
+      refs.storiesWrapperEl.innerHTML = firstBatch.map(buildSlide).join('');
+      refs.storiesLoadingEl.classList.add('is-hidden');
+      refs.storiesSliderWrap.classList.add('is-visible');
+    } catch (err) {
+      const isNetworkError = !err.response;
+      if (isNetworkError) {
+        notify.failure(UA_TOAST.NETWORK);
+        return;
+      }
+      notify.failure(UA_TOAST.UNKNOWN_ERROR);
+      return;
+    }
+  }
 
   const swiperInstance = new Swiper(refs.storiesSwiperEl, {
     modules: [Pagination],
@@ -143,6 +223,40 @@ async function initStories() {
     },
   });
 
+  if (shouldRefreshStaleCache) {
+    void refreshStaleCache(swiperInstance);
+  }
+
+  async function refreshStaleCache(swiper) {
+    try {
+      const data = await fetchFeedbacks(1, FEEDBACKS_LIMIT);
+      const freshBatch = extractFeedbackList(data);
+      if (!freshBatch.length) return;
+
+      cachedItems = appendFeedbacks(cachedItems, freshBatch);
+      currentPage = Math.max(currentPage, 1);
+      totalFeedbacks = Math.max(
+        Number(data?.total) || 0,
+        totalFeedbacks,
+        cachedItems.length
+      );
+
+      saveFeedbackCache({
+        items: cachedItems,
+        total: totalFeedbacks,
+        page: currentPage,
+        limit: FEEDBACKS_LIMIT,
+      });
+
+      refs.storiesWrapperEl.innerHTML = freshBatch.map(buildSlide).join('');
+      swiper.slideTo(0, 0);
+      swiper.update();
+      updateNavButtons(swiper);
+    } catch {
+      // Keep already rendered cache if refresh fails.
+    }
+  }
+
   async function maybeLoadMore(swiper) {
     if (isLoadingMore) return;
 
@@ -157,25 +271,62 @@ async function initStories() {
     isLoadingMore = true;
 
     try {
-      const nextPage = currentPage + 1;
-      const data = await fetchFeedbacks(nextPage);
-      if (!data || !extractFeedbackList(data).length) {
-        notify.info(UA_TOAST.NO_MORE_FEEDBACKS);
+      const nextCachedChunk = cachedItems.slice(
+        loadedCount,
+        loadedCount + FEEDBACKS_LIMIT
+      );
+
+      if (nextCachedChunk.length) {
+        refs.storiesWrapperEl.insertAdjacentHTML(
+          'beforeend',
+          nextCachedChunk.map(buildSlide).join('')
+        );
+        swiper.update();
         return;
       }
+
+      const nextPage = currentPage + 1;
+      const data = await fetchFeedbacks(nextPage, FEEDBACKS_LIMIT);
+      if (!data || !extractFeedbackList(data).length) {
+        notify.info(UA_TOAST.NO_MORE_FEEDBACKS);
+        totalFeedbacks = loadedCount;
+        saveFeedbackCache({
+          items: cachedItems,
+          total: totalFeedbacks,
+          page: currentPage,
+          limit: FEEDBACKS_LIMIT,
+        });
+        return;
+      }
+
       const nextFeedbacks = extractFeedbackList(data);
       totalFeedbacks = Number(data?.total) || totalFeedbacks;
 
       if (!nextFeedbacks.length) {
         totalFeedbacks = loadedCount;
+        saveFeedbackCache({
+          items: cachedItems,
+          total: totalFeedbacks,
+          page: currentPage,
+          limit: FEEDBACKS_LIMIT,
+        });
         return;
       }
+
+      cachedItems = appendFeedbacks(cachedItems, nextFeedbacks);
+      currentPage = nextPage;
+
+      saveFeedbackCache({
+        items: cachedItems,
+        total: totalFeedbacks,
+        page: currentPage,
+        limit: FEEDBACKS_LIMIT,
+      });
 
       refs.storiesWrapperEl.insertAdjacentHTML(
         'beforeend',
         nextFeedbacks.map(buildSlide).join('')
       );
-      currentPage = nextPage;
       swiper.update();
     } catch (err) {
       const isNetworkError = !err.response;
