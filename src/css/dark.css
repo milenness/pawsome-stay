@@ -472,6 +472,10 @@ stroke: #f6f4f1;
   background: transparent;
 }
 
+[data-theme='dark'] .close-icon {
+  color: #f6f4f1;
+}
+
 /*  pet modal */
 
 [data-theme='dark'] .pet-modal-overlay {
