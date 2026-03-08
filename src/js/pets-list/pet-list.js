@@ -2,11 +2,17 @@ import { getAnimalsByCategory } from '../api/api';
 import { notify, UA_TOAST } from '../notifications';
 import { refs } from '../refs';
 
-let currentPage = 1;
+const PETS_CACHE_STORAGE_KEY = 'petsByCategoryCache';
+const PETS_CACHE_VERSION = 1;
+const PETS_CACHE_TTL_MS = 1000 * 60 * 30;
+
 let currentCategory = null;
 let isLoading = false;
 let isFirstLoad = true;
 let loadedAnimals = [];
+let currentTotalItems = null;
+let storageReadsCount = 0;
+let nextBackendPage = 1;
 let lastViewportType = getViewportType();
 
 export function getPetById(petId) {
@@ -28,9 +34,11 @@ function mergeUniqueAnimals(existing, incoming) {
 
 export function clearPetList() {
   refs.petList.innerHTML = '';
-  currentPage = 1;
   currentCategory = null;
   loadedAnimals = [];
+  currentTotalItems = null;
+  storageReadsCount = 0;
+  nextBackendPage = 1;
 
   refs.petListLoadMoreBtn.classList.add('is-hidden');
   refs.petListLoadMoreBtnWrapper.classList.add('is-hidden');
@@ -89,6 +97,217 @@ function removeLoader() {
   if (loader) {
     loader.remove();
   }
+}
+
+function getCategoryStorageKey(categoryId) {
+  return categoryId || '__all__';
+}
+
+function createEmptyCachePayload() {
+  return {
+    version: PETS_CACHE_VERSION,
+    categories: {},
+  };
+}
+
+function normalizeCachePayload(parsedData) {
+  const emptyPayload = createEmptyCachePayload();
+
+  if (!parsedData || typeof parsedData !== 'object') {
+    return emptyPayload;
+  }
+
+  const isValidVersionedPayload =
+    parsedData.version === PETS_CACHE_VERSION &&
+    parsedData.categories &&
+    typeof parsedData.categories === 'object';
+
+  if (isValidVersionedPayload) {
+    return parsedData;
+  }
+
+  // Backward compatibility with previous plain-map cache structure.
+  if (parsedData.version !== undefined || parsedData.categories !== undefined) {
+    return emptyPayload;
+  }
+
+  const legacyCategories = Object.entries(parsedData).reduce(
+    (acc, [key, value]) => {
+      if (!value || !Array.isArray(value.animals)) {
+        return acc;
+      }
+
+      acc[key] = {
+        animals: value.animals,
+        totalItems: Number.isFinite(value.totalItems) ? value.totalItems : null,
+        // Force one refresh for legacy entries that had no timestamp.
+        updatedAt: 0,
+      };
+
+      return acc;
+    },
+    {}
+  );
+
+  return {
+    version: PETS_CACHE_VERSION,
+    categories: legacyCategories,
+  };
+}
+
+function isCacheEntryFresh(entry) {
+  if (!entry) return false;
+  if (!Number.isFinite(entry.updatedAt)) return false;
+
+  return Date.now() - entry.updatedAt < PETS_CACHE_TTL_MS;
+}
+
+function getPetsCacheMap() {
+  try {
+    const rawData = localStorage.getItem(PETS_CACHE_STORAGE_KEY);
+    if (!rawData) return createEmptyCachePayload();
+
+    const parsedData = JSON.parse(rawData);
+    return normalizeCachePayload(parsedData);
+  } catch {
+    return createEmptyCachePayload();
+  }
+}
+
+function savePetsCacheMap(cacheMap) {
+  try {
+    localStorage.setItem(PETS_CACHE_STORAGE_KEY, JSON.stringify(cacheMap));
+  } catch {
+    // Ignore quota/privacy-mode failures and continue with runtime state.
+  }
+}
+
+function getCachedCategoryData(categoryId) {
+  const cachePayload = getPetsCacheMap();
+  const key = getCategoryStorageKey(categoryId);
+  const entry = cachePayload.categories[key];
+
+  if (!entry || !Array.isArray(entry.animals)) {
+    return { animals: [], totalItems: null };
+  }
+
+  if (!isCacheEntryFresh(entry)) {
+    delete cachePayload.categories[key];
+    savePetsCacheMap(cachePayload);
+    return { animals: [], totalItems: null };
+  }
+
+  return {
+    animals: entry.animals,
+    totalItems: Number.isFinite(entry.totalItems) ? entry.totalItems : null,
+  };
+}
+
+function updateCachedCategoryData(
+  categoryId,
+  incomingAnimals,
+  totalItems = null
+) {
+  const cachePayload = getPetsCacheMap();
+  const key = getCategoryStorageKey(categoryId);
+  const currentEntry = cachePayload.categories[key];
+  const existingAnimals = Array.isArray(currentEntry?.animals)
+    ? currentEntry.animals
+    : [];
+
+  const mergedAnimals = mergeUniqueAnimals(existingAnimals, incomingAnimals);
+
+  cachePayload.categories[key] = {
+    animals: mergedAnimals,
+    totalItems:
+      Number.isFinite(totalItems) && totalItems >= 0
+        ? totalItems
+        : (currentEntry?.totalItems ?? null),
+    updatedAt: Date.now(),
+  };
+
+  savePetsCacheMap(cachePayload);
+
+  return cachePayload.categories[key];
+}
+
+function getHasMorePets(limit) {
+  const { animals: cachedAnimals, totalItems: cachedTotalItems } =
+    getCachedCategoryData(currentCategory);
+
+  const renderedCount = loadedAnimals.length;
+  const hasCachedAnimalsLeft = cachedAnimals.length > renderedCount;
+  const totalItems =
+    Number.isFinite(currentTotalItems) && currentTotalItems >= 0
+      ? currentTotalItems
+      : cachedTotalItems;
+
+  const hasMoreByTotal =
+    Number.isFinite(totalItems) && renderedCount < Number(totalItems);
+
+  if (hasCachedAnimalsLeft || hasMoreByTotal) {
+    return true;
+  }
+
+  return renderedCount > 0 && renderedCount % limit === 0;
+}
+
+function resetCategoryState(categoryId) {
+  currentCategory = categoryId;
+  loadedAnimals = [];
+  currentTotalItems = null;
+  storageReadsCount = 0;
+  nextBackendPage = 1;
+}
+
+function tryLoadCategoryFromStorage(limit) {
+  const { animals: cachedAnimals, totalItems } =
+    getCachedCategoryData(currentCategory);
+
+  if (!cachedAnimals.length) return false;
+
+  loadedAnimals = cachedAnimals.slice(0, limit);
+  currentTotalItems = totalItems;
+  storageReadsCount = 1;
+  nextBackendPage = storageReadsCount + 1;
+
+  const hasMorePets = getHasMorePets(limit);
+  renderPetList(hasMorePets);
+
+  if (refs.petListLoadMoreBtn) {
+    refs.petListLoadMoreBtn.classList.toggle('is-hidden', !hasMorePets);
+  }
+
+  return true;
+}
+
+function tryLoadMoreFromStorage(limit) {
+  const { animals: cachedAnimals } = getCachedCategoryData(currentCategory);
+  if (cachedAnimals.length <= loadedAnimals.length) {
+    return false;
+  }
+
+  const nextChunk = cachedAnimals.slice(
+    loadedAnimals.length,
+    loadedAnimals.length + limit
+  );
+
+  if (!nextChunk.length) {
+    return false;
+  }
+
+  loadedAnimals = mergeUniqueAnimals(loadedAnimals, nextChunk);
+  storageReadsCount += 1;
+  nextBackendPage = storageReadsCount + 1;
+
+  const hasMorePets = getHasMorePets(limit);
+  renderPetList(hasMorePets);
+
+  if (refs.petListLoadMoreBtn) {
+    refs.petListLoadMoreBtn.classList.toggle('is-hidden', !hasMorePets);
+  }
+
+  return true;
 }
 
 function createPetListMarkup(animals) {
@@ -152,14 +371,43 @@ function recalculateAndRenderOnResize() {
 export async function loadPets(categoryId = null, isNewCategory = false) {
   if (isLoading) return;
 
+  const limit = getLimit();
+  const isInitialCategoryLoad =
+    !isNewCategory &&
+    loadedAnimals.length === 0 &&
+    currentCategory === null &&
+    categoryId === null;
+
+  if (isInitialCategoryLoad) {
+    resetCategoryState(categoryId);
+
+    const loadedFromStorage = tryLoadCategoryFromStorage(limit);
+    if (loadedFromStorage) {
+      updateButtonVisibility(hasPets());
+      return;
+    }
+  }
+
   if (isNewCategory) {
-    currentPage = 1;
-    currentCategory = categoryId;
+    resetCategoryState(categoryId);
     refs.petList.innerHTML = '';
-    loadedAnimals = [];
     // Hide wrapper when switching to new category
     if (refs.petListLoadMoreBtnWrapper) {
       refs.petListLoadMoreBtnWrapper.classList.add('is-hidden');
+    }
+
+    const loadedFromStorage = tryLoadCategoryFromStorage(limit);
+    if (loadedFromStorage) {
+      updateButtonVisibility(hasPets());
+      return;
+    }
+  }
+
+  if (!isNewCategory && loadedAnimals.length > 0) {
+    const loadedMoreFromStorage = tryLoadMoreFromStorage(limit);
+    if (loadedMoreFromStorage) {
+      updateButtonVisibility(hasPets());
+      return;
     }
   }
 
@@ -167,24 +415,40 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
   isLoading = true;
 
   try {
-    const limit = getLimit();
-
     const { animals, totalItems } = await getAnimalsByCategory(
       currentCategory,
-      currentPage,
+      nextBackendPage,
       limit
     );
 
     if (!Array.isArray(animals) || animals.length === 0) {
+      removeLoader();
+
+      if (loadedAnimals.length > 0) {
+        if (refs.petListLoadMoreBtn) {
+          refs.petListLoadMoreBtn.classList.add('is-hidden');
+        }
+        return;
+      }
+
       clearPetList();
       notify.failure(UA_TOAST.PETS_EMPTY);
       return;
     }
 
-    loadedAnimals = mergeUniqueAnimals(loadedAnimals, animals);
+    const updatedCache = updateCachedCategoryData(
+      currentCategory,
+      animals,
+      totalItems
+    );
 
-    const totalPages = Math.ceil(totalItems / limit);
-    const hasMorePets = currentPage < totalPages;
+    loadedAnimals = mergeUniqueAnimals(loadedAnimals, animals);
+    currentTotalItems = Number.isFinite(totalItems)
+      ? totalItems
+      : updatedCache.totalItems;
+    nextBackendPage += 1;
+
+    const hasMorePets = getHasMorePets(limit);
 
     removeLoader();
     renderPetList(hasMorePets);
@@ -199,6 +463,8 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
       }
     }
   } catch (error) {
+    removeLoader();
+
     const isNetworkError = !error.response;
     if (isNetworkError) {
       notify.failure(UA_TOAST.NETWORK);
@@ -206,8 +472,6 @@ export async function loadPets(categoryId = null, isNewCategory = false) {
     }
 
     notify.failure(UA_TOAST.UNKNOWN_ERROR);
-
-    removeLoader();
     if (refs.petListLoadMoreBtn) {
       refs.petListLoadMoreBtn.classList.add('is-hidden');
     }
@@ -226,7 +490,22 @@ if (refs.petListLoadMoreBtn) {
   refs.petListLoadMoreBtn.addEventListener('click', async () => {
     if (isLoading) return;
 
-    currentPage += 1;
+    // Check if we already have all animals loaded
+    const { animals: cachedAnimals, totalItems: cachedTotalItems } =
+      getCachedCategoryData(currentCategory);
+    
+    const totalItems =
+      Number.isFinite(currentTotalItems) && currentTotalItems >= 0
+        ? currentTotalItems
+        : cachedTotalItems;
+
+    if (
+      Number.isFinite(totalItems) &&
+      loadedAnimals.length >= totalItems
+    ) {
+      refs.petListLoadMoreBtn.classList.add('is-hidden');
+      return;
+    }
 
     await loadPets(currentCategory);
 
