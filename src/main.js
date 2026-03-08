@@ -12,3 +12,4 @@ import '/js/stories.js';
 import '/js/about-slider.js';
 import '/js/cursor.js';
 import '/js/footer.js';
+import './js/darktheme.js';

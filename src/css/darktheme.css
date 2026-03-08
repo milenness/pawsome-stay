@@ -1,0 +1,460 @@
+/* =========================
+   THEME VARIABLES
+========================= */
+
+:root {
+  --logo-paw-light: #3a3128;
+  --logo-text-light: #6b5b4a;
+  --footer-logo-light: #332c22;
+
+  --header-btn-bg: #a58e6f;
+  --header-btn-border: #a58e6f;
+  --header-btn-hover: #927c5f;
+  --header-btn-text: #ffffff;
+
+  --switch-track-light: #8c7b64;
+  --switch-thumb-light: #ffffff;
+
+  --dark-body-bg: #2f241f;
+  --dark-section-bg: #3b2f28;
+  --dark-faq-section-bg: #4a3426;
+
+  --dark-logo: #a58e6f;
+  --dark-logo-accent: #f6b83d;
+
+  --dark-main-btn-bg: #d9c7a7;
+  --dark-main-btn-border: #d9c7a7;
+  --dark-main-btn-text: #332c22;
+  --dark-main-btn-hover: #f3efe9;
+
+  --dark-secondary-btn-bg: #8c7b64;
+  --dark-secondary-btn-border: #8c7b64;
+  --dark-secondary-btn-hover: #a28f75;
+  --dark-secondary-btn-text: #ffffff;
+
+  --dark-switch-track: #ffffff;
+  --dark-switch-thumb: #8c7b64;
+
+  --dark-card-bg: #4a3b32;
+  --dark-card-border: #6a574a;
+
+  --dark-text: #ffffff;
+  --dark-faq-bg: #f3efe9;
+  --dark-faq-text: #111111;
+
+  --dark-icon: #ffffff;
+  --dark-accent-icon: #d9c7a7;
+  --dark-scroll-icon: #f6b83d;
+}
+
+/* =========================
+   LOGO - LIGHT MODE
+========================= */
+
+.nav-logo-icon path:nth-child(-n + 5) {
+  fill: var(--logo-paw-light);
+}
+
+.nav-logo-icon path:nth-child(n + 6) {
+  fill: var(--logo-text-light);
+}
+
+.footer__logo {
+  color: var(--footer-logo-light);
+}
+
+.footer__logo-icon,
+.footer__logo-icon use,
+.footer__logo-icon path,
+.footer__logo-icon * {
+  fill: currentColor !important;
+  stroke: none !important;
+}
+
+/* =========================
+   BUTTONS - LIGHT MODE
+========================= */
+
+.header-btn,
+.menu-button {
+  background-color: var(--header-btn-bg);
+  border: 1px solid var(--header-btn-border);
+  color: var(--header-btn-text);
+}
+
+.header-btn:hover,
+.header-btn:focus,
+.menu-button:hover,
+.menu-button:focus {
+  background-color: var(--header-btn-hover);
+  border-color: var(--header-btn-hover);
+  color: var(--header-btn-text);
+}
+
+/* =========================
+   THEME SWITCH
+========================= */
+
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 28px;
+  margin-left: 12px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.theme-switch__checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.theme-switch__slider {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background-color: var(--switch-track-light);
+  border: 1px solid var(--switch-track-light);
+  cursor: pointer;
+  transition: background-color 250ms ease, border-color 250ms ease;
+}
+
+.theme-switch__thumb {
+  position: absolute;
+  left: 3px;
+  top: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--switch-thumb-light);
+  overflow: hidden;
+  transition: transform 250ms ease, background-color 250ms ease;
+}
+
+.theme-switch__thumb svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  display: block;
+}
+
+.paw-dark {
+  opacity: 1;
+}
+
+.paw-light {
+  opacity: 0;
+}
+
+.theme-switch__checkbox:checked + .theme-switch__slider .theme-switch__thumb {
+  transform: translateX(26px);
+}
+
+/* =========================
+   DARK MODE BASE
+========================= */
+
+body.darkmode {
+  background-color: var(--dark-body-bg);
+  color: var(--dark-text);
+}
+
+body.darkmode .header-section,
+body.darkmode .list-section,
+body.darkmode .reviews-section,
+body.darkmode .stories-section,
+body.darkmode .success-section,
+body.darkmode .about-section,
+body.darkmode .mobile-menu,
+body.darkmode footer,
+body.darkmode .footer {
+  background-color: var(--dark-section-bg);
+  color: var(--dark-text);
+}
+
+body.darkmode .hero-section {
+  background-color: var(--dark-body-bg);
+}
+
+
+body.darkmode .faq-section {
+  background-color: var(--dark-section-bg);
+  color: var(--dark-text);
+}
+
+/* =========================
+   DARK MODE TEXT
+========================= */
+
+body.darkmode .menu-link,
+body.darkmode .mob-nav-logo,
+body.darkmode .list-section h1,
+body.darkmode .list-section h2,
+body.darkmode .list-section h3,
+body.darkmode .list-section h4,
+body.darkmode .list-section p,
+body.darkmode .list-section span,
+body.darkmode .list-section li,
+body.darkmode .list-section .section-desc-title,
+body.darkmode .list-section .section-desc-descriptor,
+body.darkmode .list-section .categories-list-item,
+body.darkmode .stories-section h1,
+body.darkmode .stories-section h2,
+body.darkmode .stories-section h3,
+body.darkmode .stories-section h4,
+body.darkmode .stories-section p,
+body.darkmode .stories-section span,
+body.darkmode .stories-section li,
+body.darkmode .reviews-section h1,
+body.darkmode .reviews-section h2,
+body.darkmode .reviews-section h3,
+body.darkmode .reviews-section h4,
+body.darkmode .reviews-section p,
+body.darkmode .reviews-section span,
+body.darkmode .reviews-section li,
+body.darkmode footer h1,
+body.darkmode footer h2,
+body.darkmode footer h3,
+body.darkmode footer h4,
+body.darkmode footer p,
+body.darkmode footer span,
+body.darkmode footer li,
+body.darkmode footer a,
+body.darkmode .footer a {
+  color: var(--dark-text) !important;
+}
+
+/* =========================
+   DARK MODE LOGO
+========================= */
+
+body.darkmode .nav-logo,
+body.darkmode .footer__logo {
+  color: var(--dark-logo);
+}
+
+body.darkmode .nav-logo-icon path,
+body.darkmode .logo-icon path {
+  fill: #a58e6f !important;
+  stroke: none !important;
+  transition: fill 0.3s ease;
+}
+
+body.darkmode .nav-logo:hover .nav-logo-icon path,
+body.darkmode .nav-logo:hover .logo-icon path {
+  fill: #927c5f !important;
+}
+
+body.darkmode .footer__logo-icon,
+body.darkmode .footer__logo-icon * {
+  fill: var(--dark-logo-accent) !important;
+}
+/* =========================
+   DARK MODE MAIN BUTTONS
+========================= */
+
+body.darkmode .menu-button,
+body.darkmode .header-btn {
+  background-color: var(--dark-main-btn-bg);
+  border: 1px solid var(--dark-main-btn-border);
+  color: var(--dark-main-btn-text);
+}
+
+body.darkmode .menu-button:hover,
+body.darkmode .menu-button:focus,
+body.darkmode .header-btn:hover,
+body.darkmode .header-btn:focus {
+  background-color: var(--dark-main-btn-hover);
+  border-color: var(--dark-main-btn-hover);
+  color: var(--dark-body-bg);
+}
+
+/* secondary buttons */
+
+body.darkmode .pet-more-info,
+body.darkmode .load-more-pets-btn,
+body.darkmode .mob-menu-button {
+  background-color: var(--dark-secondary-btn-bg) !important;
+  border: 1px solid var(--dark-secondary-btn-border) !important;
+  color: var(--dark-secondary-btn-text) !important;
+}
+
+body.darkmode .pet-more-info:hover,
+body.darkmode .pet-more-info:focus,
+body.darkmode .load-more-pets-btn:hover,
+body.darkmode .load-more-pets-btn:focus,
+body.darkmode .mob-menu-button:hover,
+body.darkmode .mob-menu-button:focus {
+  background-color: var(--dark-secondary-btn-hover) !important;
+  border-color: var(--dark-secondary-btn-hover) !important;
+  color: var(--dark-secondary-btn-text) !important;
+}
+
+/* =========================
+   DARK MODE SWITCH
+========================= */
+
+body.darkmode .theme-switch__slider {
+  background-color: var(--dark-switch-track);
+  border-color: var(--dark-switch-track);
+}
+
+body.darkmode .theme-switch__thumb {
+  background-color: var(--dark-switch-thumb);
+}
+
+body.darkmode .paw-dark {
+  opacity: 0;
+}
+
+body.darkmode .paw-light {
+  opacity: 1;
+}
+
+/* =========================
+   DARK MODE CARDS / FILTER
+========================= */
+
+body.darkmode .pet-list-item {
+  background-color: var(--dark-card-bg);
+  border: 1px solid var(--dark-card-border);
+}
+
+body.darkmode .pet-info-name,
+body.darkmode .pet-info-category,
+body.darkmode .pet-about,
+body.darkmode .pet-age-and-gender-wrapper,
+body.darkmode .pet-info-categories-list-item,
+body.darkmode .pet-list-item p,
+body.darkmode .pet-list-item span,
+body.darkmode .pet-list-item li,
+body.darkmode .categories-list-item {
+  color: var(--dark-text);
+}
+
+body.darkmode .categories-list-item.active {
+  background-color: var(--dark-secondary-btn-bg);
+  color: var(--dark-text);
+}
+
+/* =========================
+   DARK MODE FAQ
+========================= */
+
+body.darkmode #faq-accordion .ac {
+  background: var(--dark-faq-bg) !important;
+}
+
+body.darkmode #faq-accordion .ac-header,
+body.darkmode #faq-accordion .ac-panel {
+  background: transparent !important;
+}
+
+body.darkmode #faq-accordion .ac-trigger,
+body.darkmode #faq-accordion .ac-panel,
+body.darkmode #faq-accordion .ac-text,
+body.darkmode #faq-accordion .ac p,
+body.darkmode #faq-accordion .ac li,
+body.darkmode #faq-accordion .faq-list li,
+body.darkmode #faq-accordion .faq-list-ul li {
+  color: var(--dark-faq-text) !important;
+}
+
+/* плюсик у FAQ */
+body.darkmode #faq-accordion .ac-trigger::after,
+body.darkmode #faq-accordion .ac-trigger::before,
+body.darkmode #faq-accordion .ac .ac-trigger svg,
+body.darkmode #faq-accordion .ac .ac-trigger path {
+  color: var(--dark-faq-text) !important;
+  fill: var(--dark-faq-text) !important;
+  stroke: var(--dark-faq-text) !important;
+}
+
+/* =========================
+   DARK MODE ICONS
+========================= */
+
+body.darkmode .reviews-section .icon-star,
+body.darkmode .reviews-section .stars,
+body.darkmode .reviews-section .stars svg,
+body.darkmode .reviews-section .stars path,
+body.darkmode .reviews-section .rating,
+body.darkmode .reviews-section .rating svg,
+body.darkmode .reviews-section .rating path,
+body.darkmode .reviews-section [class*='star'],
+body.darkmode .reviews-section [class*='rating'] svg,
+body.darkmode .reviews-section [class*='rating'] path,
+body.darkmode .swiper-button-next,
+body.darkmode .swiper-button-prev,
+body.darkmode .swiper-button-next::after,
+body.darkmode .swiper-button-prev::after,
+body.darkmode [class*='arrow'],
+body.darkmode [class*='arrow'] svg,
+body.darkmode [class*='arrow'] path,
+body.darkmode .footer svg,
+body.darkmode .footer svg path,
+body.darkmode .footer svg use,
+body.darkmode footer svg,
+body.darkmode footer svg path,
+body.darkmode footer svg use,
+body.darkmode .footer [class*='icon'],
+body.darkmode footer [class*='icon'] {
+  fill: var(--dark-icon) !important;
+  stroke: var(--dark-icon) !important;
+  color: var(--dark-icon) !important;
+}
+
+body.darkmode .swiper-button-next,
+body.darkmode .swiper-button-prev,
+body.darkmode [class*='arrow'] {
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* бургер і хрестик */
+
+body.darkmode .burger-button,
+body.darkmode .burger-button svg,
+body.darkmode .burger-button use,
+body.darkmode .burger-button path,
+body.darkmode .burger-icon,
+body.darkmode .menu-btn-open,
+body.darkmode .menu-btn-open svg,
+body.darkmode .menu-btn-open use,
+body.darkmode .menu-btn-open path,
+body.darkmode .close-btn,
+body.darkmode .close-btn svg,
+body.darkmode .close-btn use,
+body.darkmode .close-btn path,
+body.darkmode .close-icon,
+body.darkmode .close-icon *,
+body.darkmode .menu-btn-close,
+body.darkmode .menu-btn-close svg,
+body.darkmode .menu-btn-close use,
+body.darkmode .menu-btn-close path {
+  color: var(--dark-accent-icon) !important;
+  fill: var(--dark-accent-icon) !important;
+  stroke: var(--dark-accent-icon) !important;
+}
+
+/* scroll-to-top */
+
+body.darkmode .scroll-top svg,
+body.darkmode .scroll-top svg * {
+  fill: var(--dark-scroll-icon) !important;
+  stroke: var(--dark-scroll-icon) !important;
+}
+
+/* =========================
+   CURSOR
+========================= */
+
+body.darkmode .custom-cursor img {
+  filter: brightness(0) invert(1) contrast(200%);
+}
