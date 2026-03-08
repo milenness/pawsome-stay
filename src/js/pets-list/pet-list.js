@@ -490,6 +490,23 @@ if (refs.petListLoadMoreBtn) {
   refs.petListLoadMoreBtn.addEventListener('click', async () => {
     if (isLoading) return;
 
+    // Check if we already have all animals loaded
+    const { animals: cachedAnimals, totalItems: cachedTotalItems } =
+      getCachedCategoryData(currentCategory);
+    
+    const totalItems =
+      Number.isFinite(currentTotalItems) && currentTotalItems >= 0
+        ? currentTotalItems
+        : cachedTotalItems;
+
+    if (
+      Number.isFinite(totalItems) &&
+      loadedAnimals.length >= totalItems
+    ) {
+      refs.petListLoadMoreBtn.classList.add('is-hidden');
+      return;
+    }
+
     await loadPets(currentCategory);
 
     const firstItem = refs.petList.querySelector('.pet-list-item');
