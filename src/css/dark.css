@@ -476,6 +476,22 @@ stroke: #f6f4f1;
   color: #f6f4f1;
 }
 
+#instagram {
+  color: #000;
+}
+
+[data-theme='dark'] #instagram {
+  color: #fff;
+}
+
+#facebook {
+  color: #000;
+}
+
+[data-theme='dark'] #facebook {
+  color: #fff;
+}
+
 /*  pet modal */
 
 [data-theme='dark'] .pet-modal-overlay {
