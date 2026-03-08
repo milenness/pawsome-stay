@@ -471,13 +471,9 @@ stroke: #f6f4f1;
   border: none;
   background: transparent;
 }
-/*  close vodal */
-.close-icon {
-  color: #000000;
-}
 
 [data-theme='dark'] .close-icon {
-  color: #ffffff;
+  color: #f6f4f1;
 }
 
 /*  pet modal */
