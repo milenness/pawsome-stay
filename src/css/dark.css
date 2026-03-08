@@ -387,7 +387,7 @@ body {
   background-color: rgb(136, 118, 92);
 }
 [data-theme='dark'] .footer__social-icon {
-stroke: #f6f4f1;
+color: #f6f4f1;
 }
 
 [data-theme='dark'] .footer__divider {
@@ -413,7 +413,6 @@ stroke: #f6f4f1;
 [data-theme='dark'] .footer__logo .logo-light {
   display: block;
 }
-
 
 /* mob menu */
 
@@ -474,22 +473,6 @@ stroke: #f6f4f1;
 
 [data-theme='dark'] .close-icon {
   color: #f6f4f1;
-}
-
-#instagram {
-  color: #000;
-}
-
-[data-theme='dark'] #instagram {
-  color: #fff;
-}
-
-#facebook {
-  color: #000;
-}
-
-[data-theme='dark'] #facebook {
-  color: #fff;
 }
 
 /*  pet modal */
