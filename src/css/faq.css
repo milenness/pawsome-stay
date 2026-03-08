@@ -119,8 +119,11 @@
   transition: height 300ms ease, visibility 300ms;
 }
 
-.ac.is-active .ac-panel {
-  padding-bottom: 24px;
+.ac-panel::after {
+  content: "";
+  display: block;
+  height: 24px;
+  width: 100%;
 }
 
 #faq-accordion .ac .ac-text {
