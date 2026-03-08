@@ -1,10 +1,6 @@
 import { getAnimalsByCategory } from '../api/api';
 import { notify, UA_TOAST } from '../notifications';
-
-const petList = document.querySelector('.pet-list');
-const loadMoreBtnWrapper = document.querySelector('.load-more-pets-btn-wrapper');
-const loadMoreBtn = document.querySelector('.load-more-pets-btn');
-const pagination = document.querySelector('.pagination-wrapper .pagination');
+import { refs } from '../refs';
 
 let currentPage = 1;
 let currentCategory = null;
@@ -13,14 +9,14 @@ let isLoading = false;
 let loadedAnimals = [];
 let lastViewportType = getViewportType();
 
-// ====== Получить питомца по ID ======
+// ===== Получить питомца по ID =====
 export function getPetById(petId) {
   return loadedAnimals.find(
     animal => String(animal._id || animal.id) === String(petId)
   );
 }
 
-// ====== Объединение массивов без дубликатов ======
+// ===== Объединение массивов без дубликатов =====
 function mergeUniqueAnimals(existing, incoming) {
   return Array.from(
     new Map(
@@ -32,10 +28,7 @@ function mergeUniqueAnimals(existing, incoming) {
   );
 }
 
-// ====== Определяем тип устройства ======
-const isMobile = () => window.innerWidth < 768;
-const isTabletViewport = () => window.innerWidth >= 768 && window.innerWidth < 1440;
-
+// ===== Viewport =====
 function getViewportType() {
   const width = window.innerWidth;
   if (width < 768) return 'mobile';
@@ -43,7 +36,12 @@ function getViewportType() {
   return 'desktop';
 }
 
-// ====== Лимит карточек ======
+const isTabletViewport = () => {
+  const width = window.innerWidth;
+  return width >= 768 && width < 1440;
+};
+
+// ===== Лимит карточек =====
 const getLimit = () => {
   const width = window.innerWidth;
   if (width < 768) return 8;
@@ -51,7 +49,7 @@ const getLimit = () => {
   return 9;
 };
 
-// ====== Loader ======
+// ===== Loader =====
 function createLoaderMarkup() {
   return `
     <li class="pet-list-loader">
@@ -66,11 +64,11 @@ function createLoaderMarkup() {
 }
 
 function removeLoader() {
-  const loaders = petList.querySelectorAll('.pet-list-loader');
-  loaders.forEach(loader => loader.remove());
+  const loader = refs.petList.querySelector('.pet-list-loader');
+  if (loader) loader.remove();
 }
 
-// ====== Разметка питомцев ======
+// ===== Разметка =====
 function createPetListMarkup(animals) {
   return animals
     .map(
@@ -96,193 +94,160 @@ function createPetListMarkup(animals) {
     .join('');
 }
 
-// ====== Очистка списка ======
+// ===== Очистка =====
 export function clearPetList() {
-  petList.innerHTML = '';
+  refs.petList.innerHTML = '';
   currentPage = 1;
   currentCategory = null;
   totalPages = 1;
   loadedAnimals = [];
 
-  if (loadMoreBtn) loadMoreBtn.classList.add('is-hidden');
-  if (loadMoreBtnWrapper) loadMoreBtnWrapper.classList.add('is-hidden');
-  if (pagination) pagination.innerHTML = '';
+  refs.petListLoadMoreBtn?.classList.add('is-hidden');
+  refs.petListLoadMoreBtnWrapper?.classList.add('is-hidden');
 }
 
-// ====== Рендер списка ======
+// ===== Рендер =====
 function renderPetList(hasMorePets) {
   const shouldKeepEvenCount =
     isTabletViewport() && hasMorePets && loadedAnimals.length % 2 !== 0;
 
-  const animalsToRender = shouldKeepEvenCount
-    ? loadedAnimals.slice(0, -1)
-    : loadedAnimals;
+  const animalsToRender = shouldKeepEvenCount ? loadedAnimals.slice(0, -1) : loadedAnimals;
 
-  petList.innerHTML = createPetListMarkup(animalsToRender);
-  updateButtonVisibility(hasMorePets);
+  refs.petList.innerHTML = createPetListMarkup(animalsToRender);
+
+  if (refs.petListLoadMoreBtnWrapper) {
+    if (hasMorePets) refs.petListLoadMoreBtnWrapper.classList.remove('is-hidden');
+    else refs.petListLoadMoreBtnWrapper.classList.add('is-hidden');
+  }
 }
 
-// ====== Обновление видимости кнопки “Показати більше” ======
-function updateButtonVisibility(shouldShow) {
-  if (!loadMoreBtnWrapper) return;
-  if (shouldShow) loadMoreBtnWrapper.classList.remove('is-hidden');
-  else loadMoreBtnWrapper.classList.add('is-hidden');
-}
-
-// ====== Пагинация ======
+// ===== Pagination =====
 function renderPagination(totalPages) {
-  if (!pagination) return;
+  if (!refs.pagination) return;
   if (totalPages <= 1) {
-    pagination.innerHTML = '';
+    refs.pagination.innerHTML = '';
     return;
   }
 
-  let markup = `
-    <button class="page-arrow prev" ${currentPage === 1 ? 'disabled' : ''}>
+  let markup = `<button class="page-arrow prev" ${currentPage === 1 ? 'disabled' : ''}>
       <svg width="16" height="16"><use href="../../img/icons.svg#arrow_back"></use></svg>
-    </button>
-  `;
+    </button>`;
 
-  // Определяем диапазон страниц вокруг текущей
   let start = Math.max(2, currentPage - 1);
   let end = Math.min(totalPages - 1, currentPage + 1);
 
-  // Если мы в начале списка, гарантируем показ страниц 2 и 3
-  if (currentPage <= 3) {
-    end = Math.min(totalPages - 1, 3);
-  }
+  if (currentPage <= 3) end = Math.min(totalPages - 1, 3);
+  if (currentPage >= totalPages - 2) start = Math.max(2, totalPages - 2);
 
-  // Если мы в конце списка, гарантируем показ трех последних страниц перед "total"
-  if (currentPage >= totalPages - 2) {
-    start = Math.max(2, totalPages - 2);
-  }
-
-  // 1. Всегда показываем первую страницу
   markup += `<button class="page-btn ${currentPage === 1 ? 'active' : ''}" data-page="1">1</button>`;
 
-  // 2. Троеточие после первой страницы (только если есть разрыв)
-  if (start > 2) {
-    markup += `<span class="dots">...</span>`;
-  }
+  if (start > 2) markup += `<span class="dots">...</span>`;
 
-  // 3. Центральный блок страниц
   for (let i = start; i <= end; i++) {
     markup += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
   }
 
-  // 4. Троеточие перед последней страницей (только если есть разрыв)
-  if (end < totalPages - 1) {
-    markup += `<span class="dots">...</span>`;
-  }
+  if (end < totalPages - 1) markup += `<span class="dots">...</span>`;
 
-  // 5. Всегда показываем последнюю страницу
   markup += `<button class="page-btn ${currentPage === totalPages ? 'active' : ''}" data-page="${totalPages}">${totalPages}</button>`;
 
-  markup += `
-    <button class="page-arrow next" ${currentPage === totalPages ? 'disabled' : ''}>
+  markup += `<button class="page-arrow next" ${currentPage === totalPages ? 'disabled' : ''}>
       <svg width="16" height="16"><use href="../../img/icons.svg#arrow_forward"></use></svg>
-    </button>
-  `;
+    </button>`;
 
-  pagination.innerHTML = markup;
+  refs.pagination.innerHTML = markup;
 }
 
-// ====== Загрузка питомцев ======
-export function loadPets(categoryId = null, isNewCategory = false, replace = false) {
+// ===== Загрузка =====
+export async function loadPets(categoryId = null, isNewCategory = false, replace = false) {
   if (isLoading) return;
-  isLoading = true;
 
-  // Только если новая категория, сбрасываем currentPage
   if (isNewCategory) {
     currentPage = 1;
     currentCategory = categoryId;
+    refs.petList.innerHTML = '';
     loadedAnimals = [];
-    petList.innerHTML = '';
-    if (loadMoreBtnWrapper) loadMoreBtnWrapper.classList.add('is-hidden');
-  } else if (replace) {
-    loadedAnimals = [];
-    petList.innerHTML = '';
-  } else {
   }
 
-  petList.insertAdjacentHTML('beforeend', createLoaderMarkup());
-  const limit = getLimit();
+  refs.petList.insertAdjacentHTML('beforeend', createLoaderMarkup());
+  isLoading = true;
 
-  getAnimalsByCategory(currentCategory, currentPage, limit)
-    .then(({ animals, totalItems }) => {
-      if (!Array.isArray(animals) || animals.length === 0) {
-        clearPetList();
-        notify.failure(UA_TOAST.PETS_EMPTY);
-        return;
-      }
+  try {
+    const limit = getLimit();
+    const { animals, totalItems } = await getAnimalsByCategory(currentCategory, currentPage, limit);
 
-      loadedAnimals = replace ? animals : mergeUniqueAnimals(loadedAnimals, animals);
-      totalPages = Math.ceil(totalItems / limit);
-      const hasMorePets = currentPage < totalPages;
-
-      renderPetList(hasMorePets);
-
-      if (!isMobile()) renderPagination(totalPages);
-    })
-    .catch(error => {
-      const isNetworkError = !error.response;
-      if (isNetworkError) notify.failure(UA_TOAST.NETWORK);
-      else notify.failure(UA_TOAST.UNKNOWN_ERROR);
-    })
-    .finally(() => {
-      removeLoader();
-      isLoading = false;
-    });
-}
-
-// ====== Кнопка "Показати більше" ======
-if (loadMoreBtn) {
-  loadMoreBtn.addEventListener('click', () => {
-    if (isLoading) return;
-    currentPage += 1;
-    loadPets(currentCategory);
-  });
-}
-
-// ====== Пагинация и стрелки ======
-if (pagination) {
-  pagination.addEventListener('click', e => {
-    const btn = e.target.closest('.page-btn, .page-arrow');
-    if (!btn) return;
-
-    let shouldLoad = false;
-
-    if (btn.classList.contains('page-btn')) {
-      const page = Number(btn.dataset.page);
-      if (page !== currentPage) {
-        currentPage = page;
-        shouldLoad = true;
-      }
-    } else if (btn.classList.contains('prev') && currentPage > 1) {
-      currentPage -= 1;
-      shouldLoad = true;
-    } else if (btn.classList.contains('next') && currentPage < totalPages) {
-      currentPage += 1;
-      shouldLoad = true;
+    if (!Array.isArray(animals) || animals.length === 0) {
+      clearPetList();
+      notify.failure(UA_TOAST.PETS_EMPTY);
+      return;
     }
 
-    if (!shouldLoad) return;
+    loadedAnimals = replace ? animals : mergeUniqueAnimals(loadedAnimals, animals);
 
-    // Подгружаем питомцев для текущей категории и страницы
-    loadPets(currentCategory, false, true);
+    totalPages = Math.ceil(totalItems / limit);
+    const hasMorePets = currentPage < totalPages;
 
-    window.scrollTo({
-      top: document.querySelector('#pets-list').offsetTop,
-      behavior: 'smooth',
-    });
-  });
+    renderPetList(hasMorePets);
+    renderPagination(totalPages);
+
+    if (!hasMorePets) refs.petListLoadMoreBtn?.classList.add('is-hidden');
+    else refs.petListLoadMoreBtn?.classList.remove('is-hidden');
+  } catch (error) {
+    const isNetworkError = !error.response;
+    if (isNetworkError) notify.failure(UA_TOAST.NETWORK);
+    else notify.failure(UA_TOAST.UNKNOWN_ERROR);
+  } finally {
+    removeLoader();
+    isLoading = false;
+  }
 }
 
-// ====== Перезагрузка при изменении размера окна ======
+// ===== Load More =====
+refs.petListLoadMoreBtn?.addEventListener('click', async () => {
+  if (isLoading) return;
+  currentPage += 1;
+  await loadPets(currentCategory);
+
+  const firstItem = refs.petList.querySelector('.pet-list-item');
+  if (firstItem) {
+    const { height } = firstItem.getBoundingClientRect();
+    window.scrollBy({ top: height, behavior: 'smooth' });
+  }
+});
+
+// ===== Pagination click =====
+refs.pagination?.addEventListener('click', e => {
+  const btn = e.target.closest('.page-btn, .page-arrow');
+  if (!btn) return;
+
+  let shouldLoad = false;
+  if (btn.classList.contains('page-btn')) {
+    const page = Number(btn.dataset.page);
+    if (page !== currentPage) {
+      currentPage = page;
+      shouldLoad = true;
+    }
+  }
+  if (btn.classList.contains('prev') && currentPage > 1) {
+    currentPage--;
+    shouldLoad = true;
+  }
+  if (btn.classList.contains('next') && currentPage < totalPages) {
+    currentPage++;
+    shouldLoad = true;
+  }
+  if (!shouldLoad) return;
+
+  loadPets(currentCategory, false, true);
+  window.scrollTo({ top: document.querySelector('#pets-list').offsetTop, behavior: 'smooth' });
+});
+
+// ===== Resize =====
 window.addEventListener('resize', () => {
   const currentViewportType = getViewportType();
   if (currentViewportType !== lastViewportType) {
     lastViewportType = currentViewportType;
-    renderPetList(!loadMoreBtn.classList.contains('is-hidden'));
+    const hasMorePets = !refs.petListLoadMoreBtn.classList.contains('is-hidden');
+    renderPetList(hasMorePets);
   }
 });

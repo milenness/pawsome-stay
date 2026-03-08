@@ -17,9 +17,9 @@ const swiper = new Swiper('.about-swiper', {
   },
 
   pagination: {
-    el: '.about-swiper-container .swiper-pagination',
+    el: '.about-pagination',
     clickable: true,
-    dynamicBullets: true,
+    dynamicBullets: window.innerWidth < 768,
   },
 
   watchOverflow: true,

@@ -5,16 +5,7 @@ import 'swiper/css/pagination';
 import iconsSpriteUrl from '../img/icons.svg?url';
 import { fetchFeedbacks } from './api/api';
 import { notify, UA_TOAST } from './notifications';
-
-// ─── DOM refs ─────────────────────────────────────────────────────────────────
-
-const loadingEl = document.getElementById('stories-loading');
-const sliderWrap = document.getElementById('stories-slider-wrap');
-const swiperEl = document.getElementById('stories-swiper');
-const wrapperEl = document.getElementById('stories-swiper-wrapper');
-const paginationEl = document.getElementById('stories-pagination');
-const btnPrev = document.getElementById('stories-btn-prev');
-const btnNext = document.getElementById('stories-btn-next');
+import { refs } from './refs';
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -77,8 +68,8 @@ function buildSlide(review) {
 // ─── Nav buttons ──────────────────────────────────────────────────────────────
 
 function updateNavButtons(swiperInstance) {
-  btnPrev.disabled = swiperInstance.isBeginning;
-  btnNext.disabled = swiperInstance.isEnd;
+  refs.storiesBtnPrev.disabled = swiperInstance.isBeginning;
+  refs.storiesBtnNext.disabled = swiperInstance.isEnd;
 }
 
 // ─── Responsive ───────────────────────────────────────────────────────────────
@@ -123,12 +114,12 @@ async function initStories() {
     totalFeedbacks = 0;
   }
 
-  wrapperEl.innerHTML = feedbacks.map(buildSlide).join('');
+  refs.storiesWrapperEl.innerHTML = feedbacks.map(buildSlide).join('');
 
-  loadingEl.classList.add('is-hidden');
-  sliderWrap.classList.add('is-visible');
+  refs.storiesLoadingEl.classList.add('is-hidden');
+  refs.storiesSliderWrap.classList.add('is-visible');
 
-  const swiperInstance = new Swiper(swiperEl, {
+  const swiperInstance = new Swiper(refs.storiesSwiperEl, {
     modules: [Pagination],
     slidesPerView: getSlidesPerView(),
     spaceBetween: getSpaceBetween(),
@@ -137,7 +128,7 @@ async function initStories() {
     observer: true,
     observeParents: true,
     pagination: {
-      el: paginationEl,
+      el: refs.storiesPaginationEl,
       clickable: true,
       dynamicBullets: true,
     },
@@ -155,7 +146,7 @@ async function initStories() {
   async function maybeLoadMore(swiper) {
     if (isLoadingMore) return;
 
-    const loadedCount = wrapperEl.children.length;
+    const loadedCount = refs.storiesWrapperEl.children.length;
     if (loadedCount >= totalFeedbacks) return;
 
     const visibleSlides = Math.ceil(Number(swiper.params.slidesPerView) || 1);
@@ -180,7 +171,7 @@ async function initStories() {
         return;
       }
 
-      wrapperEl.insertAdjacentHTML(
+      refs.storiesWrapperEl.insertAdjacentHTML(
         'beforeend',
         nextFeedbacks.map(buildSlide).join('')
       );
@@ -206,8 +197,10 @@ async function initStories() {
     updateNavButtons(swiperInstance);
   });
 
-  btnPrev.addEventListener('click', () => swiperInstance.slidePrev());
-  btnNext.addEventListener('click', async () => {
+  refs.storiesBtnPrev.addEventListener('click', () =>
+    swiperInstance.slidePrev()
+  );
+  refs.storiesBtnNext.addEventListener('click', async () => {
     if (swiperInstance.isEnd) {
       await maybeLoadMore(swiperInstance);
     }

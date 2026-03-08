@@ -1,12 +1,15 @@
-<header class="header">
-  <section class="header-section">
+<header class="header-section">
     <div class="container">
       <nav class="nav">
-        <a class="nav-logo" href="./index.html" aria-label="Site logo">
-          <svg class="logo-icon" width="157" height="51">
-            <use href="/img/icons.svg#logo"></use>
-          </svg>
-        </a>
+        <a href="./index.html" class="nav-logo logo-link" aria-label="Site logo">
+  <svg class="logo-img logo-dark" width="157" height="51">
+    <use href="./img/icons.svg#logo"></use>
+  </svg>
+  
+  <svg class="logo-img logo-light" width="83" height="28">
+    <use href="./img/icons.svg#light-logo"></use>
+  </svg>
+</a>
 
         <ul class="menu-list">
           <li class="menu-item">
@@ -22,7 +25,16 @@
             <a class="menu-link" href="#stories">Історії успіху</a>
           </li>
         </ul>
-
+<div class="toggle-switch">
+  <label class="switch-label">
+    <input type="checkbox" class="checkbox" id="theme-checkbox">
+    <span class="slider">
+      <svg class="paw-icon" aria-hidden="true">
+        <use href="./img/icons.svg#pawprints"></use>
+      </svg>
+    </span>
+  </label>
+</div>
        <a class="menu-button" href="#pets-list">Взяти друга</a>
 
         <button class="burger-button menu-btn-open" type="button" aria-label="Open menu">
@@ -32,5 +44,4 @@
         </button>
       </nav>
     </div>
-  </section>
 </header>

@@ -1,11 +1,11 @@
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import { createOrder } from '/js/api/api.js';
+import { refs } from './refs';
+import { UA_TOAST } from './notifications';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.querySelector('.order-form');
-  const modalOverlay = document.querySelector('.order-overlay');
-  const submitBtn = form?.querySelector('button[type="submit"]');
+  const submitBtn = refs.orderForm?.querySelector('button[type="submit"]');
 
   let currentAnimalId = null;
 
@@ -18,21 +18,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     currentAnimalId = id;
-    modalOverlay.classList.add('is-open');
+    refs.orderOverlay.classList.add('is-open');
     document.body.classList.add('modal-open');
     document.addEventListener('keydown', onEscapePress);
   };
 
   function closeModal() {
-    modalOverlay.classList.remove('is-open');
+    refs.orderOverlay.classList.remove('is-open');
     document.body.classList.remove('modal-open');
     document.removeEventListener('keydown', onEscapePress);
 
     setTimeout(() => {
       currentAnimalId = null;
-      if (form) {
-        form.reset();
-        form.classList.remove('was-validated');
+      if (refs.orderForm) {
+        refs.orderForm.reset();
+        refs.orderForm.classList.remove('was-validated');
       }
     }, 250);
   }
@@ -43,32 +43,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* --- 2. СЛУХАЧІ ПОДІЙ --- */
 
-  modalOverlay.addEventListener('click', e => {
-    if (e.target.closest('.close-btn') || e.target === modalOverlay) {
+  refs.orderOverlay.addEventListener('click', e => {
+    if (e.target.closest('.close-btn') || e.target === refs.orderOverlay) {
       closeModal();
     }
   });
 
   /* --- 3. ВІДПРАВКА ФОРМИ --- */
 
-  if (form) {
-    form.addEventListener('submit', async e => {
+  if (refs.orderForm) {
+    refs.orderForm.addEventListener('submit', async e => {
       e.preventDefault();
-      form.classList.add('was-validated');
+      refs.orderForm.classList.add('was-validated');
 
-      if (!form.checkValidity()) return;
+      if (!refs.orderForm.checkValidity()) return;
 
-      if (!currentAnimalId) {
-        Swal.fire({
-          title: 'Помилка',
-          text: 'Не вдалося визначити ID тварини.',
-          icon: 'error',
-          confirmButtonColor: '#2e2f42',
-        });
-        return;
-      }
-
-      const formData = new FormData(form);
+      const formData = new FormData(refs.orderForm);
       const rawData = Object.fromEntries(formData.entries());
 
       const requestData = {
@@ -87,8 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
         await createOrder(requestData);
 
         await Swal.fire({
-          title: 'Заявку успішно надіслано!',
-          text: 'Ми зв’яжемося з вами найближчим часом.',
+          title: UA_TOAST.ORDER_SUCCESS_TITLE,
+          text: UA_TOAST.ORDER_SUCCESS_TEXT,
           icon: 'success',
           confirmButtonColor: '#2e2f42',
         });
@@ -96,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         closeModal();
       } catch (error) {
         const serverError =
-          error.response?.data?.message || 'Помилка при відправці.';
+          error.response?.data?.message || UA_TOAST.ORDER_ERROR;
         Swal.fire({ title: 'Помилка!', text: serverError, icon: 'error' });
       } finally {
         if (submitBtn) {
