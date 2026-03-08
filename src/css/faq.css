@@ -112,13 +112,11 @@
   visibility: hidden;
   border-radius: 0 0 8px 8px;
   padding: 0 24px;
-  
-  /* padding-top: 0 !important; */
   margin-top: 0 !important;
   margin-bottom: 0 !important;
   border: none !important;
   
-  transition: height 300ms ease, padding 300ms ease, visibility 300ms;
+  transition: height 300ms ease, visibility 300ms;
 }
 
 .ac.is-active .ac-panel {
@@ -171,7 +169,14 @@
   left: 0;
 }
 
+.ac-text-mar {
+  margin-top: 15px;
+  font-size: 14px;
+}
 
+.ac-text-last {
+  font-size: 14px;
+}
 /* --- Адаптивність --- */
 @media screen and (min-width: 768px) {
   .accordion {
