@@ -16,7 +16,6 @@
   .about-swiper-container {
     position: relative;
     overflow: visible;
-    padding-bottom: 52px;
   }
 
   .about-swiper {
@@ -86,10 +85,11 @@
 
   .swiper-controls {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    margin-top: 32px;
-    margin-right: 8px;
+    margin-top: 16px;
+    position: relative;
+    z-index: 15;
   }
 
   .arrow-buttons {
@@ -129,20 +129,29 @@
     fill: var(--color-neutral-darkest);
   }
 
-  .swiper-pagination {
+  .about-pagination {
     position: static;
-    left: 34px !important;
-    bottom: 70px !important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    width: auto !important;
+    margin-left: 24px;
+    z-index: 15;
   }
 
-  .swiper-pagination-bullet {
+  .about-pagination .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    margin: 0 !important;
     background-color: var(--opacity-neutral-darkest-20);
     border-radius: 50%;
-    transition: all var(--transition-duration-300) ease;
+    transition: background-color var(--transition-duration-300) ease;
     opacity: 1;
+    flex-shrink: 0;
   }
 
-  .swiper-pagination-bullet-active {
+  .about-pagination .swiper-pagination-bullet-active {
     background: var(--color-neutral-darkest) !important;
   }
 }
@@ -150,12 +159,32 @@
 /* == == == == TABLET == == == == */
 
 @media (min-width: 768px) {
-  .swiper-pagination {
-    position: absolute !important;
-    bottom: 34px !important;
-    left: 50% !important;
-    transform: translateX(-50%);
+  .swiper-controls {
+    display: block;
+    margin-top: 24px;
+    position: static;
+  }
+
+  .about-pagination {
+    position: static;
+    transform: none;
     width: auto;
+    justify-content: center;
+  }
+
+  .about-pagination.swiper-pagination-bullets-dynamic {
+    left: auto !important;
+    transform: none !important;
+    overflow: visible;
+    white-space: nowrap;
+  }
+
+  .about-pagination.swiper-pagination-bullets-dynamic
+    .swiper-pagination-bullet {
+    position: static !important;
+    left: auto !important;
+    transform: scale(1) !important;
+    opacity: 1 !important;
   }
 
   .about-swiper-container {
@@ -173,7 +202,7 @@
   .about-button-prev,
   .about-button-next {
     position: absolute;
-    top: 40%;
+    top: 50%;
     transform: translateY(-50%);
     z-index: 10;
     width: 48px;
@@ -209,6 +238,6 @@
 
   .about-button-prev,
   .about-button-next {
-    top: 45%;
+    top: 50%;
   }
 }
