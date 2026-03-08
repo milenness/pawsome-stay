@@ -85,11 +85,14 @@ color: var(--color-scheme-1-text);
 .pet-image {
   border-radius: 8px;
 }
+
 .pet-info-category {
   font-size: 10px;
+  margin-bottom: 4px;
 }
 .pet-info-name {
   font-family: var(--second-family);
+  margin-bottom: 4px;
   font-weight: 700;
   font-size: 20px;
   line-height: 1.4;
@@ -102,8 +105,9 @@ color: var(--color-scheme-1-text);
   justify-content: flex-start;
   flex-direction: row;
   gap: 4px;
-  margin-bottom: 4px;
+  margin-bottom: 8.85px;
 }
+
 .pet-info-categories-list-item {
   font-weight: 600;
   font-size: 10px;
@@ -191,6 +195,10 @@ color: var(--color-scheme-1-text);
     flex-wrap: wrap;
     flex-direction: row;
   }
+
+  .pet-info-categories-list {
+  margin-bottom: 8.06px;
+}
   .pet-list-item {
     width: calc((100% - 32px) / 2);
   }
@@ -231,6 +239,9 @@ color: var(--color-scheme-1-text);
   .pet-info-name {
     font-size: 24px;
   }
+  .pet-info-categories-list {
+  margin-bottom: 37px;
+}
   .pet-info-categories-list-item {
     font-size: 12px;
   }
