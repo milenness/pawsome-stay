@@ -191,6 +191,10 @@ color: var(--color-scheme-1-text);
 }
 /* Tablet screen styles */
 @media only screen and (min-width: 768px) {
+  .categories-list {
+    max-width: 450px;
+    margin: 0 auto 32px;
+  }
   .pet-list {
     flex-wrap: wrap;
     flex-direction: row;
