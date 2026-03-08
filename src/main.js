@@ -94,7 +94,15 @@ function setupAnchorIntentPrewarm(prewarmConfig) {
   };
 
   const handleIntent = event => {
-    const anchor = event.target.closest('a[href]');
+    const eventTarget = event.target;
+    const targetElement =
+      eventTarget instanceof Element ? eventTarget : eventTarget?.parentElement;
+
+    if (!targetElement) {
+      return;
+    }
+
+    const anchor = targetElement.closest('a[href]');
 
     if (!anchor) {
       return;

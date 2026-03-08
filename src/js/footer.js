@@ -115,7 +115,13 @@ const closeModal = () => {
 };
 
 document.addEventListener('click', evt => {
-  const target = evt.target;
+  const eventTarget = evt.target;
+  const target =
+    eventTarget instanceof Element ? eventTarget : eventTarget?.parentElement;
+
+  if (!target) {
+    return;
+  }
 
   if (
     target.closest('.dev-team-modal-close') ||

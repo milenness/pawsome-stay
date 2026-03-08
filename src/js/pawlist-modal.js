@@ -97,7 +97,13 @@ function onEscapePress(e) {
 }
 
 document.addEventListener('click', e => {
-  const target = e.target;
+  const eventTarget = e.target;
+  const target =
+    eventTarget instanceof Element ? eventTarget : eventTarget?.parentElement;
+
+  if (!target) {
+    return;
+  }
 
   const openBtn = target.closest('.pet-more-info');
   if (openBtn) {

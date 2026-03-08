@@ -15,7 +15,7 @@ function ensureSwalStyles() {
   return swalStylesPromise;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function initOrderModal() {
   ensureSwalStyles();
 
   const submitBtn = refs.orderForm?.querySelector('button[type="submit"]');
@@ -57,7 +57,18 @@ document.addEventListener('DOMContentLoaded', () => {
   /* --- 2. СЛУХАЧІ ПОДІЙ --- */
 
   refs.orderOverlay.addEventListener('click', e => {
-    if (e.target.closest('.close-btn') || e.target === refs.orderOverlay) {
+    const eventTarget = e.target;
+    const targetElement =
+      eventTarget instanceof Element ? eventTarget : eventTarget?.parentElement;
+
+    if (!targetElement) {
+      return;
+    }
+
+    if (
+      targetElement.closest('.close-btn') ||
+      targetElement === refs.orderOverlay
+    ) {
       closeModal();
     }
   });
@@ -111,4 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initOrderModal, { once: true });
+} else {
+  initOrderModal();
+}
