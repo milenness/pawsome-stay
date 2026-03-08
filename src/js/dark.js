@@ -1,32 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const themeCheckbox = document.querySelector('.checkbox');
-  const htmlElement = document.documentElement;
+const themeToggles = document.querySelectorAll(
+  '.theme-selector, #theme-toggle-mob, .checkbox'
+);
+const body = document.body;
 
-  // 1. Перевіряємо збережену тему або системні налаштування
-  const savedTheme = localStorage.getItem('theme');
-  const systemPrefersDark = window.matchMedia(
-    '(prefers-color-scheme: dark)'
-  ).matches;
-
-  // Встановлюємо початковий стан
-  if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-    htmlElement.setAttribute('data-theme', 'dark');
-    themeCheckbox.checked = false; // У вашому CSS checked — це світла тема (background: --light)
+function setTheme(isDark) {
+  if (isDark) {
+    body.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
   } else {
-    htmlElement.setAttribute('data-theme', 'light');
-    themeCheckbox.checked = true;
+    body.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'light');
   }
 
-  // 2. Слухаємо зміни перемикача
-  themeCheckbox.addEventListener('change', () => {
-    if (themeCheckbox.checked) {
-      // Стан checked у вашому коді фарбує слайдер у --light
-      htmlElement.setAttribute('data-theme', 'light');
-      localStorage.setItem('theme', 'light');
-    } else {
-      // Стан unchecked залишає фон --dark
-      htmlElement.setAttribute('data-theme', 'dark');
-      localStorage.setItem('theme', 'dark');
-    }
+  themeToggles.forEach(toggle => {
+    toggle.checked = isDark;
+  });
+}
+
+themeToggles.forEach(toggle => {
+  toggle.addEventListener('change', () => {
+    setTheme(toggle.checked);
   });
 });
+
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+  setTheme(true);
+}
