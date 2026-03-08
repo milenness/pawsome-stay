@@ -1,38 +1,88 @@
 import { refs } from './refs';
 import iconsSpriteUrl from '../img/icons.svg?url';
+import avatarPlaceholder from '../img/hero/hero-tel.webp?url';
 
 const team = [
   {
     photo: '',
-    name: 'Марина',
-    github: 'https://github.com/ImMima',
-    linkedIn: '',
-    role: '',
-    description:
-      'Donec interdum iaculis enim ut sodales. Pellentesque aliquet sapien a tincidunt egestas. Pellentesque dignissim erat a laoreet pretium. Mauris non dignissim lectus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean ultricies dui sed bibendum porttitor. Integer eu sollicitudin metus. Vivamus sed ipsum vel lorem euismod porttitor.',
+    name: 'Мілена Карпенко',
+    github: 'https://github.com/milenness',
+    role: 'Team Lead',
+    description: 'Хедер. Модальне вікно «Залишіть заявку»',
   },
   {
     photo: '',
-    name: 'Марина',
-    github: 'https://github.com/ImMima',
-    linkedIn: '',
-    role: '',
-    description:
-      'Donec interdum iaculis enim ut sodales. Pellentesque aliquet sapien a tincidunt egestas. Pellentesque dignissim erat a laoreet pretium. Mauris non dignissim lectus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean ultricies dui sed bibendum porttitor. Integer eu sollicitudin metus. Vivamus sed ipsum vel lorem euismod porttitor.',
+    name: 'Михайло Роженко',
+    github: 'https://github.com/MikhailRozhenko',
+    role: 'Scrum Master',
+    description: 'Секція "Все, що ви хотіли знати"',
   },
   {
     photo: '',
-    name: 'Марина',
-    github: 'https://github.com/ImMima',
-    linkedIn: '',
-    role: '',
+    name: 'Саша Василенко',
+    github: 'https://github.com/BestStepInUa',
+    role: 'Front-end Developer',
+    description: 'Секція "Наші хвостики"',
+  },
+  {
+    photo: '',
+    name: 'Соломія Кріп',
+    github: 'https://github.com/SolomiiaKrip02',
+    role: 'Front-end Developer',
+    description: 'Секція "Hero"',
+  },
+  {
+    photo: '',
+    name: 'Максим Пуга',
+    github: 'https://github.com/MaxPuga',
+    role: 'Front-end Developer',
+    description: 'Секція "Чому хатинка лапок"',
+  },
+  {
+    photo: '',
+    name: 'Михайло Захаревіч',
+    github: 'https://github.com/Misha908989',
+    role: 'Front-end Developer',
+    description: 'Секція "Щасливі історії"',
+  },
+  {
+    photo: '',
+    name: 'Сергій Романов',
+    github: 'https://github.com/SergeLumiere',
+    role: 'Front-end Developer',
     description:
-      'Donec interdum iaculis enim ut sodales. Pellentesque aliquet sapien a tincidunt egestas. Pellentesque dignissim erat a laoreet pretium. Mauris non dignissim lectus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean ultricies dui sed bibendum porttitor. Integer eu sollicitudin metus. Vivamus sed ipsum vel lorem euismod porttitor.',
+      'Футер. Кнопка скроллу до початку сайт. Пуш повідомлення при запитах на бэкенд',
+  },
+  {
+    photo: '',
+    name: 'Марія Загоруйко',
+    github: 'https://github.com/Mariianath',
+    role: 'Front-end Developer',
+    description: 'Модальне вікно "Деталі про тваринку"',
+  },
+  {
+    photo: '',
+    name: 'Максим Орленко',
+    github: 'https://github.com/MaksOrlenko',
+    role: 'Front-end Developer',
+    description: 'Перемикання світлої та темної теми',
+  },
+  {
+    photo: '',
+    name: 'Владислав Гаркуша',
+    github: 'https://github.com/RavemanThc',
+    role: 'Front-end Developer',
+    description: 'Пагінація на секції "Наші хвостики"',
+  },
+  {
+    photo: '',
+    name: 'Марина Спарінопті',
+    github: 'https://github.com/ImMima',
+    role: 'Front-end Developer',
+    description:
+      'Кастомний скролбар. Кастомний курсор. Створення та оптимізація файлу refs. Змінити код так щоб він використовував вже дані з .env. Модальне вікно у футері з участниками проекту',
   },
 ];
-
-// const devTeamBtn = refs.devTeamBtn;
-// const devTeamModalOverlay = refs.devTeamModalOverlay;
 
 refs.devTeamBtn.addEventListener('click', evt => {
   refs.devTeamModalOverlay.innerHTML = renderModalMarkup();
@@ -56,12 +106,11 @@ const renderModalMarkup = () => `
 const renderTeam = () => {
   const content = team.map(member => {
     const hasGithub = member.github ? '' : 'disabled';
-    const hasLinkedIn = member.linkedIn ? '' : 'disabled';
 
     return `
         <li class="dev-team-modal-member">
           <div class="dev-team-modal-member-image-wrapper">
-            <img class="dev-team-modal-member-photo" src="${member.photo || '../img/hero/hero-tel.webp'}" alt="${member.name}" />
+            <img class="dev-team-modal-member-photo" src="${member.photo || avatarPlaceholder}" alt="${member.name}" />
           </div>
 
           <div class="dev-team-modal-member-content">
@@ -78,13 +127,6 @@ const renderTeam = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >GitHub</a>
-              <a 
-                class="dev-team-modal-member-socials-btn" ${hasLinkedIn}
-                href="${member.linkedIn}"
-                aria-label="LinkedIn"
-                target="_blank"
-                rel="noopener noreferrer"
-              >LinkedIn</a>
             </div>
 
             <p class="dev-team-modal-member-description">${member.description || 'Опис відсутній'}</p>
