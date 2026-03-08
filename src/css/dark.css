@@ -4,8 +4,8 @@
   height: 38px;
   margin-left: auto;
   --light-bg:#eee9e3;
-  --dark-bg: #332C22;
-  --accent-color: #88765c;
+  --dark-bg: #88765c;
+  --accent-color: #02060a;
 }
 
 .switch-label {
@@ -15,9 +15,26 @@
   background-color: var(--dark-bg);
   border-radius: 20px;
   cursor: pointer;
-  border: 2px solid var(--accent-color);
-  transition: background-color 0.4s ease;
+  
+  border: none;
+  box-shadow: 
+    inset 0 2px 5px rgba(0, 0, 0, 0.4),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.1),
+    0 1px 1px rgba(255, 255, 255, 0.2); 
+    
+  transition: background-color 0.4s ease, box-shadow 0.3s ease;
   overflow: hidden;
+}
+
+.checkbox:checked ~ .slider {
+  background-color: var(--light-bg);
+  box-shadow: 
+    inset 0 2px 5px rgba(0, 0, 0, 0.15), 
+    0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.paw-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .checkbox {
@@ -58,17 +75,20 @@
 
 [data-theme='dark'] {
   --bg-color:#88765c;
-  --text-color: #f6f4f1;
-  --card-bg: #c3b49d;
-  --color-neutral-darkest: #02060a;
-}
 
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: background-color 0.4s ease, color 0.4s ease;
+  --header-bg: #332317;  
+  --header-text: #f6f4f1; 
+  --nav-link-muted: #e0cbb4;
+  --btn-bg-light: #f6f4f1; 
+  --btn-text-dark: #332317;
+  --list-section-bg: #332317;
+  --card-bg: #443022; 
+  --title-color: #f6f4f1; 
+  --text-muted: #e0cbb4; 
+  --category-bg: #543f2e;
+  --accent-button-bg: #88765c;
+  --button-hover: #946d53;
 }
-
 
 .logo-light-img {
   display: none; 
@@ -112,8 +132,164 @@ body {
   transition: opacity 0.3s ease;
 }
 
+body {
+  background-color: var(--header-bg);
+  color: var(--text-color);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* header */
+
+/* --- Основна панель хедера --- */
+[data-theme='dark'] .header-section {
+  /* Робимо м'яку тінь, щоб хедер візуально відділявся при скролі */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); 
+  border: none;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* --- Навігаційні посилання --- */
+[data-theme='dark'] .menu-link {
+    color: var(--header-text);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+[data-theme='dark'] .menu-link:hover,
+[data-theme='dark'] .menu-link:focus {
+  color: var(--nav-link-muted);
+  /* Можна додати легке свічення, як у твоїх карток */
+  text-shadow: 0 0 8px rgba(246, 244, 241, 0.3);
+}
+
 [data-theme='dark'] .menu-button {
-    border: 1px solid var(--color-neutral-darkest);
-background-color:  var(--color-scheme-1-foreground);
- color: var(--color-neutral-darkest);
-  }
+  /* Кольори точно як у кнопці "Показати більше" */
+  background-color: #88765c; /* Твій акцентний коричневий */
+  color: #f6f4f1;            /* Світлий беж для тексту */
+  
+  /* Прибираємо чорну рамку, яка тобі не подобалася */
+  border: none;
+  
+  /* Тінь для об'єму (як ми робили для хвостиків) */
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Стан при наведенні (Hover) */
+[data-theme='dark'] .menu-button:hover {
+  background-color: #946d53; /* Трохи світліший відтінок при наведенні */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Адаптація бургер-іконки --- */
+[data-theme='dark'] .burger-icon {
+  fill: var(--header-text);
+}
+
+  /* pets list */
+
+[data-theme='dark'] .list-section {
+  background-color: var(--list-section-bg);
+}
+
+[data-theme='dark'] .section-desc-title {
+  color: var(--title-color);
+}
+
+[data-theme='dark'] .section-desc-descriptor {
+  color: var(--text-muted);
+}
+
+/* --- Картки тварин --- */
+[data-theme='dark'] .pet-list-item {
+  background-color: var(--card-bg);
+  border: none;
+  /* М'яка тінь для глибини на темному фоні */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme='dark'] .pet-list-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme='dark'] .pet-info-name {
+  color: var(--title-color);
+}
+
+[data-theme='dark'] .pet-info-category,
+[data-theme='dark'] .pet-age,
+[data-theme='dark'] .pet-gender,
+[data-theme='dark'] .pet-about {
+  color: var(--text-muted);
+}
+
+/* --- Теги категорій --- */
+[data-theme='dark'] .pet-info-categories-list-item {
+  background-color: var(--category-bg);
+  color: var(--title-color);
+}
+
+/* --- Кнопка "Дізнатись більше" --- */
+[data-theme='dark'] .pet-more-info {
+  background-color: transparent;
+  color: var(--title-color);
+  border: 1px solid var(--accent-button-bg);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-theme='dark'] .pet-more-info:hover {
+  background-color: var(--accent-button-bg);
+  color: #ffffff;
+}
+
+/* --- Кнопка "Показати більше" (Адаптація під хедер) --- */
+[data-theme='dark'] .load-more-pets-btn {
+  background-color: var(--accent-button-bg);
+  color: var(--title-color);
+  border: none;
+  cursor: pointer;
+  /* Ваша нова логіка з м'якою тінню замість рамки */
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+[data-theme='dark'] .load-more-pets-btn:hover {
+  background-color: var(--button-hover);
+  transform: scale(1.03);
+}
+
+/* --- Стилізація лоадера (лапки) --- */
+[data-theme='dark'] .pet-list-loader .paw span,
+[data-theme='dark'] .pet-list-loader .pad {
+  background-color: var(--accent-button-bg);
+}
+/* Категорії в темній темі */
+[data-theme='dark'] .categories-list-item {
+  color: #f6f4f1; /* М'який беж для неактивних */
+  transition: color var(--transition);
+}
+
+[data-theme='dark'] .categories-list-item.active {
+  background-color: #e0cbb4; /* Біла кнопка "Всі" */
+  color: #332317;            /* Темний текст всередині */
+}
+
+[data-theme='dark'] .categories-list-item:hover:not(.active) {
+  color: #e0cbb4;
+}
+ /* about */
+[data-theme='dark'] .about-title {
+    color: #f6f4f1;
+}
+ /* FAQ */
+[data-theme='dark'] .hero-faq-section {
+    color: #f6f4f1;
+}
+
