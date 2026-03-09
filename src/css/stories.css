@@ -146,6 +146,7 @@
   display: block;
   flex-shrink: 0;
   pointer-events: none;
+  color: var(--color-neutral-darkest);
 }
 
 /* ── Review text ── */
