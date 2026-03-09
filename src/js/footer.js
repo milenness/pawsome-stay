@@ -1,6 +1,11 @@
 import { refs } from './refs';
 import iconsSpriteUrl from '../img/icons.svg?url';
 
+const fallbackMemberPhotoUrl = new URL(
+  '../img/hero/hero-tel.webp',
+  import.meta.url
+).href;
+
 const team = [
   {
     photo: '',
@@ -61,7 +66,7 @@ const renderTeam = () => {
     return `
         <li class="dev-team-modal-member">
           <div class="dev-team-modal-member-image-wrapper">
-            <img class="dev-team-modal-member-photo" src="${member.photo || '../img/hero/hero-tel.webp'}" alt="${member.name}" />
+            <img class="dev-team-modal-member-photo" src="${member.photo || fallbackMemberPhotoUrl}" alt="${member.name}" />
           </div>
 
           <div class="dev-team-modal-member-content">
