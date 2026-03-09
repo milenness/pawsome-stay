@@ -18,52 +18,67 @@
 
   <body>
     <header class="header-section">
-    <div class="container">
-      <nav class="nav">
-        <a href="./index.html" class="nav-logo logo-link" aria-label="Site logo">
-  <svg class="logo-img logo-dark" width="157" height="51">
-    <use href="/pawsome-stay/assets/icons-33t6cozr.svg#logo"></use>
-  </svg>
-  
-  <svg class="logo-img logo-light" width="83" height="28">
-    <use href="/pawsome-stay/assets/icons-33t6cozr.svg#light-logo"></use>
-  </svg>
-</a>
+  <div class="container">
+    <nav class="nav">
+      <a
+        href="./index.html"
+        class="nav-logo logo-link"
+        aria-label="Логотип сайту"
+      >
+        <svg class="logo-img logo-dark" width="157" height="51">
+          <use href="/pawsome-stay/assets/icons-33t6cozr.svg#logo"></use>
+        </svg>
 
-        <ul class="menu-list">
-          <li class="menu-item">
-            <a class="menu-link" href="#pets-list">Знайди друга</a>
-          </li>
-          <li class="menu-item">
-            <a class="menu-link" href="#about">Про нас</a>
-          </li>
-          <li class="menu-item">
-            <a class="menu-link" href="#faq">Часті запитання</a>
-          </li>
-          <li class="menu-item">
-            <a class="menu-link" href="#stories">Історії успіху</a>
-          </li>
-        </ul>
-<div class="toggle-switch">
-  <label class="switch-label">
-    <input type="checkbox" class="checkbox" id="theme-checkbox">
-    <span class="slider">
-      <svg class="paw-icon" aria-hidden="true">
-        <use href="/pawsome-stay/assets/icons-33t6cozr.svg#pawprints"></use>
-      </svg>
-    </span>
-  </label>
-</div>
-       <a class="menu-button" href="#pets-list">Взяти друга</a>
+        <svg class="logo-img logo-light" width="83" height="28">
+          <use href="/pawsome-stay/assets/icons-33t6cozr.svg#light-logo"></use>
+        </svg>
+      </a>
 
-        <button class="burger-button menu-btn-open" type="button" aria-label="Open menu">
-          <svg class="burger-icon" width="24" height="24">
-            <use href="/pawsome-stay/assets/icons-33t6cozr.svg#burger"></use>
-          </svg>
-        </button>
-      </nav>
-    </div>
+      <ul class="menu-list">
+        <li class="menu-item">
+          <a class="menu-link" href="#pets-list" aria-label="Знайди друга"
+            >Знайди друга</a
+          >
+        </li>
+        <li class="menu-item">
+          <a class="menu-link" href="#about" aria-label="Про нас">Про нас</a>
+        </li>
+        <li class="menu-item">
+          <a class="menu-link" href="#faq" aria-label="Часті запитання"
+            >Часті запитання</a
+          >
+        </li>
+        <li class="menu-item">
+          <a class="menu-link" href="#stories" aria-label="Історії успіху"
+            >Історії успіху</a
+          >
+        </li>
+      </ul>
+      <div class="toggle-switch">
+        <label class="switch-label">
+          <input type="checkbox" class="checkbox" id="theme-checkbox" />
+          <span class="slider">
+            <svg class="paw-icon" aria-hidden="true">
+              <use href="/pawsome-stay/assets/icons-33t6cozr.svg#pawprints"></use>
+            </svg>
+          </span>
+        </label>
+      </div>
+      <a class="menu-button" href="#pets-list">Взяти друга</a>
+
+      <button
+        class="burger-button menu-btn-open"
+        type="button"
+        aria-label="Відкрити меню"
+      >
+        <svg class="burger-icon" width="24" height="24">
+          <use href="/pawsome-stay/assets/icons-33t6cozr.svg#burger"></use>
+        </svg>
+      </button>
+    </nav>
+  </div>
 </header>
+
 
     <main>
       <section class="hero-section">
@@ -75,7 +90,9 @@
       Сотні котиків та собачок у притулку Хатинка Лапок чекають на свою родину.
       Подаруйте їм дім.
     </p>
-    <a href="#stories" class="btn-hero">Подивитись історії</a>
+    <a href="#stories" class="btn-hero" aria-label="Подивитись історії"
+      >Подивитись історії</a
+    >
   </div>
 </section>
 
@@ -88,7 +105,13 @@
     <ul class="categories-list"></ul>
     <ul class="pet-list"></ul>
     <div class="load-more-pets-btn-wrapper is-hidden">
-      <button class="load-more-pets-btn" type="button">Показати більше</button>
+      <button
+        class="load-more-pets-btn"
+        type="button"
+        aria-label="Показати більше"
+      >
+        Показати більше
+      </button>
     </div>
 
     <div class="pagination-wrapper is-hidden">
@@ -224,7 +247,7 @@
           <button
             class="about-button-prev"
             type="button"
-            aria-label="Previous slide"
+            aria-label="Попередній слайд"
           >
             <svg class="btn-arrow">
               <use href="/pawsome-stay/assets/icons-33t6cozr.svg#arrow_back"></use>
@@ -234,7 +257,7 @@
           <button
             class="about-button-next"
             type="button"
-            aria-label="Next slide"
+            aria-label="Наступний слайд"
           >
             <svg class="btn-arrow">
               <use href="/pawsome-stay/assets/icons-33t6cozr.svg#arrow_forward"></use>
@@ -252,7 +275,11 @@
     <div class="accordion" id="faq-accordion">
       <div class="ac">
         <h3 class="ac-header">
-          <button type="button" class="ac-trigger">
+          <button
+            type="button"
+            class="ac-trigger"
+            aria-label="Я мрію про пухнастика! Що мені потрібно зробити, щоб забрати хвостика додому?"
+          >
             <span class="faq-span">
               Я мрію про пухнастика! Що мені потрібно зробити, щоб забрати
               хвостика додому?
@@ -302,7 +329,11 @@
 
       <div class="ac">
         <h3 class="ac-header">
-          <button type="button" class="ac-trigger">
+          <button
+            type="button"
+            class="ac-trigger"
+            aria-label="Як мені найкраще підготувати свій дім та родину до появи хвостика?"
+          >
             <span class="faq-span">
               Як мені найкраще підготувати свій дім та родину до появи хвостика?
             </span>
@@ -347,7 +378,11 @@
 
       <div class="ac">
         <h3 class="ac-header">
-          <button type="button" class="ac-trigger">
+          <button
+            type="button"
+            class="ac-trigger"
+            aria-label="Чи можу я бути впевненим, що тваринка здорова? Розкажіть про щеплення."
+          >
             <span class="faq-span">
               Чи можу я бути впевненим, що тваринка здорова? Розкажіть про
               щеплення.
@@ -386,7 +421,11 @@
 
       <div class="ac">
         <h3 class="ac-header">
-          <button type="button" class="ac-trigger">
+          <button
+            type="button"
+            class="ac-trigger"
+            aria-label="Я дуже хочу допомогти, але поки не готовий до адопції. Чим я можу підтримати «Хатинку лапок»?"
+          >
             <span class="faq-span">
               Я дуже хочу допомогти, але поки не готовий до адопції. Чим я можу
               підтримати «Хатинку лапок»?
@@ -432,7 +471,11 @@
 
       <div class="ac">
         <h3 class="ac-header">
-          <button type="button" class="ac-trigger">
+          <button
+            type="button"
+            class="ac-trigger"
+            aria-label="Мені сподобалась одна з ваших тваринок на сайті. Чи можу я приїхати, щоб познайомитися з нею особисто?"
+          >
             <span class="faq-span">
               Мені сподобалась одна з ваших тваринок на сайті. Чи можу я
               приїхати, щоб познайомитися з нею особисто?
@@ -529,29 +572,47 @@
 
     <footer class="footer">
   <div class="container footer__container">
-    <a href="./index.html" class="footer__logo logo-link">
-  <svg class="footer__logo-icon logo-dark" width="302" height="100">
-    <use href="/pawsome-stay/assets/icons-33t6cozr.svg#logo"></use>
-  </svg>
-  
-  <svg class="footer__logo-icon logo-light" width="302" height="100">
-    <use href="/pawsome-stay/assets/icons-33t6cozr.svg#light-logo"></use>
-  </svg>
-</a>
+    <a
+      href="./index.html"
+      class="footer__logo logo-link"
+      aria-label="Головна сторінка"
+    >
+      <svg class="footer__logo-icon logo-dark" width="302" height="100">
+        <use href="/pawsome-stay/assets/icons-33t6cozr.svg#logo"></use>
+      </svg>
+
+      <svg class="footer__logo-icon logo-light" width="302" height="100">
+        <use href="/pawsome-stay/assets/icons-33t6cozr.svg#light-logo"></use>
+      </svg>
+    </a>
 
     <nav class="footer__nav" aria-label="Footer navigation">
       <ul class="footer__menu">
         <li class="footer__menu-item">
-          <a class="footer__menu-link" href="#about">Про нас</a>
+          <a class="footer__menu-link" href="#about" aria-label="Про нас"
+            >Про нас</a
+          >
         </li>
         <li class="footer__menu-item">
-          <a class="footer__menu-link" href="#pets-list">Знайти друга</a>
+          <a
+            class="footer__menu-link"
+            href="#pets-list"
+            aria-lable="Знайти друга"
+            >Знайти друга</a
+          >
         </li>
         <li class="footer__menu-item">
-          <a class="footer__menu-link" href="#faq">Часті запитання</a>
+          <a class="footer__menu-link" href="#faq" aria-lable="Часті запитання"
+            >Часті запитання</a
+          >
         </li>
         <li class="footer__menu-item">
-          <a class="footer__menu-link" href="#stories">Історії успіху</a>
+          <a
+            class="footer__menu-link"
+            href="#stories"
+            aria-lable="Історії успіху"
+            >Історії успіху</a
+          >
         </li>
       </ul>
     </nav>
@@ -584,7 +645,11 @@
         </a>
       </li>
       <li class="footer__social-item visually-hidden">
-        <button class="dev-team-btn footer__social-link">
+        <button
+          class="dev-team-btn footer__social-link"
+          type="button"
+          aria-label="Команда розробників"
+        >
           <svg class="footer__social-icon">
             <use href="/pawsome-stay/assets/icons-33t6cozr.svg#dev-team"></use>
           </svg>
@@ -603,110 +668,132 @@
 
     <div class="mobile-menu">
   <div class="container">
-    <button class="close-btn menu-btn-close" type="button">
+    <button
+      class="close-btn menu-btn-close"
+      type="button"
+      aria-label="Закрити меню"
+    >
       <svg class="close-icon" width="24" height="24">
         <use href="/pawsome-stay/assets/icons-33t6cozr.svg#close"></use>
       </svg>
     </button>
-  
-    <nav class="mob-nav">
-         <a class="mob-nav-logo logo-link" href="./index.html" aria-label="Site logo">
-  <svg class="logo-img logo-dark" width="157" height="51">
-    <use href="/pawsome-stay/assets/icons-33t6cozr.svg#logo"></use>
-  </svg>
-  
-  <svg class="logo-img logo-light" width="157" height="51">
-    <use href="/pawsome-stay/assets/icons-33t6cozr.svg#light-logo"></use>
-  </svg>
-</a>
-  
-          <ul class="mob-menu-list">
-            <li class="menu-item">
-              <a class="mob-menu-link" href="#pets-list">Знайди друга</a>
-            </li>
-            <li class="menu-item">
-              <a class="mob-menu-link" href="#about">Про нас</a>
-            </li>
-            <li class="menu-item">
-              <a class="mob-menu-link" href="#faq">Часті запитання</a>
-            </li>
-            <li class="menu-item">
-              <a class="mob-menu-link" href="#stories">Історії успіху</a>
-            </li>
-          </ul>
 
-          <div class="toggle-switch">
-  <label class="switch-label">
-    <input type="checkbox" class="checkbox" id="theme-checkbox">
-    <span class="slider">
-      <svg class="paw-icon" aria-hidden="true">
-        <use href="/pawsome-stay/assets/icons-33t6cozr.svg#pawprints"></use>
-      </svg>
-    </span>
-  </label>
-</div>
-  
-         <a class="mob-menu-button" href="#pets-list">Взяти друга</a>
-        </nav>
+    <nav class="mob-nav">
+      <a
+        class="mob-nav-logo logo-link"
+        href="./index.html"
+        aria-label="Головна сторінка"
+      >
+        <svg class="logo-img logo-dark" width="157" height="51">
+          <use href="/pawsome-stay/assets/icons-33t6cozr.svg#logo"></use>
+        </svg>
+
+        <svg class="logo-img logo-light" width="157" height="51">
+          <use href="/pawsome-stay/assets/icons-33t6cozr.svg#light-logo"></use>
+        </svg>
+      </a>
+
+      <ul class="mob-menu-list">
+        <li class="menu-item">
+          <a class="mob-menu-link" href="#pets-list" aria-label="Знайди друга"
+            >Знайди друга</a
+          >
+        </li>
+        <li class="menu-item">
+          <a class="mob-menu-link" href="#about" aria-label="Про нас"
+            >Про нас</a
+          >
+        </li>
+        <li class="menu-item">
+          <a class="mob-menu-link" href="#faq" aria-label="Часті запитання"
+            >Часті запитання</a
+          >
+        </li>
+        <li class="menu-item">
+          <a class="mob-menu-link" href="#stories" aria-label="Історії успіху"
+            >Історії успіху</a
+          >
+        </li>
+      </ul>
+
+      <div class="toggle-switch">
+        <label class="switch-label">
+          <input type="checkbox" class="checkbox" id="theme-checkbox" />
+          <span class="slider">
+            <svg class="paw-icon" aria-hidden="true">
+              <use href="/pawsome-stay/assets/icons-33t6cozr.svg#pawprints"></use>
+            </svg>
+          </span>
+        </label>
+      </div>
+
+      <a class="mob-menu-button" href="#pets-list" aria-label="Взяти друга"
+        >Взяти друга</a
+      >
+    </nav>
   </div>
 </div>
-    <div class = "order-overlay">
-        <div class="order-modal">
-            <button class="close-btn" type="button">
-                <svg class="close-icon" width="24" height="24">
-                    <use href="/pawsome-stay/assets/icons-33t6cozr.svg#close"></use>
-                </svg>
-            </button>
-            <p class="modal-title">Залишіть заявку на знайомство
-            </p>
-       <form class="order-form">
-    <div class="input-wrapper">
+
+    <div class="order-overlay">
+  <div class="order-modal">
+    <button class="close-btn" type="button" aria-label="Закрити">
+      <svg class="close-icon" width="24" height="24">
+        <use href="/pawsome-stay/assets/icons-33t6cozr.svg#close"></use>
+      </svg>
+    </button>
+    <p class="modal-title">Залишіть заявку на знайомство</p>
+    <form class="order-form">
+      <div class="input-wrapper">
         <label class="modal-label" for="username">Ім’я*</label>
-        <input 
-            type="text" 
-            class="modal-input" 
-            name="name" 
-            id="username" 
-            required
-            maxlength="32"
-            pattern="^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+(?:\s[A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+)*$" 
-            title="Введіть ім'я (можна декілька слів, макс. 32 симв.)" 
-            placeholder="Андрій"
-        >
+        <input
+          type="text"
+          class="modal-input"
+          name="name"
+          id="username"
+          required
+          maxlength="32"
+          pattern="^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+(?:\s[A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+)*$"
+          title="Введіть ім'я (можна декілька слів, макс. 32 симв.)"
+          placeholder="Андрій"
+        />
         <span class="error-text">Введіть коректне ім'я (макс. 32 симв.)</span>
-    </div>
+      </div>
 
-    <div class="input-wrapper">
+      <div class="input-wrapper">
         <label class="modal-label" for="tel">Телефон*</label>
-        <input 
-            type="tel" 
-            class="modal-input" 
-            name="phone" 
-            id="tel" 
-            required
-            pattern="^[0-9]{12}$"
-            title="Формат: 12 цифр (наприклад, 380961234568)"
-            placeholder="380955559922"
-        >
+        <input
+          type="tel"
+          class="modal-input"
+          name="phone"
+          id="tel"
+          required
+          pattern="^[0-9]{12}$"
+          title="Формат: 12 цифр (наприклад, 380961234568)"
+          placeholder="380955559922"
+        />
         <span class="error-text">Введіть 12 цифр (наприклад, 380...)</span>
-    </div>
+      </div>
 
-    <div class="input-wrapper">
+      <div class="input-wrapper">
         <label class="modal-label" for="feedback">Коментар</label>
-        <textarea 
-            class="modal-textarea" 
-            name="comment" 
-            id="feedback" 
-            placeholder="Напишіть ваш коментар" 
-            minlength="10" 
-            maxlength="500"></textarea>
-         <span class="error-text">Від 10 до 500 символів</span>
-    </div>
+        <textarea
+          class="modal-textarea"
+          name="comment"
+          id="feedback"
+          placeholder="Напишіть ваш коментар"
+          minlength="10"
+          maxlength="500"
+        ></textarea>
+        <span class="error-text">Від 10 до 500 символів</span>
+      </div>
 
-    <button class="btn modal-btn" type="submit">Надіслати</button>
-</form>
-        </div>
-    </div>
+      <button class="btn modal-btn" type="submit" aria-label="Надіслати заявку">
+        Надіслати
+      </button>
+    </form>
+  </div>
+</div>
+
     <div id="global-loader" class="loader is-hidden">
   <div class="loader-content">
     <div class="paw">
@@ -726,12 +813,7 @@
     <div class="custom-cursor">
   <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='800'%20height='800'%20viewBox='0%200%2063.445%2063.445'%3e%3cpath%20fill='%23332C22'%20d='M21.572%2028.926c5.067%200%209.19-5.533%209.19-12.334s-4.123-12.334-9.19-12.334-9.19%205.533-9.19%2012.334%204.122%2012.334%209.19%2012.334zm0-21.668c3.355%200%206.19%204.275%206.19%209.334s-2.834%209.334-6.19%209.334-6.19-4.275-6.19-9.334%202.834-9.334%206.19-9.334zM48.83%2040.922c-.189-.256-.37-.498-.466-.707-2.054-4.398-7.689-9.584-16.813-9.713L31.2%2030.5c-8.985%200-14.576%204.912-16.813%209.51-.077.156-.247.361-.427.576-.212.254-.423.512-.604.793-1.89%202.941-2.853%206.25-2.711%209.318.15%203.26%201.512%205.877%203.835%207.369.937.604%201.95.907%203.011.907%202.191%200%204.196-1.233%206.519-2.664%201.476-.907%203.002-1.848%204.698-2.551.191-.063.968-.158%202.241-.158%201.515%200%202.6.134%202.833.216%201.653.729%203.106%201.688%204.513%202.612%202.154%201.418%204.188%202.759%206.395%202.759.947%200%201.867-.248%202.732-.742%204.778-2.715%205.688-10.162%202.03-16.603-.184-.322-.404-.623-.622-.92zm-2.891%2014.916c-.422.238-.818.35-1.25.35-1.308%200-2.9-1.049-4.746-2.264-1.438-.947-3.066-2.02-4.949-2.852-.926-.41-2.934-.472-4.046-.472-1.629%200-2.76.128-3.362.375-1.943.808-3.646%201.854-5.149%202.779-1.934%201.188-3.604%202.219-4.946%202.219-.49%200-.931-.137-1.389-.432-1.483-.953-2.356-2.724-2.461-4.984-.113-2.45.682-5.135%202.238-7.557.113-.177.25-.334.383-.492.274-.328.586-.701.823-1.188%201.84-3.781%206.514-7.82%2014.115-7.82l.308.002c7.736.109%2012.451%204.369%2014.137%207.982.225.479.517.875.773%201.223.146.199.301.4.426.619%202.84%205%202.435%2010.613-.905%2012.512zm-4.828-26.912c5.068%200%209.191-5.533%209.191-12.334S46.18%204.258%2041.111%204.258s-9.189%205.533-9.189%2012.334%204.122%2012.334%209.189%2012.334zm0-21.668c3.355%200%206.191%204.275%206.191%209.334s-2.834%209.334-6.191%209.334-6.189-4.275-6.189-9.334%202.834-9.334%206.189-9.334zm15.094%2015.334c-4.061%200-7.241%204.213-7.241%209.59s3.181%209.588%207.241%209.588%207.24-4.213%207.24-9.588-3.179-9.59-7.24-9.59zm0%2016.178c-2.299%200-4.241-3.018-4.241-6.588s1.942-6.59%204.241-6.59%204.24%203.018%204.24%206.59-1.942%206.588-4.24%206.588zm-41.723-6.588c0-5.377-3.181-9.59-7.241-9.59S0%2026.805%200%2032.182s3.181%209.588%207.241%209.588%207.241-4.213%207.241-9.588zM7.241%2038.77C4.942%2038.77%203%2035.752%203%2032.182s1.942-6.59%204.241-6.59%204.241%203.018%204.241%206.59S9.54%2038.77%207.241%2038.77z'/%3e%3c/svg%3e" alt="">
 </div>
-    <button
-  class="scroll-top"
-  type="button"
-  aria-label="Scroll to top"
-  data-scroll-top
->
+    <button class="scroll-top" type="button" aria-label="До гори" data-scroll-top>
   <svg class="scroll-top__icon" width="24" height="24" aria-hidden="true">
     <use href="/pawsome-stay/assets/icons-33t6cozr.svg#stt-paw"></use>
   </svg>
@@ -748,6 +830,7 @@
     </svg>
   </span>
 </button>
+
     <div id="petModal" class="pet-modal-overlay">
   
 </div>

@@ -29,7 +29,7 @@ import{a as P,A as qe,S as w,b as Ee,P as we,N as We,K as De}from"./assets/vendo
         <p class="pet-about">${L}</p>
       </div>
 
-      <button class="pet-more-info" type="button">
+      <button class="pet-more-info" type="button" aria-label="Дізнатись більше">
         Дізнатись більше
       </button>
     </li>
@@ -135,7 +135,7 @@ import{a as P,A as qe,S as w,b as Ee,P as we,N as We,K as De}from"./assets/vendo
             </div>
           </div>
 
-          <button id="petModalActionBtn" class="info-pet-btn" type="button" data-id="${n}">
+          <button id="petModalActionBtn" class="info-pet-btn" type="button" data-id="${n}" aria-label="Взяти додому">
             Взяти додому
           </button>
         </div>
