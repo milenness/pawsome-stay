@@ -1,0 +1,116 @@
+.pagination-wrapper {
+  display: none;
+}
+
+.pagination-wrapper.is-hidden {
+  display: none;
+}
+
+@media only screen and (min-width: 1440px) {
+  .pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  .pagination-wrapper.is-hidden {
+    display: none;
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .pagination-nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+    border: 1px solid var(--color-mariner-light);
+    border-radius: 8px;
+    background-color: var(--color-scheme-1-foreground);
+    color: var(--color-neutral-darkest);
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1;
+    transition:
+      background-color var(--transition-duration-250) var(--transition-curve),
+      border-color var(--transition-duration-250) var(--transition-curve),
+      color var(--transition-duration-250) var(--transition-curve),
+      opacity var(--transition-duration-250) var(--transition-curve);
+  }
+
+  .pagination-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 48px;
+    padding: 0 8px;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    color: var(--color-neutral-darkest);
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1;
+    transition:
+      color var(--transition-duration-250) var(--transition-curve),
+      opacity var(--transition-duration-250) var(--transition-curve);
+  }
+
+  .pagination-btn.active {
+    min-width: 48px;
+    height: 48px;
+    padding: 0 12px;
+    border: 1px solid var(--color-neutral-lighter);
+    border-radius: 8px;
+    background-color: var(--color-scheme-1-foreground);
+    color: var(--color-neutral-darkest);
+  }
+
+  .pagination-dots {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 48px;
+    padding: 0 4px;
+    border: none;
+    background-color: transparent;
+    color: var(--color-neutral-darkest);
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    transition: opacity var(--transition-duration-250) var(--transition-curve);
+  }
+
+  .pagination-nav:hover,
+  .pagination-nav:focus,
+  .pagination-btn:hover,
+  .pagination-btn:focus,
+  .pagination-dots:hover,
+  .pagination-dots:focus {
+    opacity: 0.7;
+  }
+
+  .pagination-nav:disabled {
+    border-color: var(--color-neutral-lighter);
+    color: var(--color-neutral-light);
+    opacity: 1;
+    cursor: default;
+  }
+
+  .load-more-pets-btn-wrapper {
+    display: none;
+  }
+}
