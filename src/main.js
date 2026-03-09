@@ -1,4 +1,4 @@
-import '/js/loader.js'
+import '/js/loader.js';
 import '/js/faq.js';
 import '/js/mobile-menu.js';
 import '/js/order-modal.js';
@@ -6,6 +6,7 @@ import '/js/notifications';
 import '/js/hover-animation.js';
 import '/js/pets-list/categories-list.js';
 import '/js/pets-list/pet-list.js';
+import '/js/pets-list/pagin.js';
 import '/js/pawlist-modal.js';
 import '/js/scroll-to-top.js';
 import '/js/stories.js';
