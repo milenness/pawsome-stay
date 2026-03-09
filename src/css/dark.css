@@ -623,3 +623,11 @@ body {
   background-color: #88765c;
   transform: scale(0.98);
 }
+
+[data-theme='dark'] .cursor img {
+  filter: invert(1) brightness(1.2) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
+}
+
+[data-theme='dark'] .custom-cursor img {
+  filter: invert(1) brightness(1.2);
+}

@@ -1,30 +1,44 @@
 import { refs } from './refs';
 
-document.addEventListener('mousemove', e => {
-  refs.cursor.style.left = e.clientX + 'px';
-  refs.cursor.style.top = e.clientY + 'px';
+document.addEventListener('pointermove', e => {
+  if (!refs.customCursor) return;
+
+  refs.customCursor.style.left = `${e.clientX}px`;
+  refs.customCursor.style.top = `${e.clientY}px`;
 });
 
 /* HEADER — маленька */
-refs.navLogo.addEventListener('mouseenter', () => {
-  refs.cursor.classList.add('beating', 'small');
-  refs.cursor.classList.remove('large');
-  refs.cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-});
+if (refs.navLogo) {
+  refs.navLogo.addEventListener('mouseenter', () => {
+    if (refs.cursor) refs.cursor.classList.add('is-hidden-on-logo');
 
-refs.navLogo.addEventListener('mouseleave', () => {
-  refs.cursor.classList.remove('beating', 'small');
-  refs.cursor.style.transform = 'translate(-50%, -50%) scale(0)';
-});
+    refs.customCursor.classList.add('beating', 'small');
+    refs.customCursor.classList.remove('large');
+    refs.customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+  });
+
+  refs.navLogo.addEventListener('mouseleave', () => {
+    if (refs.cursor) refs.cursor.classList.remove('is-hidden-on-logo');
+
+    refs.customCursor.classList.remove('beating', 'small');
+    refs.customCursor.style.transform = 'translate(-50%, -50%) scale(0)';
+  });
+}
 
 /* FOOTER — велика */
-refs.footerLogo.addEventListener('mouseenter', () => {
-  refs.cursor.classList.add('beating', 'large');
-  refs.cursor.classList.remove('small');
-  refs.cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-});
+if (refs.footerLogo) {
+  refs.footerLogo.addEventListener('mouseenter', () => {
+    if (refs.cursor) refs.cursor.classList.add('is-hidden-on-logo');
 
-refs.footerLogo.addEventListener('mouseleave', () => {
-  refs.cursor.classList.remove('beating', 'large');
-  refs.cursor.style.transform = 'translate(-50%, -50%) scale(0)';
-});
+    refs.customCursor.classList.add('beating', 'large');
+    refs.customCursor.classList.remove('small');
+    refs.customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+  });
+
+  refs.footerLogo.addEventListener('mouseleave', () => {
+    if (refs.cursor) refs.cursor.classList.remove('is-hidden-on-logo');
+
+    refs.customCursor.classList.remove('beating', 'large');
+    refs.customCursor.style.transform = 'translate(-50%, -50%) scale(0)';
+  });
+}
