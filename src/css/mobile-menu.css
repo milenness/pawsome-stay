@@ -33,6 +33,10 @@
   padding: 0;
 }
 
+.close-icon {
+  color: var(--color-mariner-darkest);
+}
+
 @media screen and (min-width: 768px) {
   .mobile-menu {
     padding: 0 32px;

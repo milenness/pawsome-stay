@@ -48,7 +48,7 @@
 }
 
 .burger-icon {
-  fill: var(--color-mariner-darkest);
+  color: var(--color-mariner-darkest);
 }
 
 .menu-list,
