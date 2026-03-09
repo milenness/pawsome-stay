@@ -337,7 +337,7 @@ function createPetListMarkup(animals) {
         <p class="pet-about">${behavior}</p>
       </div>
 
-      <button class="pet-more-info" type="button">
+      <button class="pet-more-info" type="button" aria-label="Дізнатись більше">
         Дізнатись більше
       </button>
     </li>

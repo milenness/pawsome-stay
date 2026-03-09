@@ -1,28 +1,46 @@
 <footer class="footer">
   <div class="container footer__container">
-    <a href="./index.html" class="footer__logo logo-link">
-  <svg class="footer__logo-icon logo-dark" width="302" height="100">
-    <use href="./img/icons.svg#logo"></use>
-  </svg>
-  
-  <svg class="footer__logo-icon logo-light" width="302" height="100">
-    <use href="./img/icons.svg#light-logo"></use>
-  </svg>
-</a>
+    <a
+      href="./index.html"
+      class="footer__logo logo-link"
+      aria-label="Головна сторінка"
+    >
+      <svg class="footer__logo-icon logo-dark" width="302" height="100">
+        <use href="./img/icons.svg#logo"></use>
+      </svg>
+
+      <svg class="footer__logo-icon logo-light" width="302" height="100">
+        <use href="./img/icons.svg#light-logo"></use>
+      </svg>
+    </a>
 
     <nav class="footer__nav" aria-label="Footer navigation">
       <ul class="footer__menu">
         <li class="footer__menu-item">
-          <a class="footer__menu-link" href="#about">Про нас</a>
+          <a class="footer__menu-link" href="#about" aria-label="Про нас"
+            >Про нас</a
+          >
         </li>
         <li class="footer__menu-item">
-          <a class="footer__menu-link" href="#pets-list">Знайти друга</a>
+          <a
+            class="footer__menu-link"
+            href="#pets-list"
+            aria-lable="Знайти друга"
+            >Знайти друга</a
+          >
         </li>
         <li class="footer__menu-item">
-          <a class="footer__menu-link" href="#faq">Часті запитання</a>
+          <a class="footer__menu-link" href="#faq" aria-lable="Часті запитання"
+            >Часті запитання</a
+          >
         </li>
         <li class="footer__menu-item">
-          <a class="footer__menu-link" href="#stories">Історії успіху</a>
+          <a
+            class="footer__menu-link"
+            href="#stories"
+            aria-lable="Історії успіху"
+            >Історії успіху</a
+          >
         </li>
       </ul>
     </nav>
@@ -55,7 +73,11 @@
         </a>
       </li>
       <li class="footer__social-item visually-hidden">
-        <button class="dev-team-btn footer__social-link">
+        <button
+          class="dev-team-btn footer__social-link"
+          type="button"
+          aria-label="Команда розробників"
+        >
           <svg class="footer__social-icon">
             <use href="/img/icons.svg#dev-team"></use>
           </svg>
