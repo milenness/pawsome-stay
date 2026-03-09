@@ -326,7 +326,7 @@ body {
 }
 
 [data-theme='dark'] #faq-accordion .ac .ac-trigger:hover .faq-span {
-  color: rgb(136, 118, 92) !important;
+  color: #e0cbb4 !important;
 }
 
 /* stories  */
@@ -411,6 +411,10 @@ body {
 }
 [data-theme='dark'] .footer__social-icon {
   color: #f6f4f1;
+}
+[data-theme='dark'] .footer__social-icon:hover,
+[data-theme='dark'] .footer__social-icon:focus {
+  color: #e0cbb4;
 }
 
 [data-theme='dark'] .footer__divider {
