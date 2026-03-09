@@ -1,57 +1,59 @@
-<div class = "order-overlay">
-        <div class="order-modal">
-            <button class="close-btn" type="button">
-                <svg class="close-icon" width="24" height="24">
-                    <use href="/img/icons.svg#close"></use>
-                </svg>
-            </button>
-            <p class="modal-title">Залишіть заявку на знайомство
-            </p>
-       <form class="order-form">
-    <div class="input-wrapper">
+<div class="order-overlay">
+  <div class="order-modal">
+    <button class="close-btn" type="button" aria-label="Закрити">
+      <svg class="close-icon" width="24" height="24">
+        <use href="/img/icons.svg#close"></use>
+      </svg>
+    </button>
+    <p class="modal-title">Залишіть заявку на знайомство</p>
+    <form class="order-form">
+      <div class="input-wrapper">
         <label class="modal-label" for="username">Ім’я*</label>
-        <input 
-            type="text" 
-            class="modal-input" 
-            name="name" 
-            id="username" 
-            required
-            maxlength="32"
-            pattern="^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+(?:\s[A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+)*$" 
-            title="Введіть ім'я (можна декілька слів, макс. 32 симв.)" 
-            placeholder="Андрій"
-        >
+        <input
+          type="text"
+          class="modal-input"
+          name="name"
+          id="username"
+          required
+          maxlength="32"
+          pattern="^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+(?:\s[A-Za-zА-Яа-яЁёІіЇїЄєҐґ']+)*$"
+          title="Введіть ім'я (можна декілька слів, макс. 32 симв.)"
+          placeholder="Андрій"
+        />
         <span class="error-text">Введіть коректне ім'я (макс. 32 симв.)</span>
-    </div>
+      </div>
 
-    <div class="input-wrapper">
+      <div class="input-wrapper">
         <label class="modal-label" for="tel">Телефон*</label>
-        <input 
-            type="tel" 
-            class="modal-input" 
-            name="phone" 
-            id="tel" 
-            required
-            pattern="^[0-9]{12}$"
-            title="Формат: 12 цифр (наприклад, 380961234568)"
-            placeholder="380955559922"
-        >
+        <input
+          type="tel"
+          class="modal-input"
+          name="phone"
+          id="tel"
+          required
+          pattern="^[0-9]{12}$"
+          title="Формат: 12 цифр (наприклад, 380961234568)"
+          placeholder="380955559922"
+        />
         <span class="error-text">Введіть 12 цифр (наприклад, 380...)</span>
-    </div>
+      </div>
 
-    <div class="input-wrapper">
+      <div class="input-wrapper">
         <label class="modal-label" for="feedback">Коментар</label>
-        <textarea 
-            class="modal-textarea" 
-            name="comment" 
-            id="feedback" 
-            placeholder="Напишіть ваш коментар" 
-            minlength="10" 
-            maxlength="500"></textarea>
-         <span class="error-text">Від 10 до 500 символів</span>
-    </div>
+        <textarea
+          class="modal-textarea"
+          name="comment"
+          id="feedback"
+          placeholder="Напишіть ваш коментар"
+          minlength="10"
+          maxlength="500"
+        ></textarea>
+        <span class="error-text">Від 10 до 500 символів</span>
+      </div>
 
-    <button class="btn modal-btn" type="submit">Надіслати</button>
-</form>
-        </div>
-    </div>
+      <button class="btn modal-btn" type="submit" aria-label="Надіслати заявку">
+        Надіслати
+      </button>
+    </form>
+  </div>
+</div>

@@ -55,7 +55,7 @@ function renderModalMarkup(petData) {
             </div>
           </div>
 
-          <button id="petModalActionBtn" class="info-pet-btn" type="button" data-id="${id}">
+          <button id="petModalActionBtn" class="info-pet-btn" type="button" data-id="${id}" aria-label="Взяти додому">
             Взяти додому
           </button>
         </div>

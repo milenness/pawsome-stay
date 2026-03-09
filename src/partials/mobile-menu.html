@@ -1,49 +1,67 @@
 <div class="mobile-menu">
   <div class="container">
-    <button class="close-btn menu-btn-close" type="button">
+    <button
+      class="close-btn menu-btn-close"
+      type="button"
+      aria-label="Закрити меню"
+    >
       <svg class="close-icon" width="24" height="24">
         <use href="/img/icons.svg#close"></use>
       </svg>
     </button>
-  
-    <nav class="mob-nav">
-         <a class="mob-nav-logo logo-link" href="./index.html" aria-label="Site logo">
-  <svg class="logo-img logo-dark" width="157" height="51">
-    <use href="./img/icons.svg#logo"></use>
-  </svg>
-  
-  <svg class="logo-img logo-light" width="157" height="51">
-    <use href="./img/icons.svg#light-logo"></use>
-  </svg>
-</a>
-  
-          <ul class="mob-menu-list">
-            <li class="menu-item">
-              <a class="mob-menu-link" href="#pets-list">Знайди друга</a>
-            </li>
-            <li class="menu-item">
-              <a class="mob-menu-link" href="#about">Про нас</a>
-            </li>
-            <li class="menu-item">
-              <a class="mob-menu-link" href="#faq">Часті запитання</a>
-            </li>
-            <li class="menu-item">
-              <a class="mob-menu-link" href="#stories">Історії успіху</a>
-            </li>
-          </ul>
 
-          <div class="toggle-switch">
-  <label class="switch-label">
-    <input type="checkbox" class="checkbox" id="theme-checkbox">
-    <span class="slider">
-      <svg class="paw-icon" aria-hidden="true">
-        <use href="./img/icons.svg#pawprints"></use>
-      </svg>
-    </span>
-  </label>
-</div>
-  
-         <a class="mob-menu-button" href="#pets-list">Взяти друга</a>
-        </nav>
+    <nav class="mob-nav">
+      <a
+        class="mob-nav-logo logo-link"
+        href="./index.html"
+        aria-label="Головна сторінка"
+      >
+        <svg class="logo-img logo-dark" width="157" height="51">
+          <use href="./img/icons.svg#logo"></use>
+        </svg>
+
+        <svg class="logo-img logo-light" width="157" height="51">
+          <use href="./img/icons.svg#light-logo"></use>
+        </svg>
+      </a>
+
+      <ul class="mob-menu-list">
+        <li class="menu-item">
+          <a class="mob-menu-link" href="#pets-list" aria-label="Знайди друга"
+            >Знайди друга</a
+          >
+        </li>
+        <li class="menu-item">
+          <a class="mob-menu-link" href="#about" aria-label="Про нас"
+            >Про нас</a
+          >
+        </li>
+        <li class="menu-item">
+          <a class="mob-menu-link" href="#faq" aria-label="Часті запитання"
+            >Часті запитання</a
+          >
+        </li>
+        <li class="menu-item">
+          <a class="mob-menu-link" href="#stories" aria-label="Історії успіху"
+            >Історії успіху</a
+          >
+        </li>
+      </ul>
+
+      <div class="toggle-switch">
+        <label class="switch-label">
+          <input type="checkbox" class="checkbox" id="theme-checkbox" />
+          <span class="slider">
+            <svg class="paw-icon" aria-hidden="true">
+              <use href="./img/icons.svg#pawprints"></use>
+            </svg>
+          </span>
+        </label>
+      </div>
+
+      <a class="mob-menu-button" href="#pets-list" aria-label="Взяти друга"
+        >Взяти друга</a
+      >
+    </nav>
   </div>
 </div>
